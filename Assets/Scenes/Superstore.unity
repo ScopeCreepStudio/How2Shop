@@ -15,12 +15,12 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0.075, g: 0.11, b: 0.15, a: 1}
+  m_FogColor: {r: 0.075, g: 0.075, b: 0.08, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 110
   m_LinearFogEnd: 390
-  m_AmbientSkyColor: {r: 0.19, g: 0.21, b: 0.25, a: 1}
+  m_AmbientSkyColor: {r: 0.22, g: 0.22, b: 0.22, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -7471,7 +7471,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.81, g: 0.93, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 9.315
   m_Range: 10
   m_SpotAngle: 105
@@ -67978,7 +67978,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 0.73, b: 0.49, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.364999
   m_Range: 23
   m_SpotAngle: 125
@@ -79298,7 +79298,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.63, g: 0.83, b: 0.91, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 10.935
   m_Range: 12
   m_SpotAngle: 105
@@ -93790,7 +93790,7 @@ GameObject:
   - component: {fileID: 355233450}
   - component: {fileID: 355233449}
   m_Layer: 0
-  m_Name: Cool ambient key - no harsh sun shadow
+  m_Name: Neutral shadowless fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93850,7 +93850,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 1
-  m_Color: {r: 0.55, g: 0.68, b: 0.85, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.32
   m_Range: 10
   m_SpotAngle: 30
@@ -104663,7 +104663,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.68, g: 0.9, b: 0.86, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 14.174999
   m_Range: 23
   m_SpotAngle: 125
@@ -116648,7 +116648,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.63, g: 0.83, b: 0.91, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 10.935
   m_Range: 12
   m_SpotAngle: 105
@@ -122985,7 +122985,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.78, g: 0.68, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.364999
   m_Range: 16
   m_SpotAngle: 115
@@ -123598,7 +123598,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 0.62, b: 0.34, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 17.415
   m_Range: 13
   m_SpotAngle: 100
@@ -135855,7 +135855,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.68, g: 0.9, b: 0.86, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 14.174999
   m_Range: 23
   m_SpotAngle: 125
@@ -194461,7 +194461,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.68, g: 0.9, b: 0.86, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 14.174999
   m_Range: 23
   m_SpotAngle: 125
@@ -199050,7 +199050,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.42, g: 0.85, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 14.174999
   m_Range: 23
   m_SpotAngle: 125
@@ -216849,7 +216849,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.42, g: 0.85, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 14.174999
   m_Range: 23
   m_SpotAngle: 125
@@ -237842,7 +237842,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.78, g: 0.68, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.364999
   m_Range: 16
   m_SpotAngle: 115
@@ -244877,7 +244877,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 0.62, b: 0.34, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 17.415
   m_Range: 13
   m_SpotAngle: 100
@@ -260187,7 +260187,7 @@ GameObject:
   - component: {fileID: 955759561}
   - component: {fileID: 955759560}
   m_Layer: 0
-  m_Name: Warm counter light
+  m_Name: Service counter white spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260247,7 +260247,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 0.64, b: 0.39, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 14.579999
   m_Range: 16
   m_SpotAngle: 105
@@ -263887,7 +263887,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.025, g: 0.045, b: 0.07, a: 1}
+  m_BackGroundColor: {r: 0.025, g: 0.025, b: 0.03, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -279017,7 +279017,7 @@ GameObject:
   - component: {fileID: 1031567970}
   - component: {fileID: 1031567969}
   m_Layer: 0
-  m_Name: Warm counter light
+  m_Name: Service counter white spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -279077,7 +279077,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 0.64, b: 0.39, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 14.579999
   m_Range: 16
   m_SpotAngle: 105
@@ -301978,7 +301978,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 0.62, b: 0.34, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 17.415
   m_Range: 13
   m_SpotAngle: 100
@@ -306619,7 +306619,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.67, g: 0.92, b: 0.86, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.364999
   m_Range: 23
   m_SpotAngle: 125
@@ -355817,7 +355817,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.67, g: 0.92, b: 0.86, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.364999
   m_Range: 23
   m_SpotAngle: 125
@@ -359216,7 +359216,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.7, g: 0.57, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 11.34
   m_Range: 23
   m_SpotAngle: 125
@@ -360811,7 +360811,7 @@ GameObject:
   - component: {fileID: 1339613236}
   - component: {fileID: 1339613235}
   m_Layer: 0
-  m_Name: Warm counter light
+  m_Name: Service counter white spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360871,7 +360871,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 0.64, b: 0.39, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 14.579999
   m_Range: 16
   m_SpotAngle: 105
@@ -373893,7 +373893,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.67, g: 0.92, b: 0.86, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.364999
   m_Range: 23
   m_SpotAngle: 125
@@ -390569,7 +390569,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.63, g: 0.83, b: 0.91, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 10.935
   m_Range: 12
   m_SpotAngle: 105
@@ -437547,7 +437547,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.63, g: 0.83, b: 0.91, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 10.935
   m_Range: 12
   m_SpotAngle: 105
@@ -448516,7 +448516,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.9, g: 0.62, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.7699995
   m_Range: 13
   m_SpotAngle: 110
@@ -499419,7 +499419,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 0.62, b: 0.34, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 17.415
   m_Range: 13
   m_SpotAngle: 100
@@ -506336,7 +506336,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.78, g: 0.68, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.364999
   m_Range: 16
   m_SpotAngle: 115
@@ -515423,7 +515423,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 0.73, b: 0.49, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.364999
   m_Range: 23
   m_SpotAngle: 125
@@ -535307,7 +535307,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.67, g: 0.92, b: 0.86, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.364999
   m_Range: 23
   m_SpotAngle: 125
@@ -554095,7 +554095,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.77, g: 0.68, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 14.174999
   m_Range: 23
   m_SpotAngle: 125
@@ -583704,7 +583704,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.67, g: 0.92, b: 0.86, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.364999
   m_Range: 23
   m_SpotAngle: 125
@@ -586353,7 +586353,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 0.67, g: 0.92, b: 0.86, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 13.364999
   m_Range: 23
   m_SpotAngle: 125
