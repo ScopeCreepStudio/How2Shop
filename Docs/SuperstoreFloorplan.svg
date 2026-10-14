@@ -51,5 +51,5 @@
   <path d="M 1250 420 H 1158 V 675" fill="none" stroke="#bdbdbd" stroke-width="5"/>
   <path d="M 1145 778 H 1248" fill="none" stroke="#242424" stroke-width="9"/>
   <text class="small" x="1195" y="811">ENTRANCE / EXIT</text>
-  <text x="12" y="811" style="font-size:16px;fill:#333;text-anchor:start">Sales floor follows the supplied sketch; gray boxes are editable ProBuilder blockout geometry.</text>
+  <text x="12" y="811" style="font-size:16px;fill:#333;text-anchor:start">Sales floor follows the supplied sketch; the 3D meshes use ProBuilder's 1-meter grid texture.</text>
 </svg>
