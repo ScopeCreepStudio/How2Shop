@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 900" role="img" aria-labelledby="title desc">
+  <title id="title">Superstore floorplan</title>
+  <desc id="desc">Schematic of the Unity ProBuilder superstore, with rear staff and stock rooms, rear specialty departments, left frozen and drinks, central grocery, right produce and clothing, and front checkouts and services.</desc>
+  <style>
+    text { font-family: Arial, sans-serif; fill: #253044; text-anchor: middle; dominant-baseline: middle; }
+    .title { font-size: 25px; font-weight: 700; text-anchor: start; }
+    .small { font-size: 13px; font-weight: 700; }
+    .zone { font-size: 16px; font-weight: 700; }
+    .tiny { font-size: 11px; font-weight: 700; }
+    .outline { fill: #f7f7f7; stroke: #253044; stroke-width: 3; }
+    .room { fill: #dddfe3; stroke: #697386; stroke-width: 2; }
+    .retail { fill: #e8e9eb; stroke: #667085; stroke-width: 2; }
+    .feature { fill: #d4d7dd; stroke: #667085; stroke-width: 2; }
+    .aisle { fill: #f7f7f7; stroke: #aeb4bf; stroke-width: 1; }
+    .path { fill: #fff; stroke: #b9bec8; stroke-width: 1.5; stroke-dasharray: 8 5; }
+  </style>
+  <text class="title" x="80" y="37">SUPERSTORE / FLOORPLAN BLOCKOUT</text>
+  <text x="80" y="62" style="font-size:14px;text-anchor:start">Front entrance at bottom right · departments around a wide grocery core</text>
+  <rect class="outline" x="80" y="80" width="798" height="700"/>
+
+  <!-- Rear operations sit behind the sales floor. -->
+  <rect class="room" x="86" y="87" width="224" height="70"/><text class="small" x="198" y="122">RECEIVING / DRY STOCK</text>
+  <rect class="room" x="316" y="87" width="183" height="70"/><text class="small" x="407" y="112">STAFF / LOCKERS</text><text class="tiny" x="407" y="135">BREAK / OFFICE / WC</text>
+  <rect class="room" x="505" y="87" width="129" height="70"/><text class="small" x="569" y="122">CHILLED STOCK</text>
+  <rect class="room" x="640" y="87" width="230" height="70"/><text class="small" x="755" y="122">STOCK FREEZERS</text>
+
+  <!-- Specialty departments across the back, with clothing as a right wing. -->
+  <rect class="retail" x="101" y="171" width="70" height="119"/><text class="tiny" x="136" y="218">HEALTH /</text><text class="tiny" x="136" y="236">BEAUTY</text>
+  <rect class="retail" x="185" y="171" width="70" height="119"/><text class="tiny" x="220" y="220">BABY /</text><text class="tiny" x="220" y="238">TODDLER</text>
+  <rect class="retail" x="262" y="171" width="161" height="119"/><text class="small" x="342" y="213">ELECTRONICS</text><text class="tiny" x="342" y="236">PHOTO / MEDIA / PHONES</text>
+  <rect class="retail" x="437" y="171" width="147" height="119"/><text class="small" x="510" y="213">HOMEWARE</text><text class="tiny" x="510" y="236">COOKSHOP / DIY</text>
+  <rect class="retail" x="591" y="171" width="28" height="119"/><text class="tiny" x="605" y="224" transform="rotate(-90 605 224)">TOYS</text>
+  <rect class="retail" x="622" y="171" width="29" height="119"/><text class="tiny" x="636" y="224" transform="rotate(-90 636 224)">BOOKS</text>
+  <rect class="retail" x="654" y="171" width="28" height="119"/><text class="tiny" x="668" y="224" transform="rotate(-90 668 224)">SEASONAL</text>
+  <rect class="feature" x="696" y="171" width="168" height="266"/><text class="zone" x="780" y="280">CLOTHING</text><text class="small" x="780" y="306">FITTING ROOMS</text>
+
+  <!-- Cross aisle and the main sales hall. -->
+  <rect class="path" x="101" y="298" width="581" height="30"/><text class="tiny" x="390" y="313">WIDE REAR CROSS AISLE</text>
+  <rect class="retail" x="101" y="318" width="119" height="129"/><text class="zone" x="160" y="375">DRINKS</text><text class="tiny" x="160" y="399">BULK BEVERAGES</text>
+  <rect class="retail" x="101" y="473" width="119" height="146"/><text class="zone" x="160" y="537">FROZEN</text><text class="tiny" x="160" y="561">UPRIGHT + CHEST</text>
+  <rect class="retail" x="241" y="346" width="273" height="259"/>
+  <text class="zone" x="377" y="365">AMBIENT GROCERY</text>
+  <g class="aisle">
+    <rect x="257" y="390" width="27" height="192"/><rect x="300" y="390" width="27" height="192"/>
+    <rect x="343" y="390" width="27" height="192"/><rect x="386" y="390" width="27" height="192"/>
+    <rect x="429" y="390" width="27" height="192"/><rect x="472" y="390" width="27" height="192"/>
+  </g>
+  <rect class="retail" x="535" y="346" width="119" height="49"/><text class="tiny" x="594" y="370">DAIRY / MEAT / FISH</text>
+  <rect class="feature" x="535" y="423" width="119" height="140"/><text class="zone" x="594" y="480">FRESH</text><text class="zone" x="594" y="503">PRODUCE</text>
+  <rect class="retail" x="598" y="584" width="56" height="42"/><text class="tiny" x="626" y="605">FOOD TO GO</text>
+  <rect class="path" x="662" y="306" width="27" height="328"/>
+
+  <!-- Services and exit along the front. -->
+  <rect class="room" x="94" y="647" width="103" height="112"/><text class="small" x="145" y="694">CUSTOMER</text><text class="small" x="145" y="715">BATHROOMS</text>
+  <rect class="retail" x="244" y="675" width="315" height="98"/><text class="zone" x="401" y="700">10 CHECKOUT LANES</text><text class="tiny" x="401" y="726">SCAN / SHOP · CARTS</text>
+  <rect class="retail" x="696" y="535" width="168" height="99"/><text class="zone" x="780" y="568">BAKERY</text><text class="small" x="780" y="593">CAFE SEATING</text>
+  <rect class="retail" x="696" y="661" width="168" height="98"/><text class="small" x="780" y="690">CUSTOMER SERVICES</text><text class="tiny" x="780" y="716">PICKUP LOCKERS</text>
+  <rect x="641" y="775" width="98" height="10" fill="#fff"/>
+  <path d="M 690 831 L 690 793" fill="none" stroke="#253044" stroke-width="3" marker-end="url(#arrow)"/>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#253044"/></marker></defs>
+  <text class="small" x="690" y="852">MAIN ENTRANCE / EXIT</text>
+  <text x="80" y="877" style="font-size:12px;text-anchor:start">Schematic of Assets/Scenes/Superstore.unity · all in-scene geometry uses the same plain gray material</text>
+</svg>
