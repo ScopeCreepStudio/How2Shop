@@ -38,7 +38,7 @@ Material:
     - _MinValue: 0.025
     - _Strength: 1
     m_Colors:
-    - _PackagingColor: {r: 0.9789856, g: 0.7654906, b: 0.15369558, a: 1}
+    - _PackagingColor: {r: 0.9789856, g: 0.5176471, b: 0.15369555, a: 1}
     - _SourceColor: {r: 0.9789856, g: 0.7654906, b: 0.15369558, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
