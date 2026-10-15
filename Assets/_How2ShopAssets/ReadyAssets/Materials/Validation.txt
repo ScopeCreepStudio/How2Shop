@@ -1,0 +1,7 @@
+PASS: 27 independent original-art materials assigned to individual prefabs.
+PASS: complete-set materials updated by mesh identity.
+PASS: 15 optional joinable materials and prefabs.
+PASS: no missing material, shader or base texture references.
+PASS: joined shader compiled with no errors after preview rendering.
+Join pattern sampled from existing ReadyAssets pixel artwork; mirrored tile edges verified.
+Original geometry and UVs unchanged.
