@@ -57,6 +57,7 @@ public static class PixelInteriorBuilder
             count++; report.AppendLine("PASS "+pack+"/"+name);
         }
         AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
+        WetFloorSignBuilder.Build();
         var dependencies=Directory.GetFiles(Root+"/Prefabs","*.prefab",SearchOption.AllDirectories).SelectMany(p=>AssetDatabase.GetDependencies(p.Replace('\\','/'))).Distinct().Where(p=>p.StartsWith("Assets/")&&!p.StartsWith(Root+"/")).ToArray();
         if(dependencies.Length>0) throw new System.Exception("External asset dependencies: "+string.Join(", ",dependencies));
         report.AppendLine($"PASS: {count} prefabs, {mats.Count} materials; no external Assets dependencies. Source meshes preserved. Static mesh colliders assigned.");
