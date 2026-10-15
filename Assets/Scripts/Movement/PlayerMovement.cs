@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
 
-        // Lock mouse to the centre of the screen
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -38,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         Keyboard kb = Keyboard.current;
         if (kb == null) return;
 
-        // WASD input
+
         float x = 0f;
         float z = 0f;
         if (kb.dKey.isPressed) x += 1f;
@@ -48,24 +47,20 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        // Prevent diagonal movement from being faster
         move = Vector3.ClampMagnitude(move, 1f);
 
         controller.Move(move * moveSpeed * Time.deltaTime);
 
-        // Check if we're standing on the ground
         if (controller.isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
 
-        // Jump
         if (kb.spaceKey.wasPressedThisFrame && controller.isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        // Gravity
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
@@ -76,16 +71,12 @@ public class PlayerMovement : MonoBehaviour
         Mouse mouse = Mouse.current;
         if (mouse == null) return;
 
-        // New Input System gives raw pixel delta, so scale it down
-        // to feel similar to the old Input.GetAxis("Mouse X/Y")
         Vector2 delta = mouse.delta.ReadValue() * 0.1f;
         float mouseX = delta.x * mouseSensitivity;
         float mouseY = delta.y * mouseSensitivity;
 
-        // Rotate player left/right
         transform.Rotate(Vector3.up * mouseX);
 
-        // Rotate camera up/down
         cameraRotation -= mouseY;
         cameraRotation = Mathf.Clamp(
             cameraRotation,
@@ -100,3 +91,4 @@ public class PlayerMovement : MonoBehaviour
         );
     }
 }
+
