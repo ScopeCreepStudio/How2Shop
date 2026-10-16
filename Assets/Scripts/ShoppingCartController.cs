@@ -1,7 +1,7 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody))]
-public class ShoppingCart : MonoBehaviour
+public class ShoppingCartController : MonoBehaviour
 {
     public Transform player;
     public Vector3 gripOffset = new Vector3(0, 0, 0.7f);
@@ -18,6 +18,9 @@ public class ShoppingCart : MonoBehaviour
     Vector3 lastPlayerPos;
     Vector3 playerVel;
 
+    bool playerHolding = false;
+    float cooldown = 0f;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -29,10 +32,31 @@ public class ShoppingCart : MonoBehaviour
 
     void FixedUpdate()
     {
-        UpdatePlayerVelocity();
-        PullHandle();
-        GripRearWheel();
-        GripFrontWheel();
+
+        Keyboard kb = Keyboard.current;
+
+        if (kb.eKey.wasPressedThisFrame && !playerHolding && cooldown <= 0f)
+        {
+            playerHolding = true;
+            cooldown = 2f;
+        }
+        if (kb.eKey.wasReleasedThisFrame && playerHolding && cooldown <= 0f)
+        {
+            playerHolding = false;
+            cooldown = 2f;
+        }
+        if (playerHolding)
+        {
+            UpdatePlayerVelocity();
+            PullHandle();
+            GripRearWheel();
+            GripFrontWheel();
+        }
+        if (cooldown > 0f)
+        {
+            cooldown -= Time.fixedDeltaTime;
+        }
+
     }
 
     void SetupRigidbody()
