@@ -1,0 +1,7 @@
+Replace any PNG in Assets/Shelf_Items/Sprites using the same filename, and keep its .meta file. Unity automatically fits the visible artwork within 0.32m wide by 0.46m tall, preserves its proportions, ignores transparent padding, and aligns the bottom with the shelf. Freezer copies keep their smaller 83% scale.
+
+You do not need to change the product prefab scale or material. Manual scale adjustments are still possible after import.
+
+Opaque backgrounds are part of the picture and are not removed automatically. Use a transparent PNG for a clean cutout.
+
+If needed, run Tools > Shelf Items > Fit all replacement pictures to recalculate the entire set.
