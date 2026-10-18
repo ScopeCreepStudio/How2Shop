@@ -59,43 +59,46 @@ public sealed class ShopperNPC : MonoBehaviour
     }
 
 private void Awake()
+{
+    destinationPath = new NavMeshPath();
+
+    if (animator == null)
+        animator = GetComponent<Animator>();
+    if (agent == null)
+        agent = GetComponent<NavMeshAgent>();
+
+    if (agent != null)
     {
-        destinationPath = new NavMeshPath();
+        agent.speed = walkingSpeed;
+        agent.acceleration = movementAcceleration;
+        agent.angularSpeed = 240f;
+        agent.stoppingDistance = 0.25f;
+        agent.autoBraking = true;
+        agent.updatePosition = true;
+        agent.updateRotation = true;
+        agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+        agent.avoidancePriority = Random.Range(35, 65);
+    }
 
-        if (animator == null)
-            animator = GetComponent<Animator>();
-        if (agent == null)
-            agent = GetComponent<NavMeshAgent>();
-
-        if (agent != null)
+    if (animator != null)
+    {
+        animator.applyRootMotion = false;
+        foreach (AnimatorControllerParameter parameter in animator.parameters)
         {
-            agent.speed = walkingSpeed;
-            agent.acceleration = movementAcceleration;
-            agent.angularSpeed = 240f;
-            agent.stoppingDistance = 0.25f;
-            agent.autoBraking = true;
-            agent.updatePosition = true;
-            agent.updateRotation = true;
-            agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
-            agent.avoidancePriority = Random.Range(35, 65);
-        }
-
-        if (animator != null)
-        {
-            animator.applyRootMotion = false;
-            foreach (AnimatorControllerParameter parameter in animator.parameters)
+            if (parameter.name == "Walking" && parameter.type == AnimatorControllerParameterType.Bool)
             {
-                if (parameter.name == "Walking" && parameter.type == AnimatorControllerParameterType.Bool)
-                {
-                    hasWalkingParameter = true;
-                    break;
-                }
+                hasWalkingParameter = true;
+                break;
             }
         }
-
-        if (shoppingCart != null && !shoppingCart.IsChildOf(transform))
-            externalCartHeight = shoppingCart.position.y;
     }
+
+    if (shoppingCart != null && !shoppingCart.IsChildOf(transform))
+        externalCartHeight = shoppingCart.position.y;
+
+    if (GetComponent<ShopperRagdoll>() == null)
+        gameObject.AddComponent<ShopperRagdoll>();
+}
 
     private void Start()
     {
@@ -289,4 +292,54 @@ private void Awake()
         Gizmos.DrawWireSphere(rightHandGrip != null ? rightHandGrip.position : shoppingCart.TransformPoint(rightHandCartLocalPosition), 0.06f);
     }
 #endif
+
+
+public void SuspendForRagdoll()
+{
+    SetWalking(false);
+    isWaiting = true;
+    if (agent != null && agent.enabled)
+    {
+        if (agent.isOnNavMesh)
+            agent.isStopped = true;
+        agent.enabled = false;
+    }
+    if (animator != null)
+        animator.enabled = false;
+    enabled = false;
+}
+
+public bool ResumeFromRagdoll(Vector3 position, Quaternion rotation)
+{
+    transform.SetPositionAndRotation(position, rotation);
+    if (animator != null)
+    {
+        animator.enabled = true;
+        animator.Rebind();
+        SetWalking(false);
+    }
+
+    if (agent != null)
+    {
+        agent.enabled = true;
+        if (!agent.Warp(position))
+        {
+            NavMeshHit hit;
+            if (!NavMesh.SamplePosition(position, out hit, 3f, agent.areaMask) || !agent.Warp(hit.position))
+            {
+                enabled = true;
+                return false;
+            }
+            transform.position = hit.position;
+        }
+        agent.isStopped = false;
+    }
+
+    enabled = true;
+    if (wanderOnStart)
+        ChooseNextDestination();
+    else
+        SetWalking(false);
+    return true;
+}
 }
