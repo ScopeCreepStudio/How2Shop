@@ -1,0 +1,21 @@
+PASS OrangeJuice: transparent sprite, bottom pivot, material, item data and prefab.
+PASS AppleJuice: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Cola: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Water: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Bread: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Cereal: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Rice: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Pasta: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Flour: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Sugar: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Coffee: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Tea: transparent sprite, bottom pivot, material, item data and prefab.
+PASS TomatoSoup: transparent sprite, bottom pivot, material, item data and prefab.
+PASS BakedBeans: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Peas: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Tuna: transparent sprite, bottom pivot, material, item data and prefab.
+PASS StrawberryJam: transparent sprite, bottom pivot, material, item data and prefab.
+PASS PeanutButter: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Crisps: transparent sprite, bottom pivot, material, item data and prefab.
+PASS Chocolate: transparent sprite, bottom pivot, material, item data and prefab.
+PASS: 20 prefabs and definitions; independent catalog has no validation errors. Original Milk1L unchanged.

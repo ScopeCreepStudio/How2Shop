@@ -1,0 +1,21 @@
+PASS AppleJuice: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS BakedBeans: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Bread: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Cereal: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Chocolate: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Coffee: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Cola: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Crisps: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Flour: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS OrangeJuice: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Pasta: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS PeanutButter: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Peas: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Rice: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS StrawberryJam: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Sugar: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Tea: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS TomatoSoup: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Tuna: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS Water: independent material, original/green/pink/red options, copied sprite and item definition.
+PASS: 20 prefabs and 80 materials; catalog and texture references valid; recolour shader compiled after rendering.

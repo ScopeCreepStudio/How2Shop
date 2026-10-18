@@ -1,0 +1,22 @@
+{"items":[
+{"name":"OrangeJuice","label":"Orange Juice 1L","price":189,"tag":"drinks","height":0.78},
+{"name":"AppleJuice","label":"Apple Juice 1L","price":179,"tag":"drinks","height":0.78},
+{"name":"Cola","label":"Cola Can","price":99,"tag":"drinks","height":0.46},
+{"name":"Water","label":"Spring Water","price":85,"tag":"drinks","height":0.72},
+{"name":"Bread","label":"Sliced Bread","price":145,"tag":"bakery","height":0.58},
+{"name":"Cereal","label":"Corn Flakes","price":249,"tag":"breakfast","height":0.88},
+{"name":"Rice","label":"Long Grain Rice","price":169,"tag":"pantry","height":0.66},
+{"name":"Pasta","label":"Penne Pasta","price":125,"tag":"pantry","height":0.69},
+{"name":"Flour","label":"Plain Flour","price":119,"tag":"baking","height":0.66},
+{"name":"Sugar","label":"Granulated Sugar","price":139,"tag":"baking","height":0.62},
+{"name":"Coffee","label":"Ground Coffee","price":399,"tag":"drinks","height":0.59},
+{"name":"Tea","label":"Tea Bags","price":229,"tag":"drinks","height":0.54},
+{"name":"TomatoSoup","label":"Tomato Soup","price":115,"tag":"tinned","height":0.45},
+{"name":"BakedBeans","label":"Baked Beans","price":89,"tag":"tinned","height":0.45},
+{"name":"Peas","label":"Garden Peas","price":79,"tag":"tinned","height":0.45},
+{"name":"Tuna","label":"Tuna Chunks","price":149,"tag":"tinned","height":0.26},
+{"name":"StrawberryJam","label":"Strawberry Jam","price":175,"tag":"spreads","height":0.43},
+{"name":"PeanutButter","label":"Peanut Butter","price":199,"tag":"spreads","height":0.47},
+{"name":"Crisps","label":"Salted Crisps","price":125,"tag":"snacks","height":0.63},
+{"name":"Chocolate","label":"Milk Chocolate","price":149,"tag":"snacks","height":0.44}
+]}

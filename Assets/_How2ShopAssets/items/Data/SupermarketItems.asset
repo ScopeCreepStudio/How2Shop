@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf88c732c3f87dc40be25f86513b7179, type: 3}
+  m_Name: SupermarketItems
+  m_EditorClassIdentifier: Assembly-CSharp::How2Shop.Items.ItemCatalog
+  items:
+  - {fileID: 11400000, guid: 3afd3b6b4026f1d4f91237068f5dc4ef, type: 2}
+  - {fileID: 11400000, guid: 7d37b782ce9ac0e4cacf7c6689f516b9, type: 2}
+  - {fileID: 11400000, guid: 3049ea162df354a4c91ca140c641e616, type: 2}
+  - {fileID: 11400000, guid: e0ebe0ee8c6289f4cbcc9cbaa4df7406, type: 2}
+  - {fileID: 11400000, guid: a62fe0ad059c1d941ae63dc91dc72076, type: 2}
+  - {fileID: 11400000, guid: 537328b1726f7024a8b0edac66b24dca, type: 2}
+  - {fileID: 11400000, guid: 24cd420667986ce41bca332727a4cc29, type: 2}
+  - {fileID: 11400000, guid: a737a188aa1220d4dbcb8bbb444367fa, type: 2}
+  - {fileID: 11400000, guid: 91b389473f8d20b448983b926cdf3f5b, type: 2}
+  - {fileID: 11400000, guid: 0c111ff3491017d4ca0fcf40fbdb6fbf, type: 2}
+  - {fileID: 11400000, guid: b0007c72398c4d14180ea140855e973f, type: 2}
+  - {fileID: 11400000, guid: 2ebc48f94427e0f46b0bc2696efdad5e, type: 2}
+  - {fileID: 11400000, guid: ac2f9aeda205a9745a39c3281269bacd, type: 2}
+  - {fileID: 11400000, guid: ed71d4cf3a83b0f428be497e947cf921, type: 2}
+  - {fileID: 11400000, guid: bccc72acf5d888140b8a1b2df7da4c1f, type: 2}
+  - {fileID: 11400000, guid: 340ca91e136b4cb4697e754ef4a69ee1, type: 2}
+  - {fileID: 11400000, guid: 46e29a644093f744e9173f82d15a69bc, type: 2}
+  - {fileID: 11400000, guid: 5f4631df5d4ba19459221955dd866ca4, type: 2}
+  - {fileID: 11400000, guid: 619fc57fe7860744f96b6f6b6d1059b9, type: 2}
+  - {fileID: 11400000, guid: 4d50cbf81ef802443b3bc419fc808e57, type: 2}

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf88c732c3f87dc40be25f86513b7179, type: 3}
+  m_Name: ColourEditableItems
+  m_EditorClassIdentifier: Assembly-CSharp::How2Shop.Items.ItemCatalog
+  items:
+  - {fileID: 11400000, guid: e49aa024ba39fd74d89851e69ba808b4, type: 2}
+  - {fileID: 11400000, guid: 45fc80bbb2ef5e54094b2b26173c85fa, type: 2}
+  - {fileID: 11400000, guid: 1e31dafc6d0e65b40949acf07bd21764, type: 2}
+  - {fileID: 11400000, guid: e0ee6382760330a40a3b95dc112808cf, type: 2}
+  - {fileID: 11400000, guid: 9fb6b58647c582d449314159ec8e68e6, type: 2}
+  - {fileID: 11400000, guid: 62bdcddfe0cfc0a458979a1ca54b84d3, type: 2}
+  - {fileID: 11400000, guid: 05b438caab011584886f5f18e2a08ae3, type: 2}
+  - {fileID: 11400000, guid: 690a3493d544d9a488eb739582af4081, type: 2}
+  - {fileID: 11400000, guid: 0791af344b5856144af59a18ff35aa3b, type: 2}
+  - {fileID: 11400000, guid: 71893f59608722c4986cf4be26483ace, type: 2}
+  - {fileID: 11400000, guid: 039d0f17ba8ccf749abf87dcfb17e2e3, type: 2}
+  - {fileID: 11400000, guid: 268cb7f55e5419847b886ba7b1b1860a, type: 2}
+  - {fileID: 11400000, guid: 2074c004564bade4a85d346f54e08d7b, type: 2}
+  - {fileID: 11400000, guid: 2933070c20b4fdd49bfe4010e2437ac1, type: 2}
+  - {fileID: 11400000, guid: a73804c646c5c6942997122929c97c92, type: 2}
+  - {fileID: 11400000, guid: 2bb253a7839162849931e17e66afbfe3, type: 2}
+  - {fileID: 11400000, guid: 089fa2a792a9dc1478553fae165c2753, type: 2}
+  - {fileID: 11400000, guid: ee204d16bc28f90439d3583c50d9f3f6, type: 2}
+  - {fileID: 11400000, guid: e5abd941c1cfef54fa92202e8adc0e77, type: 2}
+  - {fileID: 11400000, guid: dff0accaf83a9194dbb55ef5ae4434e8, type: 2}

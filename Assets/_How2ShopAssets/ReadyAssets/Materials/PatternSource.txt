@@ -1,0 +1,2 @@
+Existing artwork: StoreProps_PixelArt_Copy.png
+32x32 tile at bottom-left pixel (1280,1088); mirrored to a seamless 64x64 tile, luminance normalized for recolouring.
