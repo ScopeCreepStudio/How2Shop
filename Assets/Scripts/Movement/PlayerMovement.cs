@@ -17,6 +17,14 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 velocity;
     private float cameraRotation = 0f;
+    private bool cartBoostActive;
+    private float cartBoostMultiplier = 1f;
+
+    public void SetCartBoost(bool active, float multiplier)
+    {
+        cartBoostActive = active;
+        cartBoostMultiplier = Mathf.Max(1f, multiplier);
+    }
 
     void Start()
     {
@@ -49,7 +57,8 @@ public class PlayerMovement : MonoBehaviour
 
         move = Vector3.ClampMagnitude(move, 1f);
 
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        float currentMoveSpeed = moveSpeed * (cartBoostActive ? cartBoostMultiplier : 1f);
+        controller.Move(move * currentMoveSpeed * Time.deltaTime);
 
         if (controller.isGrounded && velocity.y < 0)
         {

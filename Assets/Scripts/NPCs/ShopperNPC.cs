@@ -17,6 +17,14 @@ public sealed class ShopperNPC : MonoBehaviour
     [SerializeField] private Transform leftHandGrip;
     [SerializeField] private Transform rightHandGrip;
 
+    [Header("Shopper audio")]
+    [SerializeField] private AudioClip cartRollClip;
+    [SerializeField] private AudioClip impactClip;
+    [SerializeField] private AudioClip fallClip;
+    [SerializeField] private AudioClip fallingScreamClip;
+    [SerializeField] private AudioClip landingClip;
+    [SerializeField] private AudioClip recoveryClip;
+
     [Header("Cart local grip points")]
     [Tooltip("Used without an explicit Left Hand Grip. Assumes the cart faces +Z.")]
     [SerializeField] private Vector3 leftHandCartLocalPosition = new Vector3(-1.8f, 4.9f, -3.0f);
@@ -47,6 +55,9 @@ public sealed class ShopperNPC : MonoBehaviour
     private bool isWaiting;
     private float waitRemaining;
     private float externalCartHeight;
+    private AudioSource cartAudio;
+    private AudioSource effectsAudio;
+    private bool ragdollLandingPlayed;
 
     public Transform ShoppingCart => shoppingCart;
     public Animator CharacterAnimator => animator;
@@ -96,6 +107,18 @@ private void Awake()
     if (shoppingCart != null && !shoppingCart.IsChildOf(transform))
         externalCartHeight = shoppingCart.position.y;
 
+    cartAudio = gameObject.AddComponent<AudioSource>();
+    cartAudio.clip = cartRollClip;
+    cartAudio.loop = true;
+    cartAudio.playOnAwake = false;
+    cartAudio.spatialBlend = 1f;
+    cartAudio.maxDistance = 24f;
+    if (cartRollClip != null) cartAudio.Play();
+    effectsAudio = gameObject.AddComponent<AudioSource>();
+    effectsAudio.playOnAwake = false;
+    effectsAudio.spatialBlend = 1f;
+    effectsAudio.maxDistance = 30f;
+
     if (GetComponent<ShopperRagdoll>() == null)
         gameObject.AddComponent<ShopperRagdoll>();
 }
@@ -129,6 +152,7 @@ private void Awake()
         }
 
         UpdateExternalCart();
+        cartAudio.volume = Mathf.Clamp01(agent.velocity.magnitude / 2f) * 0.55f;
 
         if (isWaiting)
         {
@@ -296,6 +320,11 @@ private void Awake()
 
 public void SuspendForRagdoll()
 {
+    if (cartAudio != null) cartAudio.volume = 0f;
+    ragdollLandingPlayed = false;
+    PlayShopperSound(impactClip, 0.9f);
+    PlayShopperSound(fallClip, 0.85f);
+    PlayShopperSound(fallingScreamClip, 0.8f);
     SetWalking(false);
     isWaiting = true;
     if (agent != null && agent.enabled)
@@ -307,6 +336,18 @@ public void SuspendForRagdoll()
     if (animator != null)
         animator.enabled = false;
     enabled = false;
+}
+
+public void NotifyRagdollLanding(float impactSpeed)
+{
+    if (ragdollLandingPlayed || impactSpeed < 1.1f) return;
+    ragdollLandingPlayed = true;
+    PlayShopperSound(landingClip, 1f);
+}
+
+private void PlayShopperSound(AudioClip clip, float volume)
+{
+    if (clip != null && effectsAudio != null) effectsAudio.PlayOneShot(clip, volume);
 }
 
 public bool ResumeFromRagdoll(Vector3 position, Quaternion rotation)
@@ -336,6 +377,7 @@ public bool ResumeFromRagdoll(Vector3 position, Quaternion rotation)
     }
 
     enabled = true;
+    PlayShopperSound(recoveryClip, 0.8f);
     if (wanderOnStart)
         ChooseNextDestination();
     else

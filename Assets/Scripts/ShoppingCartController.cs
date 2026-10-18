@@ -1,144 +1,286 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class ShoppingCartController : MonoBehaviour
 {
+    [Header("Player connection")]
     public Transform player;
-    public Vector3 gripOffset = new Vector3(0, 0, 0.7f);
-    public Vector3 handle = new Vector3(0, 0.9f, -0.55f);
-    public Vector3 rearWheel = new Vector3(0, 0, -0.4f);
-    public Vector3 frontWheel = new Vector3(0, 0, 0.4f);
-    public float pull = 60f;
-    public float damping = 14f;
-    public float rearGrip = 14f;
-    public float frontGrip = 4f;
+    public Vector3 gripOffset = new Vector3(0f, 0.32f, 0.35f);
+    public Vector3 handle = new Vector3(-3.46f, 6.04f, 0f);
 
-    Rigidbody rb;
-    Vector3 casterDir;
-    Vector3 lastPlayerPos;
-    Vector3 playerVel;
+    [Header("Cart wheel points (model local X is forward)")]
+    public Vector3 rearWheel = new Vector3(-2.75f, 0f, 0f);
+    public Vector3 frontWheel = new Vector3(2.75f, 0f, 0f);
 
-    bool playerHolding = false;
-    float cooldown = 0f;
+    [Header("Push feel")]
+    [Min(0f)] public float pull = 48f;
+    [Min(0f)] public float damping = 18f;
+    [Min(0f)] public float rearGrip = 13f;
+    [Min(0f)] public float frontGrip = 7f;
+    [Min(1f)] public float playerSpeedMultiplier = 1.5f;
+    [Min(0f)] public float alignmentStrength = 8f;
+    [Min(0f)] public float alignmentDamping = 4f;
 
-    void Awake()
+    [Header("Drifting (hold Left Shift while pushing)")]
+    [Min(0f)] public float driftRearGrip = 1.4f;
+    [Min(0f)] public float driftFrontGrip = 2.2f;
+    [Min(0f)] public float driftSteeringTorque = 5f;
+    [Min(0f)] public float driftAlignmentStrength = 0.65f;
+    [Min(0f)] public float driftAlignmentDamping = 1.2f;
+
+    [Header("Audio")]
+    public AudioClip cartRollClip;
+    public AudioClip[] driftScreechClips;
+    public AudioClip impactClip;
+
+    private Rigidbody rb;
+    private PlayerMovement playerMovement;
+    private Vector3 casterDir;
+    private Vector3 lastPlayerPos;
+    private Vector3 playerVel;
+    private bool playerHolding;
+    private bool drifting;
+    private float nextToggleTime;
+    private AudioSource rollingAudio;
+    private AudioSource effectsAudio;
+    private float nextScreechTime;
+    private float nextImpactSoundTime;
+
+    public bool IsPlayerHolding => playerHolding;
+    public bool IsDrifting => drifting;
+
+    private void Awake()
     {
+        if (GetComponentInParent<ShopperNPC>() != null)
+        {
+            enabled = false;
+            return;
+        }
+
         rb = GetComponent<Rigidbody>();
+        if (player == null)
+        {
+            PlayerMovement foundPlayer = FindFirstObjectByType<PlayerMovement>();
+            if (foundPlayer != null)
+                player = foundPlayer.transform;
+        }
+
+        playerMovement = player != null
+            ? player.GetComponent<PlayerMovement>() ?? player.GetComponentInParent<PlayerMovement>()
+            : null;
+
         SetupRigidbody();
         SetupCollider();
-        casterDir = transform.forward;
-        lastPlayerPos = player.position;
+        AudioSource[] sources = GetComponents<AudioSource>();
+        rollingAudio = sources.Length > 0 ? sources[0] : gameObject.AddComponent<AudioSource>();
+        effectsAudio = sources.Length > 1 ? sources[1] : gameObject.AddComponent<AudioSource>();
+        ConfigureAudio(rollingAudio, true);
+        ConfigureAudio(effectsAudio, false);
+        rollingAudio.clip = cartRollClip;
+        if (cartRollClip != null) rollingAudio.Play();
+        casterDir = CartForward;
+
+        if (player != null)
+            lastPlayerPos = player.position;
+        else
+            Debug.LogWarning("ShoppingCartController could not find a PlayerMovement component.", this);
     }
 
-    void FixedUpdate()
+    private void Update()
     {
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null || player == null)
+            return;
 
-        Keyboard kb = Keyboard.current;
-
-        if (kb.eKey.wasPressedThisFrame && !playerHolding && cooldown <= 0f)
+        if (keyboard.eKey.wasPressedThisFrame && Time.time >= nextToggleTime)
         {
-            playerHolding = true;
-            cooldown = 2f;
-        }
-        if (kb.eKey.wasReleasedThisFrame && playerHolding && cooldown <= 0f)
-        {
-            playerHolding = false;
-            cooldown = 2f;
-        }
-        if (playerHolding)
-        {
-            UpdatePlayerVelocity();
-            PullHandle();
-            GripRearWheel();
-            GripFrontWheel();
-        }
-        if (cooldown > 0f)
-        {
-            cooldown -= Time.fixedDeltaTime;
+            SetPlayerHolding(!playerHolding);
+            nextToggleTime = Time.time + 0.25f;
         }
 
+        drifting = playerHolding && keyboard.leftShiftKey.isPressed;
+        float speed = rb != null ? new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z).magnitude : 0f;
+        rollingAudio.volume = Mathf.Clamp01(speed / 5f) * (playerHolding ? 0.75f : 0.35f);
+        if (drifting && speed > 1.4f && Time.time >= nextScreechTime && driftScreechClips != null && driftScreechClips.Length > 0)
+        {
+            AudioClip clip = driftScreechClips[Random.Range(0, driftScreechClips.Length)];
+            if (clip != null) effectsAudio.PlayOneShot(clip, Mathf.Clamp01(speed / 7f));
+            nextScreechTime = Time.time + 0.8f;
+        }
     }
 
-    void SetupRigidbody()
+    private void FixedUpdate()
+    {
+        if (!playerHolding || player == null || rb == null)
+            return;
+
+        UpdatePlayerVelocity();
+        PullHandle();
+        AlignCart();
+        GripRearWheel();
+        GripFrontWheel();
+        if (drifting)
+            SteerDrift();
+    }
+
+    private void OnDisable()
+    {
+        if (playerMovement != null)
+            playerMovement.SetCartBoost(false, playerSpeedMultiplier);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (impactClip == null || collision == null || collision.relativeVelocity.magnitude < 2f || Time.time < nextImpactSoundTime)
+            return;
+        effectsAudio.PlayOneShot(impactClip, Mathf.Clamp01(collision.relativeVelocity.magnitude / 10f));
+        nextImpactSoundTime = Time.time + 0.35f;
+    }
+
+    private void SetPlayerHolding(bool holding)
+    {
+        playerHolding = holding;
+        drifting = false;
+        if (player != null)
+            lastPlayerPos = player.position;
+
+        if (playerMovement != null)
+            playerMovement.SetCartBoost(holding, playerSpeedMultiplier);
+    }
+
+    private void SetupRigidbody()
     {
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         rb.angularDamping = 0.6f;
-        rb.linearDamping = 0.5f;
+        rb.linearDamping = 0.35f;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
-    void SetupCollider()
+    private static void ConfigureAudio(AudioSource source, bool loop)
+    {
+        source.playOnAwake = false;
+        source.loop = loop;
+        source.spatialBlend = 1f;
+        source.minDistance = 2f;
+        source.maxDistance = 24f;
+    }
+
+    private void SetupCollider()
     {
         Collider cartCollider = GetComponent<Collider>();
+        if (cartCollider == null)
+            return;
 
-        PhysicsMaterial slippery = new PhysicsMaterial();
-        slippery.dynamicFriction = 0;
-        slippery.staticFriction = 0;
+        PhysicsMaterial slippery = new PhysicsMaterial("Cart wheels");
+        slippery.dynamicFriction = 0f;
+        slippery.staticFriction = 0f;
         slippery.frictionCombine = PhysicsMaterialCombine.Minimum;
         cartCollider.material = slippery;
 
-        Physics.IgnoreCollision(cartCollider, player.GetComponent<Collider>());
+        if (player == null)
+            return;
+
+        Collider[] playerColliders = player.GetComponentsInChildren<Collider>();
+        for (int i = 0; i < playerColliders.Length; i++)
+            Physics.IgnoreCollision(cartCollider, playerColliders[i], true);
     }
 
-    void UpdatePlayerVelocity()
+    private Vector3 CartForward => transform.right;
+
+    private void UpdatePlayerVelocity()
     {
-        Vector3 rawVel = (player.position - lastPlayerPos) / Time.fixedDeltaTime;
-        playerVel = Vector3.Lerp(playerVel, rawVel, 0.5f);
+        Vector3 rawVelocity = (player.position - lastPlayerPos) / Time.fixedDeltaTime;
+        rawVelocity.y = 0f;
+        playerVel = Vector3.Lerp(playerVel, rawVelocity, 0.55f);
         lastPlayerPos = player.position;
     }
 
-    void PullHandle()
+    private void PullHandle()
     {
-        Vector3 handlePos = transform.TransformPoint(handle);
-        Vector3 error = player.TransformPoint(gripOffset) - handlePos;
-        Vector3 relVel = playerVel - rb.GetPointVelocity(handlePos);
-        error.y = 0;
-        relVel.y = 0;
-        rb.AddForceAtPosition((error * pull + relVel * damping) * rb.mass, handlePos);
+        Vector3 handlePosition = transform.TransformPoint(handle);
+        Vector3 targetPosition = player.TransformPoint(gripOffset);
+        Vector3 error = targetPosition - handlePosition;
+        Vector3 relativeVelocity = playerVel - rb.GetPointVelocity(handlePosition);
+        error.y = 0f;
+        relativeVelocity.y = 0f;
+        rb.AddForceAtPosition((error * pull + relativeVelocity * damping) * rb.mass, handlePosition);
     }
 
-    void GripRearWheel()
+    private void AlignCart()
     {
-        ApplySideGrip(transform.TransformPoint(rearWheel), transform.forward, rearGrip);
+        Vector3 desiredForward = player.forward;
+        desiredForward.y = 0f;
+        if (desiredForward.sqrMagnitude < 0.001f)
+            return;
+
+        float strength = drifting ? driftAlignmentStrength : alignmentStrength;
+        float dampingStrength = drifting ? driftAlignmentDamping : alignmentDamping;
+        float yawError = Vector3.SignedAngle(CartForward, desiredForward.normalized, Vector3.up);
+        float yawAcceleration = yawError * strength - rb.angularVelocity.y * dampingStrength;
+        rb.AddTorque(Vector3.up * yawAcceleration, ForceMode.Acceleration);
     }
 
-    void GripFrontWheel()
+    private void GripRearWheel()
     {
-        Vector3 frontPos = transform.TransformPoint(frontWheel);
-        SwivelCaster(frontPos);
-        ApplySideGrip(frontPos, casterDir, frontGrip);
+        ApplySideGrip(transform.TransformPoint(rearWheel), CartForward, drifting ? driftRearGrip : rearGrip);
     }
 
-    void SwivelCaster(Vector3 wheelPos)
+    private void GripFrontWheel()
     {
-        Vector3 wheelVel = rb.GetPointVelocity(wheelPos);
-        wheelVel.y = 0;
-        if (wheelVel.magnitude < 0.1f) return;
-
-        float sign = Mathf.Sign(Vector3.Dot(casterDir, wheelVel));
-        casterDir = Vector3.RotateTowards(casterDir, wheelVel.normalized * sign, 6f * Time.fixedDeltaTime, 0);
+        Vector3 frontPosition = transform.TransformPoint(frontWheel);
+        SwivelCaster(frontPosition);
+        ApplySideGrip(frontPosition, casterDir, drifting ? driftFrontGrip : frontGrip);
     }
 
-    void ApplySideGrip(Vector3 pos, Vector3 wheelForward, float grip)
+    private void SwivelCaster(Vector3 wheelPosition)
     {
-        Vector3 vel = rb.GetPointVelocity(pos);
-        vel.y = 0;
-        wheelForward.y = 0;
-        Vector3 right = Vector3.Cross(Vector3.up, wheelForward.normalized);
-        float sideSpeed = Vector3.Dot(vel, right);
-        rb.AddForceAtPosition(-right * sideSpeed * grip * rb.mass * 0.5f, pos);
+        Vector3 wheelVelocity = rb.GetPointVelocity(wheelPosition);
+        wheelVelocity.y = 0f;
+        if (wheelVelocity.magnitude < 0.1f)
+            return;
+
+        float sign = Mathf.Sign(Vector3.Dot(casterDir, wheelVelocity));
+        casterDir = Vector3.RotateTowards(casterDir, wheelVelocity.normalized * sign, 6f * Time.fixedDeltaTime, 0f);
     }
 
-    void OnDrawGizmosSelected()
+    private void ApplySideGrip(Vector3 position, Vector3 wheelForward, float grip)
+    {
+        Vector3 velocity = rb.GetPointVelocity(position);
+        velocity.y = 0f;
+        wheelForward.y = 0f;
+        if (wheelForward.sqrMagnitude < 0.001f)
+            return;
+
+        Vector3 side = Vector3.Cross(Vector3.up, wheelForward.normalized);
+        float sideSpeed = Vector3.Dot(velocity, side);
+        rb.AddForceAtPosition(-side * sideSpeed * grip * rb.mass * 0.5f, position);
+    }
+
+    private void SteerDrift()
+    {
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null)
+            return;
+
+        float steer = 0f;
+        if (keyboard.dKey.isPressed) steer += 1f;
+        if (keyboard.aKey.isPressed) steer -= 1f;
+
+        float speed = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z).magnitude;
+        float speedFactor = Mathf.Clamp01(speed / 2f);
+        rb.AddTorque(Vector3.up * (steer * driftSteeringTorque * speedFactor), ForceMode.Acceleration);
+    }
+
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(transform.TransformPoint(handle), 0.06f);
-
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.TransformPoint(rearWheel), 0.06f);
-
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.TransformPoint(frontWheel), 0.06f);
-
         if (player != null)
         {
             Gizmos.color = Color.green;

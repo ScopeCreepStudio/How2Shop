@@ -100,12 +100,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShoppingCart
   player: {fileID: 0}
-  gripOffset: {x: 0, y: 0.32, z: 1.13}
+  gripOffset: {x: 0, y: 0.32, z: 0.35}
   handle: {x: -3.46, y: 6.04, z: 0}
-  rearWheel: {x: 0, y: 0, z: -0.4}
-  frontWheel: {x: 0, y: 0, z: 0.4}
-  pull: 60
-  damping: 14
+  rearWheel: {x: -2.75, y: 0, z: 0}
+  frontWheel: {x: 2.75, y: 0, z: 0}
+  cartRollClip: {fileID: 8300000, guid: f27ac77efaeda734f8c11c4d1feec9be, type: 3}
+  impactClip: {fileID: 8300000, guid: 0db77395b99167540883b5d649b86c18, type: 3}
+  driftScreechClips:
+  - {fileID: 8300000, guid: cf113c65c0569434ba081c49c95ffa67, type: 3}
+  - {fileID: 8300000, guid: 1d8247821f7286e4c8cc2cd18b8c067e, type: 3}
+  - {fileID: 8300000, guid: efd6ec068a841e649909af3e56ca9629, type: 3}
+  - {fileID: 8300000, guid: 4b2e11c02e86eab47b522e1f80558275, type: 3}
+  pull: 48
+  damping: 18
   rearGrip: 14
   frontGrip: 4
 --- !u!54 &3680045079052631054
