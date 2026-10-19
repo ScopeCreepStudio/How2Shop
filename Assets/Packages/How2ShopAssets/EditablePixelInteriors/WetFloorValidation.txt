@@ -1,3 +1,0 @@
-PASS: both sign prefabs updated; 4 outward-facing graphics.
-Yellow plastic body, black pixel CAUTION / WET FLOOR lettering and slipping-person warning triangle.
-Original body geometry, prefab identity, transforms and colliders preserved.

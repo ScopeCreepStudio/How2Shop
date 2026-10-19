@@ -1,4 +1,0 @@
-PASS: all seven textures share a seamless wrapped pixel pattern.
-PASS: left/right and top/bottom edge colours match exactly.
-Modular wall UVs start at zero and finish on a whole horizontal repeat, with bottom-aligned vertical mapping.
-Preview/WallJoin.png shows three adjacent 3m walls at original scale.
