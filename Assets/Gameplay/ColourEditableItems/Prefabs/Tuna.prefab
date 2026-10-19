@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1281640354166548465}
   - component: {fileID: 8719545364625626522}
   - component: {fileID: 5048546756823250202}
+  - component: {fileID: 8660515728265937018}
   m_Layer: 0
   m_Name: Tuna
   m_TagString: Untagged
@@ -105,3 +106,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::How2Shop.Items.ItemSpriteView
   item: {fileID: 11400000, guid: e5abd941c1cfef54fa92202e8adc0e77, type: 2}
+--- !u!65 &8660515728265937018
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088801219437916927}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 19.59375, y: 19.59375, z: 0.2000003}
+  m_Center: {x: 0, y: 6.40625, z: 0}

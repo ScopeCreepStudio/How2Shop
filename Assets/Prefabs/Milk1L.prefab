@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2777187884209015572}
   - component: {fileID: 2265653239420799285}
   - component: {fileID: 8500249344977588927}
+  - component: {fileID: 6834755944746449246}
   m_Layer: 0
   m_Name: Milk1L
   m_TagString: Untagged
@@ -105,3 +106,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::How2Shop.Items.ItemSpriteView
   item: {fileID: 11400000, guid: 9f49f12209dd0bc4a8cefa5999ae9c89, type: 2}
+--- !u!65 &6834755944746449246
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723210937886514}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 0.99999994, z: 0.20000003}
+  m_Center: {x: 0, y: 0, z: 0}

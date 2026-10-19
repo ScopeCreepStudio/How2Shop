@@ -146,6 +146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6182053466209842010}
+  - component: {fileID: 1731541502614789907}
   - component: {fileID: 4257389538908973695}
   - component: {fileID: 3198289574769254297}
   - component: {fileID: 6429190990165748654}
@@ -174,6 +175,28 @@ Transform:
   - {fileID: 138250117026279287}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1731541502614789907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4880630782644894190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4354662ed6537646b9cb486c0fb718d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::How2Shop.Items.PlayerItemInteraction
+  playerCamera: {fileID: 0}
+  holdPoint: {fileID: 0}
+  pickupRange: 3
+  interactMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  dropDistance: 1.5
+  dropForwardSpeed: 2
+  pickupKey: 19
+  dropKey: 31
 --- !u!33 &4257389538908973695
 MeshFilter:
   m_ObjectHideFlags: 0
