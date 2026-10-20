@@ -3,11 +3,13 @@ using UnityEngine.InputSystem;
 
 namespace How2Shop.Items
 {
+
     public sealed class PlayerItemInteraction : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private Transform playerCamera;
         [SerializeField] private Transform holdPoint;
+        [SerializeField] private ShoppingCart cart;
 
         [Header("Pickup / Drop")]
         [SerializeField] private float pickupRange = 3f;
@@ -15,9 +17,13 @@ namespace How2Shop.Items
         [SerializeField] private float dropDistance = 1.5f;
         [SerializeField] private float dropForwardSpeed = 2f;
 
+        [Header("Cart")]
+        [SerializeField] private float cartRange = 3f;
+
         [Header("Keys")]
-        [SerializeField] private Key pickupKey = Key.E;
+        [SerializeField] private Key pickupKey = Key.R;
         [SerializeField] private Key dropKey = Key.Q;
+        [SerializeField] private Key cartKey = Key.F;
 
         public ItemSpriteView HeldItem { get; private set; }
         public bool IsHolding => HeldItem != null;
@@ -39,6 +45,9 @@ namespace How2Shop.Items
                 point.localPosition = new Vector3(0.4f, -0.3f, 0.8f);
                 holdPoint = point;
             }
+
+            if (cart == null)
+                cart = FindFirstObjectByType<ShoppingCart>();
         }
 
         private void Update()
@@ -46,26 +55,48 @@ namespace How2Shop.Items
             Keyboard kb = Keyboard.current;
             if (kb == null || playerCamera == null) return;
 
-            if (kb[pickupKey].wasPressedThisFrame && !IsHolding)
-                TryPickUp();
-            else if (kb[dropKey].wasPressedThisFrame && IsHolding)
-                Drop();
+            if (!IsHolding)
+            {
+                if (kb[pickupKey].wasPressedThisFrame)
+                    TryPickUp();
+            }
+            else
+            {
+                if (kb[dropKey].wasPressedThisFrame)
+                    Drop();
+                else if (kb[cartKey].wasPressedThisFrame)
+                    TryPutInCart();
+            }
         }
 
         private void TryPickUp()
         {
-            if (!Physics.Raycast(playerCamera.position, playerCamera.forward, out RaycastHit hit,
-                    pickupRange, interactMask, QueryTriggerInteraction.Ignore))
+            RaycastHit[] hits = Physics.RaycastAll(playerCamera.position, playerCamera.forward,
+                pickupRange, interactMask, QueryTriggerInteraction.Collide);
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+            foreach (var hit in hits)
+            {
+                var item = hit.collider.GetComponentInParent<ItemSpriteView>();
+                if (item != null)
+                {
+                    PickUp(item);
+                    return;
+                }
+
+                if (hit.collider.isTrigger) continue;
+                if (hit.collider.GetComponentInParent<ShoppingCart>() != null) continue;
+
                 return;
-
-            var item = hit.collider.GetComponentInParent<ItemSpriteView>();
-            if (item == null) return;
-
-            PickUp(item);
+            }
         }
 
         private void PickUp(ItemSpriteView item)
         {
+            bool cartKinematic = false;
+            var itemCart = item.GetComponentInParent<ShoppingCart>();
+            bool fromCart = itemCart != null && itemCart.TryRemove(item, out cartKinematic);
+
             HeldItem = item;
             originalParent = item.transform.parent;
 
@@ -76,7 +107,7 @@ namespace How2Shop.Items
             heldBody = item.GetComponentInParent<Rigidbody>();
             if (heldBody != null)
             {
-                heldBodyWasKinematic = heldBody.isKinematic;
+                heldBodyWasKinematic = fromCart ? cartKinematic : heldBody.isKinematic;
                 heldBody.isKinematic = true;
             }
 
@@ -103,10 +134,7 @@ namespace How2Shop.Items
             t.SetParent(originalParent, true);
             t.position = dropPos;
 
-            foreach (var col in heldColliders)
-            {
-                if (col != null) col.enabled = true;
-            }
+            EnableHeldColliders();
 
             if (heldBody != null)
             {
@@ -116,7 +144,43 @@ namespace How2Shop.Items
             }
 
             Debug.Log($"Dropped {DescribeItem(item)}");
+            ClearHeldState();
+        }
 
+        private void TryPutInCart()
+        {
+            if (cart == null) return;
+
+            if (Vector3.Distance(playerCamera.position, cart.DropPoint) > cartRange)
+                return; 
+
+            if (cart.IsFull)
+            {
+                Debug.Log("The cart is full.");
+                return;
+            }
+
+            ItemSpriteView item = HeldItem;
+            if (!cart.TryAdd(item, heldBodyWasKinematic))
+                return;
+
+            EnableHeldColliders();
+
+            Debug.Log($"Put {DescribeItem(item)} in the cart. Total: {cart.TotalPriceLabel}");
+            ClearHeldState();
+        }
+
+        private void EnableHeldColliders()
+        {
+            if (heldColliders == null) return;
+            foreach (var col in heldColliders)
+            {
+                if (col != null) col.enabled = true;
+            }
+        }
+
+        private void ClearHeldState()
+        {
             HeldItem = null;
             heldColliders = null;
             heldBody = null;
