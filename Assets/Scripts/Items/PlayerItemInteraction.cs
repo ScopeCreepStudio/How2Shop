@@ -16,6 +16,20 @@ namespace How2Shop.Items
         [SerializeField] private LayerMask interactMask = ~0;
         [SerializeField] private float dropDistance = 1.5f;
         [SerializeField] private float dropForwardSpeed = 2f;
+        [SerializeField] private float throwSpeed = 9f;
+        [SerializeField] private float throwLift = 3f;
+
+        [Header("Charged Throw")]
+        [SerializeField] private ThrowChargeBar throwChargeBar;
+        [SerializeField] private float fullChargeSeconds = 1.5f;
+        [SerializeField] private float minimumChargeHoldSeconds = 0.45f;
+        private const float minimumChargeTapSeconds = 0.45f;
+        [SerializeField] private float maxThrowSpeed = 25f;
+
+        [Header("Hover Outline")]
+        [SerializeField] private Material outlineMaterial;
+        [SerializeField] private Color outlineColor = new Color(1f, 0.9f, 0.1f, 1f);
+        [SerializeField] private float outlineScale = 1.23f;
 
         [Header("Cart")]
         [SerializeField] private float cartRange = 3f;
@@ -32,6 +46,15 @@ namespace How2Shop.Items
         private Collider[] heldColliders;
         private Rigidbody heldBody;
         private bool heldBodyWasKinematic;
+        private ItemSpriteView hoveredItem;
+        private GameObject outlineObject;
+        private SpriteRenderer outlineRenderer;
+        private bool chargingThrow;
+        private float throwCharge;
+        private float throwChargeStartedAt;
+
+        public bool IsChargingThrow => chargingThrow;
+        public float ThrowCharge => throwCharge;
 
         private void Awake()
         {
@@ -48,28 +71,84 @@ namespace How2Shop.Items
 
             if (cart == null)
                 cart = FindFirstObjectByType<ShoppingCart>();
+
+            if (throwChargeBar != null)
+                throwChargeBar.gameObject.SetActive(false);
         }
 
         private void Update()
         {
-            Keyboard kb = Keyboard.current;
-            if (kb == null || playerCamera == null) return;
+            if (playerCamera == null) return;
+
+            SetHoveredItem(IsHolding ? null : FindLookedAtItem());
 
             if (!IsHolding)
             {
-                if (kb[pickupKey].wasPressedThisFrame)
+                Keyboard kb = Keyboard.current;
+                if (kb != null && kb[pickupKey].wasPressedThisFrame)
                     TryPickUp();
             }
             else
             {
-                if (kb[dropKey].wasPressedThisFrame)
+                Keyboard kb = Keyboard.current;
+                if (kb != null && kb[dropKey].wasPressedThisFrame)
                     Drop();
-                else if (kb[cartKey].wasPressedThisFrame)
+                else if (kb != null && kb[cartKey].wasPressedThisFrame)
                     TryPutInCart();
+                else
+                    UpdateThrowInput();
             }
         }
 
+private void UpdateThrowInput()
+{
+    Mouse mouse = Mouse.current;
+    if (mouse == null) return;
+
+    // Charge oscillates between weak and full power while the button is held.
+    // This makes timing the release part of the intentionally silly throw.
+    if (!chargingThrow && (mouse.rightButton.wasPressedThisFrame || mouse.rightButton.isPressed))
+    {
+        chargingThrow = true;
+        throwCharge = 0f;
+        throwChargeStartedAt = Time.unscaledTime;
+        if (throwChargeBar != null)
+            throwChargeBar.FillAmount = 0f;
+    }
+
+    if (!chargingThrow)
+        return;
+
+    float heldFor = Mathf.Max(0f, Time.unscaledTime - throwChargeStartedAt);
+    if (mouse.rightButton.isPressed)
+    {
+        throwCharge = Mathf.PingPong(heldFor / Mathf.Max(0.1f, fullChargeSeconds), 1f);
+        if (throwChargeBar != null)
+            throwChargeBar.FillAmount = throwCharge;
+        return;
+    }
+
+    if (heldFor >= Mathf.Max(minimumChargeHoldSeconds, minimumChargeTapSeconds))
+    {
+        throwCharge = Mathf.PingPong(heldFor / Mathf.Max(0.1f, fullChargeSeconds), 1f);
+        if (throwChargeBar != null)
+            throwChargeBar.FillAmount = throwCharge;
+        Throw(Mathf.Lerp(throwSpeed, maxThrowSpeed, throwCharge));
+    }
+    else
+    {
+        ResetCharge();
+    }
+}
+
         private void TryPickUp()
+        {
+            var item = FindLookedAtItem();
+            if (item != null)
+                PickUp(item);
+        }
+
+        private ItemSpriteView FindLookedAtItem()
         {
             RaycastHit[] hits = Physics.RaycastAll(playerCamera.position, playerCamera.forward,
                 pickupRange, interactMask, QueryTriggerInteraction.Collide);
@@ -78,27 +157,79 @@ namespace How2Shop.Items
             foreach (var hit in hits)
             {
                 var item = hit.collider.GetComponentInParent<ItemSpriteView>();
-                if (item != null)
-                {
-                    PickUp(item);
-                    return;
-                }
+                if (item != null) return item;
 
                 if (hit.collider.isTrigger) continue;
                 if (hit.collider.GetComponentInParent<ShoppingCart>() != null) continue;
 
-                return;
+                return null;
             }
+
+            return null;
+        }
+
+        private void SetHoveredItem(ItemSpriteView item)
+        {
+            if (hoveredItem == item) return;
+            hoveredItem = item;
+
+            if (outlineObject != null)
+                outlineObject.SetActive(false);
+
+            if (item == null) return;
+
+            var source = item.GetComponent<SpriteRenderer>();
+            if (source == null || source.sprite == null) return;
+
+            if (outlineObject == null)
+            {
+                outlineObject = new GameObject("Hover Outline");
+                outlineRenderer = outlineObject.AddComponent<SpriteRenderer>();
+            }
+
+            outlineObject.transform.SetParent(item.transform, false);
+            outlineObject.transform.localPosition = Vector3.zero;
+            outlineObject.transform.localRotation = Quaternion.identity;
+            outlineObject.transform.localScale = Vector3.one * outlineScale;
+            outlineRenderer.sprite = source.sprite;
+            outlineRenderer.color = Color.white;
+            outlineRenderer.sharedMaterial = outlineMaterial;
+            var properties = new MaterialPropertyBlock();
+            properties.SetColor("_Color", outlineColor);
+            outlineRenderer.SetPropertyBlock(properties);
+            outlineRenderer.sortingLayerID = source.sortingLayerID;
+            outlineRenderer.sortingOrder = source.sortingOrder - 1;
+            outlineRenderer.flipX = source.flipX;
+            outlineRenderer.flipY = source.flipY;
+            outlineObject.SetActive(true);
+        }
+
+        private void OnDisable()
+        {
+            SetHoveredItem(null);
+            ResetCharge();
+            if (throwChargeBar != null)
+                throwChargeBar.gameObject.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            if (throwChargeBar != null && IsHolding)
+                throwChargeBar.gameObject.SetActive(true);
         }
 
         private void PickUp(ItemSpriteView item)
         {
+            SetHoveredItem(null);
             bool cartKinematic = false;
             var itemCart = item.GetComponentInParent<ShoppingCart>();
             bool fromCart = itemCart != null && itemCart.TryRemove(item, out cartKinematic);
 
             HeldItem = item;
             originalParent = item.transform.parent;
+            ResetCharge();
+            if (throwChargeBar != null)
+                throwChargeBar.gameObject.SetActive(true);
 
             heldColliders = item.GetComponentsInChildren<Collider>();
             foreach (var col in heldColliders)
@@ -115,6 +246,9 @@ namespace How2Shop.Items
             t.SetParent(holdPoint, true);
             t.localPosition = Vector3.zero;
             t.localRotation = Quaternion.identity;
+
+            if (GameplaySfxPlayer.Instance != null)
+                GameplaySfxPlayer.Instance.PlayPickup(t.position);
 
             Debug.Log($"Picked up {DescribeItem(item)}");
         }
@@ -135,6 +269,7 @@ namespace How2Shop.Items
             t.position = dropPos;
 
             EnableHeldColliders();
+            EnsureItemImpactRelay(item);
 
             if (heldBody != null)
             {
@@ -145,6 +280,45 @@ namespace How2Shop.Items
 
             Debug.Log($"Dropped {DescribeItem(item)}");
             ClearHeldState();
+        }
+
+        private void Throw(float speed)
+        {
+            ItemSpriteView item = HeldItem;
+            Transform t = item.transform;
+
+            // Release the item where it is held so it flies out from the camera.
+            if (GameplaySfxPlayer.Instance != null)
+                GameplaySfxPlayer.Instance.PlayThrow(t.position);
+
+            t.SetParent(null, true);
+            EnableHeldColliders();
+
+            Rigidbody body = heldBody;
+            if (body == null)
+            {
+                body = item.gameObject.AddComponent<Rigidbody>();
+                body.mass = 0.25f;
+            }
+
+            body.isKinematic = false;
+            body.useGravity = true;
+            body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            body.linearVelocity = playerCamera.forward * speed + Vector3.up * throwLift;
+            body.angularVelocity = playerCamera.right * 3f;
+            EnsureItemImpactRelay(item);
+
+            Debug.Log($"Threw {DescribeItem(item)} at {speed:0.0} m/s");
+            ClearHeldState();
+        }
+
+        private void ResetCharge()
+        {
+            chargingThrow = false;
+            throwCharge = 0f;
+            throwChargeStartedAt = 0f;
+            if (throwChargeBar != null)
+                throwChargeBar.FillAmount = 0f;
         }
 
         private void TryPutInCart()
@@ -179,8 +353,22 @@ namespace How2Shop.Items
             }
         }
 
+private static void EnsureItemImpactRelay(ItemSpriteView item)
+{
+    if (item == null)
+        return;
+
+    ThrownItemImpactRelay relay = item.GetComponent<ThrownItemImpactRelay>();
+    if (relay == null)
+        relay = item.gameObject.AddComponent<ThrownItemImpactRelay>();
+    relay.SetCharacterRagdollEnabled(true);
+}
+
         private void ClearHeldState()
         {
+            ResetCharge();
+            if (throwChargeBar != null)
+                throwChargeBar.gameObject.SetActive(false);
             HeldItem = null;
             heldColliders = null;
             heldBody = null;

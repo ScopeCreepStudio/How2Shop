@@ -8,7 +8,6 @@ using UnityEngine.AI;
 /// then returns the shopper and their cart to the nearest walkable NavMesh point.
 /// </summary>
 [DisallowMultipleComponent]
-[RequireComponent(typeof(ShopperNPC))]
 public sealed class ShopperRagdoll : MonoBehaviour
 {
     [Header("Bump response")]
@@ -64,6 +63,8 @@ public sealed class ShopperRagdoll : MonoBehaviour
     private Quaternion standingRotation;
     private bool ragdollActive;
 
+    public bool IsRagdollActive => ragdollActive;
+
     private static readonly HumanBodyBones[] PartBones =
     {
         HumanBodyBones.Hips, HumanBodyBones.Spine, HumanBodyBones.Chest, HumanBodyBones.UpperChest,
@@ -74,108 +75,111 @@ public sealed class ShopperRagdoll : MonoBehaviour
         HumanBodyBones.RightUpperLeg, HumanBodyBones.RightLowerLeg, HumanBodyBones.RightFoot, HumanBodyBones.RightToes
     };
 
-    private void Awake()
+private void Awake()
+{
+    shopper = GetComponent<ShopperNPC>();
+    animator = shopper != null && shopper.CharacterAnimator != null
+        ? shopper.CharacterAnimator
+        : GetComponentInChildren<Animator>(true);
+    agent = shopper != null && shopper.Agent != null
+        ? shopper.Agent
+        : GetComponent<NavMeshAgent>();
+
+    bodyCollider = GetComponent<CapsuleCollider>();
+    if (bodyCollider == null)
     {
-        shopper = GetComponent<ShopperNPC>();
-        animator = shopper.CharacterAnimator != null ? shopper.CharacterAnimator : GetComponent<Animator>();
-        agent = shopper.Agent != null ? shopper.Agent : GetComponent<NavMeshAgent>();
+        bodyCollider = gameObject.AddComponent<CapsuleCollider>();
+        bodyCollider.height = agent != null ? agent.height : 1.8f;
+        bodyCollider.radius = agent != null ? agent.radius : 0.3f;
+        bodyCollider.center = Vector3.up * (bodyCollider.height * 0.5f);
+    }
+    bodyColliderWasEnabled = bodyCollider.enabled;
 
-        bodyCollider = GetComponent<CapsuleCollider>();
-        if (bodyCollider == null)
+    bumpTrigger = gameObject.AddComponent<CapsuleCollider>();
+    bumpTrigger.height = bodyCollider.height + 0.1f;
+    bumpTrigger.radius = bodyCollider.radius + 0.1f;
+    bumpTrigger.center = bodyCollider.center;
+    bumpTrigger.isTrigger = true;
+    bumpTriggerWasEnabled = bumpTrigger.enabled;
+
+    rootBody = GetComponent<Rigidbody>();
+    if (rootBody == null)
+        rootBody = gameObject.AddComponent<Rigidbody>();
+    rootBodyWasDetectingCollisions = rootBody.detectCollisions;
+    rootBody.isKinematic = true;
+    rootBody.useGravity = false;
+    rootBody.detectCollisions = true;
+    rootBody.interpolation = RigidbodyInterpolation.Interpolate;
+
+    CaptureCart();
+    BuildRagdoll();
+}
+
+private void CaptureCart()
+{
+    cart = shopper != null ? shopper.ShoppingCart : null;
+    if (cart == null)
+        return;
+
+    cartOriginalParent = cart.parent;
+    cartWasChild = cart.IsChildOf(transform);
+    cartOriginalLocalPosition = cartWasChild ? cart.localPosition : transform.InverseTransformPoint(cart.position);
+    cartOriginalLocalRotation = cartWasChild
+        ? cart.localRotation
+        : Quaternion.Inverse(transform.rotation) * cart.rotation;
+    cartOriginalLocalScale = cart.localScale;
+
+    cartBody = cart.GetComponent<Rigidbody>();
+    if (cartBody == null)
+        cartBody = cart.gameObject.AddComponent<Rigidbody>();
+
+    cartBodyWasKinematic = cartBody.isKinematic;
+    cartBodyUsedGravity = cartBody.useGravity;
+    cartOriginalConstraints = cartBody.constraints;
+
+    Collider[] cartColliders = cart.GetComponentsInChildren<Collider>(true);
+    if (cartColliders.Length == 0)
+    {
+        Renderer[] renderers = cart.GetComponentsInChildren<Renderer>(true);
+        if (renderers.Length > 0)
         {
-            bodyCollider = gameObject.AddComponent<CapsuleCollider>();
-            bodyCollider.height = agent != null ? agent.height : 1.8f;
-            bodyCollider.radius = agent != null ? agent.radius : 0.3f;
-            bodyCollider.center = Vector3.up * (bodyCollider.height * 0.5f);
+            Bounds bounds = renderers[0].bounds;
+            for (int i = 1; i < renderers.Length; i++)
+                bounds.Encapsulate(renderers[i].bounds);
+
+            BoxCollider box = cart.gameObject.AddComponent<BoxCollider>();
+            box.center = cart.InverseTransformPoint(bounds.center);
+            Vector3 localSize = cart.InverseTransformVector(bounds.size);
+            box.size = new Vector3(Mathf.Abs(localSize.x), Mathf.Abs(localSize.y), Mathf.Abs(localSize.z));
         }
-        bodyColliderWasEnabled = bodyCollider.enabled;
-
-        bumpTrigger = gameObject.AddComponent<CapsuleCollider>();
-        bumpTrigger.height = bodyCollider.height + 0.1f;
-        bumpTrigger.radius = bodyCollider.radius + 0.1f;
-        bumpTrigger.center = bodyCollider.center;
-        bumpTrigger.isTrigger = true;
-        bumpTriggerWasEnabled = bumpTrigger.enabled;
-
-        rootBody = GetComponent<Rigidbody>();
-        if (rootBody == null)
-            rootBody = gameObject.AddComponent<Rigidbody>();
-        rootBodyWasDetectingCollisions = rootBody.detectCollisions;
-        rootBody.isKinematic = true;
-        rootBody.useGravity = false;
-        rootBody.detectCollisions = true;
-        rootBody.interpolation = RigidbodyInterpolation.Interpolate;
-
-        CaptureCart();
-        BuildRagdoll();
     }
 
-    private void CaptureCart()
+    BoxCollider cartBodyCollider = cart.GetComponent<BoxCollider>();
+    if (cartBodyCollider != null && !cartBodyCollider.isTrigger)
     {
-        cart = shopper.ShoppingCart;
-        if (cart == null)
-            return;
-
-        cartOriginalParent = cart.parent;
-        cartWasChild = cart.IsChildOf(transform);
-        cartOriginalLocalPosition = cartWasChild ? cart.localPosition : transform.InverseTransformPoint(cart.position);
-        cartOriginalLocalRotation = cartWasChild
-            ? cart.localRotation
-            : Quaternion.Inverse(transform.rotation) * cart.rotation;
-        cartOriginalLocalScale = cart.localScale;
-
-        cartBody = cart.GetComponent<Rigidbody>();
-        if (cartBody == null)
-            cartBody = cart.gameObject.AddComponent<Rigidbody>();
-
-        cartBodyWasKinematic = cartBody.isKinematic;
-        cartBodyUsedGravity = cartBody.useGravity;
-        cartOriginalConstraints = cartBody.constraints;
-
-        Collider[] cartColliders = cart.GetComponentsInChildren<Collider>(true);
-        if (cartColliders.Length == 0)
-        {
-            Renderer[] renderers = cart.GetComponentsInChildren<Renderer>(true);
-            if (renderers.Length > 0)
-            {
-                Bounds bounds = renderers[0].bounds;
-                for (int i = 1; i < renderers.Length; i++)
-                    bounds.Encapsulate(renderers[i].bounds);
-
-                BoxCollider box = cart.gameObject.AddComponent<BoxCollider>();
-                box.center = cart.InverseTransformPoint(bounds.center);
-                Vector3 localSize = cart.InverseTransformVector(bounds.size);
-                box.size = new Vector3(Mathf.Abs(localSize.x), Mathf.Abs(localSize.y), Mathf.Abs(localSize.z));
-            }
-        }
-
-        BoxCollider cartBodyCollider = cart.GetComponent<BoxCollider>();
-        if (cartBodyCollider != null && !cartBodyCollider.isTrigger)
-        {
-            BoxCollider cartBumpTrigger = cart.gameObject.AddComponent<BoxCollider>();
-            cartBumpTrigger.center = cartBodyCollider.center;
-            cartBumpTrigger.size = cartBodyCollider.size;
-            cartBumpTrigger.isTrigger = true;
-        }
-
-        cartRelay = cart.GetComponent<ShopperCartImpactRelay>();
-        if (cartRelay == null)
-            cartRelay = cart.gameObject.AddComponent<ShopperCartImpactRelay>();
-        cartRelay.Initialize(this);
-
-        MonoBehaviour[] behaviours = cart.GetComponentsInChildren<MonoBehaviour>(true);
-        for (int i = 0; i < behaviours.Length; i++)
-        {
-            if (behaviours[i] == cartRelay)
-                continue;
-
-            cartBehaviours.Add(new BehaviourState
-            {
-                behaviour = behaviours[i],
-                wasEnabled = behaviours[i].enabled
-            });
-        }
+        BoxCollider cartBumpTrigger = cart.gameObject.AddComponent<BoxCollider>();
+        cartBumpTrigger.center = cartBodyCollider.center;
+        cartBumpTrigger.size = cartBodyCollider.size;
+        cartBumpTrigger.isTrigger = true;
     }
+
+    cartRelay = cart.GetComponent<ShopperCartImpactRelay>();
+    if (cartRelay == null)
+        cartRelay = cart.gameObject.AddComponent<ShopperCartImpactRelay>();
+
+    Behaviour[] behaviours = cart.GetComponents<Behaviour>();
+    for (int i = 0; i < behaviours.Length; i++)
+    {
+        if (behaviours[i] == null || behaviours[i] == this)
+            continue;
+
+        cartBehaviours.Add(new BehaviourState
+        {
+            behaviour = behaviours[i],
+            wasEnabled = behaviours[i].enabled
+        });
+    }
+}
 
     private void BuildRagdoll()
     {
@@ -383,6 +387,18 @@ public sealed class ShopperRagdoll : MonoBehaviour
         HandleTriggerImpact(other);
     }
 
+    public void HandleThrownItemImpact(Vector3 incomingVelocity, Vector3 contactPoint)
+    {
+        if (ragdollActive || incomingVelocity.magnitude < minimumImpactSpeed)
+            return;
+
+        Vector3 launchDirection = incomingVelocity.normalized;
+        if (launchDirection.sqrMagnitude < 0.0001f)
+            launchDirection = transform.forward;
+
+        BeginRagdoll(launchDirection, incomingVelocity.magnitude, contactPoint, true);
+    }
+
     private void HandleTriggerImpact(Collider other)
     {
         if (ragdollActive || !IsPlayerCollider(other))
@@ -439,13 +455,16 @@ public sealed class ShopperRagdoll : MonoBehaviour
         return body != null && !body.isKinematic && body.CompareTag("Player");
     }
 
-    private void BeginRagdoll(Vector3 away, float impactSpeed, Vector3 contactPoint)
+    private void BeginRagdoll(Vector3 away, float impactSpeed, Vector3 contactPoint, bool thrownItem = false)
     {
         if (ragdollActive)
             return;
 
         ragdollActive = true;
         standingRotation = transform.rotation;
+
+        if (GameplaySfxPlayer.Instance != null)
+            GameplaySfxPlayer.Instance.PlayShopperFall(transform.position);
 
         if (shopper != null)
             shopper.SuspendForRagdoll();
@@ -494,9 +513,20 @@ public sealed class ShopperRagdoll : MonoBehaviour
             torso = GetPart(HumanBodyBones.Hips);
 
         float speedBonus = Mathf.Clamp(impactSpeed * 1.2f, 0f, 6f);
-        Vector3 shopperImpulse = away * (shopperPushImpulse + speedBonus) + Vector3.up * shopperUpwardImpulse;
         if (torso != null)
-            torso.body.AddForceAtPosition(shopperImpulse, contactPoint, ForceMode.Impulse);
+        {
+            if (thrownItem)
+            {
+                float charge = Mathf.InverseLerp(9f, 25f, impactSpeed);
+                Vector3 launchVelocity = away * Mathf.Lerp(14f, 24f, charge) + Vector3.up * Mathf.Lerp(10f, 16f, charge);
+                torso.body.AddForce(launchVelocity, ForceMode.VelocityChange);
+            }
+            else
+            {
+                Vector3 shopperImpulse = away * (shopperPushImpulse + speedBonus) + Vector3.up * shopperUpwardImpulse;
+                torso.body.AddForceAtPosition(shopperImpulse, contactPoint, ForceMode.Impulse);
+            }
+        }
 
         if (cartBody != null)
         {

@@ -125,6 +125,7 @@ private void Awake()
         if (!wanderOnStart || shoppingCart == null || agent == null || !agent.isOnNavMesh)
         {
             SetWalking(false);
+            UpdateCartRollAudio(false);
             return;
         }
 
@@ -132,6 +133,7 @@ private void Awake()
 
         if (isWaiting)
         {
+            UpdateCartRollAudio(false);
             waitRemaining -= Time.deltaTime;
             if (waitRemaining <= 0f)
                 ChooseNextDestination();
@@ -140,6 +142,7 @@ private void Awake()
 
         bool moving = !agent.isStopped && agent.velocity.sqrMagnitude > 0.04f;
         SetWalking(moving);
+        UpdateCartRollAudio(moving);
 
         if (agent.pathPending)
             return;
@@ -239,6 +242,15 @@ private void Awake()
             animator.SetBool("Walking", walking);
     }
 
+    private void UpdateCartRollAudio(bool rolling)
+    {
+        if (shoppingCart != null && GameplaySfxPlayer.Instance != null)
+            GameplaySfxPlayer.Instance.SetCartRolling(
+                shoppingCart,
+                rolling,
+                agent != null ? agent.velocity.magnitude : 0f);
+    }
+
     /// <summary>Bind this shopper to an already-instantiated cart model in the scene.</summary>
     public void SetShoppingCart(Transform cart)
     {
@@ -297,6 +309,7 @@ private void Awake()
 public void SuspendForRagdoll()
 {
     SetWalking(false);
+    UpdateCartRollAudio(false);
     isWaiting = true;
     if (agent != null && agent.enabled)
     {

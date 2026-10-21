@@ -20,6 +20,7 @@ public class ShoppingCartController : MonoBehaviour
 
     bool playerHolding = false;
     float cooldown = 0f;
+    float nextCrashSfxTime;
 
     void Awake()
     {
@@ -35,12 +36,12 @@ public class ShoppingCartController : MonoBehaviour
 
         Keyboard kb = Keyboard.current;
 
-        if (kb.eKey.wasPressedThisFrame && !playerHolding && cooldown <= 0f)
+        if (kb != null && kb.eKey.wasPressedThisFrame && !playerHolding && cooldown <= 0f)
         {
             playerHolding = true;
             cooldown = 2f;
         }
-        if (kb.eKey.wasReleasedThisFrame && playerHolding && cooldown <= 0f)
+        if (kb != null && kb.eKey.wasReleasedThisFrame && playerHolding && cooldown <= 0f)
         {
             playerHolding = false;
             cooldown = 2f;
@@ -52,11 +53,39 @@ public class ShoppingCartController : MonoBehaviour
             GripRearWheel();
             GripFrontWheel();
         }
+
+        // The orange storage cart is pushed by the player; shopper carts use the
+        // shopper's NavMesh speed instead of their transform-driven Rigidbody speed.
+        if (GetComponent<How2Shop.Items.ShoppingCart>() != null && rb != null)
+        {
+            float cartSpeed = rb.linearVelocity.magnitude;
+            if (GameplaySfxPlayer.Instance != null)
+                GameplaySfxPlayer.Instance.SetCartRolling(transform, cartSpeed > 0.15f, cartSpeed);
+        }
+
         if (cooldown > 0f)
         {
             cooldown -= Time.fixedDeltaTime;
         }
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision == null || Time.unscaledTime < nextCrashSfxTime)
+            return;
+
+        float impactSpeed = collision.relativeVelocity.magnitude;
+        if (impactSpeed < 2.5f)
+            return;
+
+        nextCrashSfxTime = Time.unscaledTime + 0.8f;
+        Vector3 contactPoint = collision.contactCount > 0
+            ? collision.GetContact(0).point
+            : transform.position;
+
+        if (GameplaySfxPlayer.Instance != null)
+            GameplaySfxPlayer.Instance.PlayCartCrash(contactPoint, impactSpeed);
     }
 
     void SetupRigidbody()
