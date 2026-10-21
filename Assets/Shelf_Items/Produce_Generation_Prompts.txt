@@ -1,0 +1,15 @@
+Mode: built-in image_gen, one call per item, transparent_background=true.
+
+Exact prompt template (replace SUBJECT with the corresponding subject below):
+Use case: stylized-concept. Asset type: ONE fresh produce item sprite for a retro low-poly supermarket Unity game. Subject: SUBJECT. Single centered isolated fruit or vegetable, no packaging, front view with tiny three-quarter depth, chunky crisp pixel-art on a 64x64 logical grid, bold dark navy stepped outline, simple flat bright colours, limited highlights matching retro grocery sprites. Whole item completely visible, fills 70-80 percent of square canvas with generous transparent padding. Actual transparent alpha background, no background colour, no floor, no cast shadow, no text, no labels, no watermark, no other objects.
+
+Apple: a single red apple with a short brown stem and one green leaf
+Banana: a small bunch of three ripe yellow bananas
+Orange: one whole orange with a short stem and one green leaf
+Pear: one fresh green pear with a small brown stem
+Strawberry: one ripe red strawberry with green leaves
+Carrot: a single orange carrot with a short leafy green top
+Tomato: a single ripe red tomato with green star-shaped leaves
+Potato: one light brown potato with a few darker eyes
+Broccoli: a single head of fresh green broccoli with its short thick stem
+Cucumber: a single whole dark green cucumber resting diagonally, completely visible
