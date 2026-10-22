@@ -121,11 +121,14 @@ public static class VegetableFridgeShelfBuilder
                     item.transform.SetParent(stock,false);
                     item.transform.localPosition=new Vector3((col-1)*.205f,.07f+((col+row)%2)*.014f,(row-1)*.19f);
                     float spin=((tier*7+bin*11+row*13+col*17)%47)-23;
-                    bool upright=row==2 && (type==0 || type==1 || type==3);
-                    item.transform.localRotation=Quaternion.Euler(upright?35:90,0,0)*Quaternion.Euler(0,0,spin);
+                    // Cancel the tray tilt so every vegetable sprite stands vertically.
+                    item.transform.localRotation=Quaternion.Euler(15,0,0);
                     var sprite=item.GetComponent<SpriteRenderer>();
                     var size=Vector3.Scale(sprite.sprite.bounds.size,item.transform.localScale);
                     item.transform.localScale*=Mathf.Min(.18f/size.x,.23f/size.y);
+                    var position=item.transform.localPosition;
+                    position.y=.04f-sprite.sprite.bounds.min.y*item.transform.localScale.y;
+                    item.transform.localPosition=position;
                     foreach(var collider in item.GetComponentsInChildren<Collider>())collider.enabled=false;
                 }
                 Cube(rail,"Price label",new Vector3(x,0,-.023f),new Vector3(.29f,.052f,.008f),paper);

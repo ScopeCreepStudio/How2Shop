@@ -1,0 +1,1 @@
+PASS: 13140 stocked 2D items under NewScene have local scale (0.6, 0.6, 0.6), matching the cereal reference. Upright item bases retained on shelves. Fixtures, aisle categories and source prefabs retained. Future population also uses 0.6 scale.
