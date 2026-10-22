@@ -1,0 +1,4 @@
+Placed Assets/Shelf_Items/VegetableFridgeShelf/VegetableFridgeShelf_Double.prefab in Superstore.
+World position: (6.554, 0.000, -57.983)
+Rotation: (0.0, 90.0, 0.0)
+Placement checked against existing scene colliders; floor remains below the clearance query.

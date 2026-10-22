@@ -20,4 +20,4 @@ Retained covers used the same flat, transparent-background pixel-art direction:
 - **Telex:** Dark blue newspaper masthead with teal accent, white newsprint, pixel tram and city illustration and editorial columns.
 - **Motor:** Car magazine, vivid red masthead, blue sports car on a winding road, charcoal and white typography.
 
-The original full-resolution generated PNGs are stored in Sprites. Unity imports them at a 256-pixel maximum size with Point filtering, preserving the originals for future adjustments.
+The original full-resolution generated PNGs are stored in Sprites. Unity imports them at a 64-pixel maximum size with Point filtering, preserving the originals for future adjustments.

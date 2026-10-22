@@ -67,7 +67,7 @@ public static class NewspaperStandBuilder
                 float heightFraction = (top - bottom + 1f) / raw.height;
                 float fitScale = Mathf.Min(.385f / heightFraction, .295f * raw.height / (right - left + 1f));
                 importer.spritePixelsPerUnit = 256;
-                importer.maxTextureSize = 256;
+                importer.maxTextureSize = 64;
                 importer.filterMode = FilterMode.Point;
                 importer.textureCompression = TextureImporterCompression.Uncompressed;
                 importer.mipmapEnabled = false;
@@ -226,7 +226,7 @@ public static class NewspaperStandBuilder
         if (!stand.GetComponent<BoxCollider>()) throw new Exception("Missing stand collider");
         File.WriteAllText(Stand + "/Validation.txt", "PASS: 10 unique item definitions, imported cover sprites, individual flat prefabs, valid press catalog, stocked stand with all 10 items, material references, root collider.\n");
     }
-    static void Render(GameObject root, Scene scene)
+    internal static void Render(GameObject root, Scene scene)
     {
         var cameraObject = new GameObject("Preview camera"); SceneManager.MoveGameObjectToScene(cameraObject, scene);
         var camera = cameraObject.AddComponent<Camera>(); camera.scene = scene;
@@ -240,6 +240,9 @@ public static class NewspaperStandBuilder
         var previous = RenderTexture.active;
         try
         {
+            var warmup = new RenderTexture(64, 64, 24);
+            camera.targetTexture = warmup; camera.Render(); camera.targetTexture = null;
+            warmup.Release(); UnityEngine.Object.DestroyImmediate(warmup);
             camera.targetTexture = rt; camera.Render(); RenderTexture.active = rt;
             var image = new Texture2D(1200, 1200, TextureFormat.RGB24, false);
             image.ReadPixels(new Rect(0, 0, 1200, 1200), 0, 0); image.Apply();
