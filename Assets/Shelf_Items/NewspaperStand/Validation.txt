@@ -1,0 +1,1 @@
+PASS: 10 unique item definitions, imported cover sprites, individual flat prefabs, valid press catalog, stocked stand with all 10 items, material references, root collider.

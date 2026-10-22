@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf88c732c3f87dc40be25f86513b7179, type: 3}
+  m_Name: NewspapersCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::How2Shop.Items.ItemCatalog
+  items:
+  - {fileID: 11400000, guid: bdea9ab75aa0cbe48b57a071c307f3d8, type: 2}
+  - {fileID: 11400000, guid: 2ac7eebd0260b554e95ab606ecce98d3, type: 2}
+  - {fileID: 11400000, guid: 17cc6ca8d9ab04a4d84836563b6d4f34, type: 2}
+  - {fileID: 11400000, guid: a6fb07a7c49ab884aa5d174d2d42b974, type: 2}
+  - {fileID: 11400000, guid: d5adb15f9f1fb9d469291e977bce4ab1, type: 2}
+  - {fileID: 11400000, guid: 4c70aaa46c873674196b8800e37d5b12, type: 2}
+  - {fileID: 11400000, guid: a2f8c6addd12b8749b9e6183eb5f6275, type: 2}
+  - {fileID: 11400000, guid: 012af977741297a42bcc70bf93fbdf0c, type: 2}
+  - {fileID: 11400000, guid: c7a86b99e8db89342a585e3ee4117759, type: 2}
+  - {fileID: 11400000, guid: b5e16b0acffbde5478ca18343c2f4a55, type: 2}

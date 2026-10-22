@@ -1,0 +1,5 @@
+PASS: 16 aisles in two banks of 8, 48 main gondola bays, 16 outer endcaps, six checkout lanes.
+PASS: 122 shop fixtures from AssetsReady1; 1773 stock items from existing assets.
+PASS: no ReadyAssets dependencies, no missing materials, one active gameplay camera, floor/wall/fixture collision.
+CLEARANCES: aisle pitch 3.65m minus 1.20m fixture depth = 2.45m; central cross aisle about 3.67m; entrance and exit openings 4.8m.
+Source scenes were left open and were not saved or edited by this builder.
