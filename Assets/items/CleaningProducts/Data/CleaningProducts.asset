@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf88c732c3f87dc40be25f86513b7179, type: 3}
+  m_Name: CleaningProducts
+  m_EditorClassIdentifier: Assembly-CSharp::How2Shop.Items.ItemCatalog
+  items:
+  - {fileID: 11400000, guid: 3329a892326635a4ea89ceec6caa2968, type: 2}
+  - {fileID: 11400000, guid: 7913b9a4db987ba4db696313abeff2b8, type: 2}
+  - {fileID: 11400000, guid: c935122c95b9bfc41bb0c399e28a8b3a, type: 2}
+  - {fileID: 11400000, guid: 68c667fdd3ff3214fb28cd20940cc896, type: 2}
+  - {fileID: 11400000, guid: 117e7eb09cc0a1547a6609bb083cb1ab, type: 2}
+  - {fileID: 11400000, guid: 991e2fe6066faa845bde29206613a663, type: 2}
+  - {fileID: 11400000, guid: 9081e3ddbc176e24d884b2c2967fd7a8, type: 2}
+  - {fileID: 11400000, guid: 17aa6ad3bf03cf7459044c352510db98, type: 2}
+  - {fileID: 11400000, guid: 6ca1043cef5f5e14d8fef7b4ebb9f549, type: 2}
+  - {fileID: 11400000, guid: 589e0e6b996efc64689b7e1c322f9fd4, type: 2}
+  - {fileID: 11400000, guid: 7427ce58af166d145a81670a0e05c38c, type: 2}
+  - {fileID: 11400000, guid: 03ec5ca566ac97c47b6cd292e9fc95c7, type: 2}
+  - {fileID: 11400000, guid: b9c149d25e12e61429c780a3d8b7dbb1, type: 2}
+  - {fileID: 11400000, guid: 84e0fa9bafc1f004f853ba073df4a7fe, type: 2}
+  - {fileID: 11400000, guid: a94b6062055d9204ab6a8d02560308e4, type: 2}

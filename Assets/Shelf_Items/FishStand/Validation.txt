@@ -1,0 +1,1 @@
+PASS: six transparent fish sprites, six independent materials, definitions and prefabs; valid FishCatalog; 24 fish on six ice trays; all renderer materials assigned; stocked/empty stand prefabs and collider.

@@ -1,1 +1,0 @@
-PASS: five distinct 2D bakery items, five definitions and prefabs, valid BakeryCatalog, 75 stocked sprites, assigned materials, empty/stocked stand variants and root collider.
