@@ -19,7 +19,7 @@ public static class CleaningProductsBuilder
     public static void Build()
     {
         var entries=JsonUtility.FromJson<Entries>(File.ReadAllText(Root+"/Editor/items.json")).items;
-        var milk=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Shelf_Items/Prefabs/Cereal.prefab");
+        var milk=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/ITEMS_1/Cereals/Prefabs/Cereal.prefab");
         var sourceMaterial=milk.GetComponent<SpriteRenderer>().sharedMaterial;
         if(!sourceMaterial)sourceMaterial=AssetDatabase.GetBuiltinExtraResource<Material>("Sprites-Default.mat");
         string mp=Root+"/Materials/ShelfItems.mat";var material=AssetDatabase.LoadAssetAtPath<Material>(mp);

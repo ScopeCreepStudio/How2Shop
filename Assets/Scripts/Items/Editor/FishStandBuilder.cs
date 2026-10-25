@@ -54,7 +54,7 @@ public static class FishStandBuilder
                 var so=new SerializedObject(data);so.FindProperty("id").stringValue="fish_"+Names[i].ToLowerInvariant();so.FindProperty("displayName").stringValue=Labels[i];so.FindProperty("pricePence").intValue=Prices[i];so.FindProperty("icon").objectReferenceValue=sprite;so.FindProperty("worldSprite").objectReferenceValue=sprite;
                 var tags=so.FindProperty("tags");tags.arraySize=3;tags.GetArrayElementAtIndex(0).stringValue="fish";tags.GetArrayElementAtIndex(1).stringValue="fresh";tags.GetArrayElementAtIndex(2).stringValue="food";so.ApplyModifiedPropertiesWithoutUndo();definitions[i]=data;
                 string mp=Items+"/Materials/"+Names[i]+".mat";var mat=AssetDatabase.LoadAssetAtPath<Material>(mp);
-                if(!mat){mat=new Material(AssetDatabase.LoadAssetAtPath<Material>("Assets/Shelf_Items/Materials/Cereal.mat"));AssetDatabase.CreateAsset(mat,mp);}mat.SetTexture("_Artwork",sprite.texture);EditorUtility.SetDirty(mat);
+                if(!mat){mat=new Material(AssetDatabase.LoadAssetAtPath<Material>("Assets/ITEMS_1/Cereals/Materials/Cereal.mat"));AssetDatabase.CreateAsset(mat,mp);}mat.SetTexture("_Artwork",sprite.texture);EditorUtility.SetDirty(mat);
                 var go=new GameObject(Names[i]);SceneManager.MoveGameObjectToScene(go,scene);go.AddComponent<SpriteRenderer>().sharedMaterial=mat;go.AddComponent<ItemSpriteView>().SetItem(data);go.transform.localScale=Vector3.one*(.43f/(sprite.bounds.size.x*fraction));
                 prefabs[i]=PrefabUtility.SaveAsPrefabAsset(go,Items+"/Prefabs/"+Names[i]+".prefab");UnityEngine.Object.DestroyImmediate(go);
             }

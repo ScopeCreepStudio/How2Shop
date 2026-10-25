@@ -1,0 +1,2 @@
+PASS: 12 new bakery products, 118 products on 84 previously empty trays in 9 display fixtures, plus 150 replaced pastry stand items. Scene saved; all bakery sprites, data and materials validated.
+PASS: saved scene reloaded and all target shelf references verified; all bakery prefabs verified.

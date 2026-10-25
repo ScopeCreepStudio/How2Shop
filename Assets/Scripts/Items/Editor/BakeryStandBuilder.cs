@@ -50,7 +50,7 @@ public static class BakeryStandBuilder
                 so.FindProperty("icon").objectReferenceValue=sprite;so.FindProperty("worldSprite").objectReferenceValue=sprite;
                 var tags=so.FindProperty("tags");tags.arraySize=2;tags.GetArrayElementAtIndex(0).stringValue="bakery";tags.GetArrayElementAtIndex(1).stringValue="food";so.ApplyModifiedPropertiesWithoutUndo();definitions[i]=data;
                 var mat=AssetDatabase.LoadAssetAtPath<Material>(Items+"/Materials/"+Names[i]+".mat");
-                if(!mat){mat=new Material(AssetDatabase.LoadAssetAtPath<Material>("Assets/Shelf_Items/Materials/Cereal.mat"));AssetDatabase.CreateAsset(mat,Items+"/Materials/"+Names[i]+".mat");}
+                if(!mat){mat=new Material(AssetDatabase.LoadAssetAtPath<Material>("Assets/ITEMS_1/Cereals/Materials/Cereal.mat"));AssetDatabase.CreateAsset(mat,Items+"/Materials/"+Names[i]+".mat");}
                 mat.SetTexture("_Artwork",sprite.texture);EditorUtility.SetDirty(mat);
                 var go=new GameObject(Names[i]);SceneManager.MoveGameObjectToScene(go,scene);go.AddComponent<SpriteRenderer>().sharedMaterial=mat;go.AddComponent<ItemSpriteView>().SetItem(data);
                 go.transform.localScale=Vector3.one*(.29f/Mathf.Max(sprite.bounds.size.x,sprite.bounds.size.y));

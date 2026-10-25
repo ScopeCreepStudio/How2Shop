@@ -103,7 +103,7 @@ public static class NewspaperStandBuilder
                 var spriteMaterial = AssetDatabase.LoadAssetAtPath<Material>(Items + "/Materials/" + Names[i] + ".mat");
                 if (!spriteMaterial)
                 {
-                    var source = AssetDatabase.LoadAssetAtPath<Material>("Assets/Shelf_Items/Materials/Cereal.mat");
+                    var source = AssetDatabase.LoadAssetAtPath<Material>("Assets/ITEMS_1/Cereals/Materials/Cereal.mat");
                     if (!source) throw new Exception("Missing existing shelf sprite material");
                     spriteMaterial = new Material(source);
                     AssetDatabase.CreateAsset(spriteMaterial, Items + "/Materials/" + Names[i] + ".mat");
