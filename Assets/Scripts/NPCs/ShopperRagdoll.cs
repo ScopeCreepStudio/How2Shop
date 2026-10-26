@@ -491,7 +491,6 @@ private void CaptureCart()
         away.Normalize();
 
         Vector3 contactPoint = collision.contactCount > 0 ? collision.GetContact(0).point : transform.position;
-        ShoppingCartController attackingCart = collision.collider.GetComponentInParent<ShoppingCartController>();
         if (attackingCart != null)
         {
             Rigidbody attackerBody = collision.rigidbody != null

@@ -49,7 +49,7 @@ public sealed class ShelfArtworkAutoFit : AssetPostprocessor
                 left = Math.Min(left, x); right = Math.Max(right, x);
                 bottom = Math.Min(bottom, y); top = Math.Max(top, y);
             }
-            if (right < left) throw new InvalidDataException("Picture is completely transparent: " + path);
+            if (right < left) return new RectInt(0, 0, 0, 0);
             return new RectInt(left, bottom, right - left + 1, top - bottom + 1);
         }
         finally { UnityEngine.Object.DestroyImmediate(image); }
@@ -60,6 +60,7 @@ public sealed class ShelfArtworkAutoFit : AssetPostprocessor
     static void Configure(TextureImporter importer, string path)
     {
         var visible = VisiblePixels(path, out int width, out int height);
+        if (visible.width == 0 || visible.height == 0) return;
         importer.textureType = TextureImporterType.Sprite;
         importer.spriteImportMode = SpriteImportMode.Single;
         importer.spritePixelsPerUnit = PixelsPerUnit(visible);
@@ -131,6 +132,7 @@ public sealed class ShelfArtworkAutoFit : AssetPostprocessor
             var product = AssetDatabase.LoadAssetAtPath<GameObject>(file.Replace('\\', '/'));
             var renderer = product.GetComponent<SpriteRenderer>();
             var visible = VisiblePixels(AssetDatabase.GetAssetPath(renderer.sprite), out int width, out int height);
+            if (visible.width == 0 || visible.height == 0) continue;
             float w = renderer.bounds.size.x * visible.width / width;
             float h = renderer.bounds.size.y * visible.height / height;
             if (w > Width + .005f || h > Height + .005f || (Mathf.Abs(w - Width) > .005f && Mathf.Abs(h - Height) > .005f))
