@@ -184,7 +184,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4880630782644894190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4354662ed6537646b9cb486c0fb718d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d240cce511d46e47bac8b5d2369686e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::How2Shop.Items.PlayerItemInteraction
   playerCamera: {fileID: 0}

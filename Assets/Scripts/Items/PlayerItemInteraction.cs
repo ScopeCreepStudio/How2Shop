@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using How2Shop.Chaos;
 
 namespace How2Shop.Items
 {
@@ -225,6 +226,10 @@ private void UpdateThrowInput()
             var itemCart = item.GetComponentInParent<ShoppingCart>();
             bool fromCart = itemCart != null && itemCart.TryRemove(item, out cartKinematic);
 
+        ThrownItemImpactRelay priorImpactRelay = item.GetComponent<ThrownItemImpactRelay>();
+        if (priorImpactRelay != null)
+            priorImpactRelay.ClearThrowOwnership();
+
             HeldItem = item;
             originalParent = item.transform.parent;
             ResetCharge();
@@ -306,7 +311,12 @@ private void UpdateThrowInput()
             body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             body.linearVelocity = playerCamera.forward * speed + Vector3.up * throwLift;
             body.angularVelocity = playerCamera.right * 3f;
-            EnsureItemImpactRelay(item);
+            ThrownItemImpactRelay impactRelay = EnsureItemImpactRelay(item);
+            impactRelay.MarkThrownByPlayer(gameObject);
+
+            ChaosManager chaosManager = ChaosManager.Instance;
+            if (chaosManager != null)
+                chaosManager.ReportEvent(ChaosEventType.ItemThrown, item.gameObject, gameObject);
 
             Debug.Log($"Threw {DescribeItem(item)} at {speed:0.0} m/s");
             ClearHeldState();
@@ -353,15 +363,16 @@ private void UpdateThrowInput()
             }
         }
 
-private static void EnsureItemImpactRelay(ItemSpriteView item)
+private static ThrownItemImpactRelay EnsureItemImpactRelay(ItemSpriteView item)
 {
     if (item == null)
-        return;
+        return null;
 
     ThrownItemImpactRelay relay = item.GetComponent<ThrownItemImpactRelay>();
     if (relay == null)
         relay = item.gameObject.AddComponent<ThrownItemImpactRelay>();
     relay.SetCharacterRagdollEnabled(true);
+    return relay;
 }
 
         private void ClearHeldState()

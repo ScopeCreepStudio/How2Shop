@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using How2Shop.Chaos;
 
 /// <summary>
 /// Gives a shopper a temporary physics ragdoll when the player bumps into them,
@@ -166,6 +167,7 @@ private void CaptureCart()
     cartRelay = cart.GetComponent<ShopperCartImpactRelay>();
     if (cartRelay == null)
         cartRelay = cart.gameObject.AddComponent<ShopperCartImpactRelay>();
+    cartRelay.Initialize(this);
 
     Behaviour[] behaviours = cart.GetComponents<Behaviour>();
     for (int i = 0; i < behaviours.Length; i++)
@@ -401,17 +403,38 @@ private void CaptureCart()
 
     private void HandleTriggerImpact(Collider other)
     {
-        if (ragdollActive || !IsPlayerCollider(other))
+        if (other == null || ragdollActive)
+            return;
+
+        ShoppingCartController playerCart = other.GetComponentInParent<ShoppingCartController>();
+        if (playerCart != null)
+        {
+            Rigidbody cartRigidbody = other.attachedRigidbody;
+            float cartSpeed = cartRigidbody != null ? cartRigidbody.linearVelocity.magnitude : playerCart.CurrentSpeed;
+            ReportPlayerTrolleyImpact(playerCart, cartSpeed);
+        }
+
+        if (!IsPlayerCollider(other))
             return;
 
         float impactSpeed = agent != null && agent.enabled ? agent.velocity.magnitude : 0f;
+        float playerSpeed = 0f;
         if (other.attachedRigidbody != null)
             impactSpeed += other.attachedRigidbody.linearVelocity.magnitude;
         CharacterController controller = other.GetComponentInParent<CharacterController>();
         if (controller != null)
-            impactSpeed += controller.velocity.magnitude;
+        {
+            playerSpeed = controller.velocity.magnitude;
+            impactSpeed += playerSpeed;
+        }
+        else if (other.attachedRigidbody != null)
+        {
+            playerSpeed = other.attachedRigidbody.linearVelocity.magnitude;
+        }
         if (impactSpeed < minimumImpactSpeed)
             return;
+
+        ReportPlayerBodyImpact(other, playerSpeed);
 
         Vector3 away = transform.position - other.bounds.center;
         away.y = 0f;
@@ -423,12 +446,22 @@ private void CaptureCart()
 
     private void HandleImpact(Collision collision)
     {
-        if (ragdollActive || collision == null || collision.collider == null || !IsPlayerCollider(collision.collider))
+        if (collision == null || collision.collider == null)
             return;
 
         float impactSpeed = collision.relativeVelocity.magnitude;
+        ShoppingCartController playerCart = collision.collider.GetComponentInParent<ShoppingCartController>();
+        if (playerCart != null)
+            ReportPlayerTrolleyImpact(playerCart, impactSpeed);
+
+        if (ragdollActive || !IsPlayerCollider(collision.collider))
+            return;
+
         if (impactSpeed < minimumImpactSpeed)
             return;
+
+        float playerSpeed = GetPlayerMovementSpeed(collision.collider);
+        ReportPlayerBodyImpact(collision.collider, playerSpeed);
 
         Vector3 away = transform.position - collision.collider.bounds.center;
         away.y = 0f;
@@ -438,6 +471,46 @@ private void CaptureCart()
 
         Vector3 contactPoint = collision.contactCount > 0 ? collision.GetContact(0).point : transform.position;
         BeginRagdoll(away, impactSpeed, contactPoint);
+    }
+
+    private static float GetPlayerMovementSpeed(Collider playerCollider)
+    {
+        CharacterController controller = playerCollider.GetComponentInParent<CharacterController>();
+        if (controller != null)
+            return controller.velocity.magnitude;
+
+        Rigidbody body = playerCollider.attachedRigidbody;
+        return body != null ? body.linearVelocity.magnitude : 0f;
+    }
+
+    public void ReportPlayerTrolleyImpact(ShoppingCartController playerCart, float impactSpeed)
+    {
+        if (playerCart == null || !playerCart.IsPlayerDrivenCart || !playerCart.WasRecentlyPushedByPlayer)
+            return;
+
+        ChaosManager manager = ChaosManager.Instance;
+        if (manager != null)
+            manager.ReportEvent(ChaosEventType.PushTrolleyIntoShopper, gameObject, playerCart.gameObject, impactSpeed);
+    }
+
+    private void ReportPlayerBodyImpact(Collider playerCollider, float impactSpeed)
+    {
+        PlayerMovement movement = playerCollider.GetComponentInParent<PlayerMovement>();
+        ReportPlayerMovementImpact(movement, impactSpeed);
+    }
+
+    public void ReportPlayerMovementImpact(PlayerMovement movement, float impactSpeed)
+    {
+        if (movement == null || ragdollActive)
+            return;
+
+        ChaosEventType eventType = movement.IsSprinting
+            ? ChaosEventType.PlayerSprintIntoShopper
+            : ChaosEventType.PlayerWalkIntoShopper;
+
+        ChaosManager manager = ChaosManager.Instance;
+        if (manager != null)
+            manager.ReportEvent(eventType, gameObject, movement.gameObject, impactSpeed);
     }
 
     private static bool IsPlayerCollider(Collider other)

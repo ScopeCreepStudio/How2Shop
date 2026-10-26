@@ -1,5 +1,6 @@
 using UnityEngine;
 using How2Shop.Items;
+using How2Shop.Chaos;
 
 /// <summary>Turns a thrown item impact into a shopper ragdoll hit.</summary>
 [DisallowMultipleComponent]
@@ -9,6 +10,9 @@ public sealed class ThrownItemImpactRelay : MonoBehaviour
     private bool hasHitShopper;
     private bool allowCharacterRagdoll = true;
     private bool hasPlayedImpactSfx;
+    [SerializeField, Min(0f)] private float playerThrowAttributionSeconds = 12f;
+    private GameObject playerThrowOwner;
+    private float playerThrowOwnershipExpiresAt;
 
     private void Awake()
     {
@@ -27,6 +31,30 @@ private void OnCollisionEnter(Collision collision)
         ? collision.GetContact(0).point
         : collision.collider.bounds.center;
 
+    float impactSpeed = collision.relativeVelocity.magnitude;
+    ShopperRagdoll characterRagdoll = collision.collider.GetComponentInParent<ShopperRagdoll>();
+    if (playerThrowOwner != null && Time.time <= playerThrowOwnershipExpiresAt)
+    {
+        ChaosManager chaosManager = ChaosManager.Instance;
+        if (chaosManager != null)
+        {
+            if (characterRagdoll != null)
+            {
+                chaosManager.ReportEvent(
+                    ChaosEventType.ItemHitShopper,
+                    characterRagdoll.gameObject,
+                    playerThrowOwner,
+                    impactSpeed);
+            }
+            else
+            {
+                ChaosImpactTarget target = collision.collider.GetComponentInParent<ChaosImpactTarget>();
+                if (target != null)
+                    target.TryReportImpact(ChaosImpactSource.ThrownItem, playerThrowOwner, impactSpeed);
+            }
+        }
+    }
+
     if (!hasPlayedImpactSfx)
     {
         hasPlayedImpactSfx = true;
@@ -37,7 +65,6 @@ private void OnCollisionEnter(Collision collision)
     if (!allowCharacterRagdoll || hasHitShopper)
         return;
 
-    ShopperRagdoll characterRagdoll = collision.collider.GetComponentInParent<ShopperRagdoll>();
     if (characterRagdoll == null)
         return;
 
@@ -54,5 +81,17 @@ private void OnCollisionEnter(Collision collision)
 public void SetCharacterRagdollEnabled(bool enabled)
 {
     allowCharacterRagdoll = enabled;
+}
+
+public void MarkThrownByPlayer(GameObject owner)
+{
+    playerThrowOwner = owner;
+    playerThrowOwnershipExpiresAt = owner != null ? Time.time + playerThrowAttributionSeconds : 0f;
+}
+
+public void ClearThrowOwnership()
+{
+    playerThrowOwner = null;
+    playerThrowOwnershipExpiresAt = 0f;
 }
 }

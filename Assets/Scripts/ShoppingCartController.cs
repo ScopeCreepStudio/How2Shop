@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using How2Shop.Chaos;
 
 public class ShoppingCartController : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class ShoppingCartController : MonoBehaviour
     bool playerHolding = false;
     float cooldown = 0f;
     float nextCrashSfxTime;
+    float lastPlayerPushTime = -1000f;
+
+    public bool IsPlayerDrivenCart => GetComponent<How2Shop.Items.ShoppingCart>() != null;
+    public bool WasRecentlyPushedByPlayer => IsPlayerDrivenCart && Time.time - lastPlayerPushTime <= 0.8f;
+    public float CurrentSpeed => rb != null ? rb.linearVelocity.magnitude : playerVel.magnitude;
 
     void Awake()
     {
@@ -49,6 +55,8 @@ public class ShoppingCartController : MonoBehaviour
         if (playerHolding)
         {
             UpdatePlayerVelocity();
+            if (playerVel.sqrMagnitude > 0.25f)
+                lastPlayerPushTime = Time.time;
             PullHandle();
             GripRearWheel();
             GripFrontWheel();
@@ -72,11 +80,32 @@ public class ShoppingCartController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision == null || Time.unscaledTime < nextCrashSfxTime)
+        if (collision == null)
             return;
 
         float impactSpeed = collision.relativeVelocity.magnitude;
-        if (impactSpeed < 2.5f)
+        if (IsPlayerDrivenCart && WasRecentlyPushedByPlayer)
+        {
+            ShopperRagdoll shopper = collision.collider.GetComponentInParent<ShopperRagdoll>();
+            if (shopper != null)
+            {
+                shopper.ReportPlayerTrolleyImpact(this, impactSpeed);
+            }
+            else
+            {
+                ShopperCartImpactRelay shopperCartRelay = collision.collider.GetComponentInParent<ShopperCartImpactRelay>();
+                if (shopperCartRelay != null)
+                    shopperCartRelay.ReportPlayerTrolleyImpact(this, impactSpeed);
+                else
+                {
+                    ChaosImpactTarget chaosTarget = collision.collider.GetComponentInParent<ChaosImpactTarget>();
+                    if (chaosTarget != null)
+                        chaosTarget.TryReportImpact(ChaosImpactSource.PlayerTrolley, gameObject, impactSpeed);
+                }
+            }
+        }
+
+        if (Time.unscaledTime < nextCrashSfxTime || impactSpeed < 2.5f)
             return;
 
         nextCrashSfxTime = Time.unscaledTime + 0.8f;

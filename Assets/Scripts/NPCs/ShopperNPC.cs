@@ -60,7 +60,7 @@ public sealed class ShopperNPC : MonoBehaviour
 
 private void Awake()
 {
-    destinationPath = new NavMeshPath();
+    EnsureDestinationPath();
 
     if (animator == null)
         animator = GetComponent<Animator>();
@@ -99,6 +99,12 @@ private void Awake()
     if (GetComponent<ShopperRagdoll>() == null)
         gameObject.AddComponent<ShopperRagdoll>();
 }
+
+    private void OnEnable()
+    {
+        // Enter Play Mode can keep scene objects alive without rerunning Awake.
+        EnsureDestinationPath();
+    }
 
     private void Start()
     {
@@ -168,6 +174,7 @@ private void Awake()
 
     private void ChooseNextDestination()
     {
+        EnsureDestinationPath();
         if (agent == null || !agent.isOnNavMesh || shoppingCart == null)
         {
             BeginPause();
@@ -202,6 +209,12 @@ private void Awake()
         }
 
         BeginPause();
+    }
+
+    private void EnsureDestinationPath()
+    {
+        if (destinationPath == null)
+            destinationPath = new NavMeshPath();
     }
 
     private void BeginPause()

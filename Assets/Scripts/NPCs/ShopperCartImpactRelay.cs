@@ -11,6 +11,12 @@ public sealed class ShopperCartImpactRelay : MonoBehaviour
         shopperRagdoll = owner;
     }
 
+    public void ReportPlayerTrolleyImpact(ShoppingCartController playerCart, float impactSpeed)
+    {
+        if (shopperRagdoll != null)
+            shopperRagdoll.ReportPlayerTrolleyImpact(playerCart, impactSpeed);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (shopperRagdoll != null)
