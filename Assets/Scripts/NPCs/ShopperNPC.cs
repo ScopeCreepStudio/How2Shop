@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Makes a Humanoid shopper wander to random reachable points while keeping both hands
@@ -24,6 +27,16 @@ public sealed class ShopperNPC : MonoBehaviour
     [SerializeField] private AudioClip fallingScreamClip;
     [SerializeField] private AudioClip landingClip;
     [SerializeField] private AudioClip recoveryClip;
+
+    [Header("Shopper voice lines")]
+    [SerializeField] private bool voiceLinesEnabled = true;
+    [SerializeField, Min(1f)] private float passingPlayerRadius = 5.5f;
+    [SerializeField, Min(1f)] private float voiceHearingRadius = 12f;
+    [SerializeField, Min(1f)] private float blockingDistance = 3f;
+    [SerializeField, Min(0.25f)] private float blockingLineDelay = 2.25f;
+    [SerializeField, Min(0f)] private float blockingVoiceCooldown = 9f;
+    [SerializeField, Min(0f)] private float collisionVoiceCooldown = 3f;
+    [SerializeField] private Vector2 idleVoiceInterval = new Vector2(16f, 28f);
 
     [Header("Cart local grip points")]
     [Tooltip("Used without an explicit Left Hand Grip. Assumes the cart faces +Z.")]
@@ -57,7 +70,21 @@ public sealed class ShopperNPC : MonoBehaviour
     private float externalCartHeight;
     private AudioSource cartAudio;
     private AudioSource effectsAudio;
+    private AudioSource voiceAudio;
     private bool ragdollLandingPlayed;
+    private AudioClip[] blockingVoiceLines = Array.Empty<AudioClip>();
+    private AudioClip[] collisionVoiceLines = Array.Empty<AudioClip>();
+    private AudioClip[] idleVoiceLines = Array.Empty<AudioClip>();
+    private AudioClip[] passingVoiceLines = Array.Empty<AudioClip>();
+    private PlayerMovement playerMovement;
+    private AudioClip lastVoiceLine;
+    private bool wasPlayerNear;
+    private bool pendingPassingVoice;
+    private float blockedPlayerDuration;
+    private float nextCollisionVoiceAt;
+    private float nextBlockingVoiceAt;
+    private float nextPassingVoiceAt;
+    private float nextIdleVoiceAt;
 
     public Transform ShoppingCart => shoppingCart;
     public Animator CharacterAnimator => animator;
@@ -119,6 +146,19 @@ private void Awake()
     effectsAudio.spatialBlend = 1f;
     effectsAudio.maxDistance = 30f;
 
+    voiceAudio = gameObject.AddComponent<AudioSource>();
+    voiceAudio.playOnAwake = false;
+    voiceAudio.loop = false;
+    voiceAudio.spatialBlend = 1f;
+    voiceAudio.volume = 0.9f;
+    voiceAudio.minDistance = 1.5f;
+    voiceAudio.maxDistance = voiceHearingRadius;
+    voiceAudio.rolloffMode = AudioRolloffMode.Logarithmic;
+    voiceAudio.dopplerLevel = 0f;
+    LoadVoiceLines();
+    nextIdleVoiceAt = Time.time + Random.Range(5f, 12f);
+    playerMovement = FindFirstObjectByType<PlayerMovement>();
+
     if (GetComponent<ShopperRagdoll>() == null)
         gameObject.AddComponent<ShopperRagdoll>();
 }
@@ -151,6 +191,8 @@ private void Awake()
 
     private void Update()
     {
+        UpdateVoiceReactions();
+
         if (!wanderOnStart || shoppingCart == null || agent == null || !agent.isOnNavMesh)
         {
             SetWalking(false);
@@ -239,6 +281,147 @@ private void Awake()
     {
         if (destinationPath == null)
             destinationPath = new NavMeshPath();
+    }
+
+    private void LoadVoiceLines()
+    {
+        if (!voiceLinesEnabled)
+            return;
+
+        AudioClip[] allLines = Resources.LoadAll<AudioClip>("Shopper1_Voice_Clips");
+        blockingVoiceLines = FilterVoiceLines(allLines, "BlockingIsle_");
+        collisionVoiceLines = FilterVoiceLines(allLines, "Collisions_");
+        idleVoiceLines = FilterVoiceLines(allLines, "IdleConversations_");
+        passingVoiceLines = FilterVoiceLines(allLines, "PassingPlayer_");
+
+        if (allLines.Length == 0)
+            Debug.LogWarning(name + " could not load voice lines from Resources/Shopper1_Voice_Clips.", this);
+    }
+
+    private static AudioClip[] FilterVoiceLines(AudioClip[] source, string prefix)
+    {
+        var matches = new List<AudioClip>();
+        for (int i = 0; i < source.Length; i++)
+        {
+            AudioClip clip = source[i];
+            if (clip != null && clip.name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                matches.Add(clip);
+        }
+
+        matches.Sort((left, right) => string.Compare(left.name, right.name, StringComparison.OrdinalIgnoreCase));
+        return matches.ToArray();
+    }
+
+    private void UpdateVoiceReactions()
+    {
+        if (!voiceLinesEnabled || voiceAudio == null)
+            return;
+
+        if (playerMovement == null)
+            playerMovement = FindFirstObjectByType<PlayerMovement>();
+        if (playerMovement == null || !playerMovement.isActiveAndEnabled)
+            return;
+
+        float playerDistance = Vector3.Distance(transform.position, playerMovement.transform.position);
+        bool insidePassingRadius = playerDistance <= passingPlayerRadius;
+        if (insidePassingRadius && !wasPlayerNear)
+            pendingPassingVoice = true;
+
+        if (!insidePassingRadius && playerDistance > passingPlayerRadius + 1.5f)
+        {
+            wasPlayerNear = false;
+            pendingPassingVoice = false;
+        }
+        else if (insidePassingRadius)
+        {
+            wasPlayerNear = true;
+        }
+
+        if (pendingPassingVoice && insidePassingRadius &&
+            TryPlayVoiceLine(passingVoiceLines, ref nextPassingVoiceAt, 12f, false, 0.9f))
+            pendingPassingVoice = false;
+
+        if (playerDistance <= voiceHearingRadius && IsShopperIdleForVoice() &&
+            Time.time >= nextIdleVoiceAt &&
+            TryPlayVoiceLine(idleVoiceLines, ref nextIdleVoiceAt, 0f, false, 0.75f))
+        {
+            float shortest = Mathf.Min(idleVoiceInterval.x, idleVoiceInterval.y);
+            float longest = Mathf.Max(idleVoiceInterval.x, idleVoiceInterval.y);
+            nextIdleVoiceAt = Time.time + Random.Range(shortest, longest);
+        }
+
+        if (IsPlayerBlockingPath())
+            blockedPlayerDuration += Time.deltaTime;
+        else
+            blockedPlayerDuration = 0f;
+
+        if (blockedPlayerDuration >= blockingLineDelay &&
+            TryPlayVoiceLine(blockingVoiceLines, ref nextBlockingVoiceAt, blockingVoiceCooldown, false, 0.95f))
+            blockedPlayerDuration = 0f;
+    }
+
+    private bool IsShopperIdleForVoice()
+    {
+        if (isWaiting)
+            return true;
+
+        return agent != null && agent.enabled && agent.isOnNavMesh && !agent.pathPending &&
+               !agent.hasPath && agent.velocity.sqrMagnitude < 0.04f;
+    }
+
+    private bool IsPlayerBlockingPath()
+    {
+        if (playerMovement == null || agent == null || !agent.enabled || !agent.isOnNavMesh ||
+            !agent.hasPath || agent.pathPending || agent.isStopped || isWaiting ||
+            agent.remainingDistance <= agent.stoppingDistance + 0.35f)
+            return false;
+
+        Vector3 toPlayer = playerMovement.transform.position - transform.position;
+        toPlayer.y = 0f;
+        float distance = toPlayer.magnitude;
+        if (distance < 0.1f || distance > blockingDistance)
+            return false;
+
+        Vector3 heading = agent.steeringTarget - transform.position;
+        heading.y = 0f;
+        if (heading.sqrMagnitude < 0.01f)
+            heading = transform.forward;
+        heading.Normalize();
+
+        Vector3 towardPlayer = toPlayer / distance;
+        bool playerIsAhead = Vector3.Dot(heading, towardPlayer) > 0.55f &&
+                             Vector3.Cross(heading, towardPlayer).magnitude < 0.9f;
+        return playerIsAhead && agent.velocity.sqrMagnitude < 0.09f;
+    }
+
+    private bool TryPlayVoiceLine(
+        AudioClip[] lines,
+        ref float nextAllowedAt,
+        float cooldown,
+        bool interruptCurrent,
+        float volume)
+    {
+        if (!voiceLinesEnabled || voiceAudio == null || lines == null || lines.Length == 0 ||
+            Time.time < nextAllowedAt)
+            return false;
+
+        if (voiceAudio.isPlaying)
+        {
+            if (!interruptCurrent)
+                return false;
+            voiceAudio.Stop();
+        }
+
+        AudioClip selected = lines[Random.Range(0, lines.Length)];
+        if (selected == lastVoiceLine && lines.Length > 1)
+            selected = lines[(Array.IndexOf(lines, selected) + 1) % lines.Length];
+        if (selected == null)
+            return false;
+
+        voiceAudio.PlayOneShot(selected, volume);
+        lastVoiceLine = selected;
+        nextAllowedAt = Time.time + cooldown;
+        return true;
     }
 
     private void BeginPause()
@@ -347,6 +530,7 @@ public void SuspendForRagdoll()
 {
     if (cartAudio != null) cartAudio.volume = 0f;
     ragdollLandingPlayed = false;
+    PlayCollisionVoiceLine();
     PlayShopperSound(impactClip, 0.9f);
     PlayShopperSound(fallClip, 0.85f);
     PlayShopperSound(fallingScreamClip, 0.8f);
@@ -369,6 +553,11 @@ public void NotifyRagdollLanding(float impactSpeed)
     if (ragdollLandingPlayed || impactSpeed < 1.1f) return;
     ragdollLandingPlayed = true;
     PlayShopperSound(landingClip, 1f);
+}
+
+public void PlayCollisionVoiceLine()
+{
+    TryPlayVoiceLine(collisionVoiceLines, ref nextCollisionVoiceAt, collisionVoiceCooldown, true, 1f);
 }
 
 private void PlayShopperSound(AudioClip clip, float volume)

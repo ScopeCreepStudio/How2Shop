@@ -528,6 +528,9 @@ private void CaptureCart()
         if (playerCart == null || !playerCart.IsPlayerDrivenCart || !playerCart.WasRecentlyPushedByPlayer)
             return;
 
+        if (shopper != null)
+            shopper.PlayCollisionVoiceLine();
+
         ChaosManager manager = ChaosManager.Instance;
         if (manager != null)
             manager.ReportEvent(ChaosEventType.PushTrolleyIntoShopper, gameObject, playerCart.gameObject, impactSpeed);
@@ -543,6 +546,9 @@ private void CaptureCart()
     {
         if (movement == null || ragdollActive)
             return;
+
+        if (shopper != null)
+            shopper.PlayCollisionVoiceLine();
 
         ChaosEventType eventType = movement.IsSprinting
             ? ChaosEventType.PlayerSprintIntoShopper
