@@ -1,0 +1,13 @@
+Fruit and vegetables
+
+The 10 new items are Apple, Banana, Orange, Pear, Strawberry, Carrot, Tomato, Potato, Broccoli, and Cucumber.
+
+PNGs: Sprites/<name>.png
+Prefabs: Prefabs/<name>.prefab
+Matching materials and item definitions are in Materials and Data.
+
+Replace any named PNG using the same filename and keep its .meta file. The automatic picture fitter preserves its proportions and fits it to the same shelf size as the other items. Use a transparent PNG.
+
+New item prices are editable example prices in Data. The items are added to ShelfItemsCatalog and are ready to place yourself.
+
+The PNGs were created with the built-in image generation tool. The exact prompt template and subjects are in Produce_Generation_Prompts.txt.

@@ -1,0 +1,2 @@
+PASS: 4 angled tiers, 16 removable slatted crates, 144 existing vegetable items per bay, 288 in joined double bay.
+PASS: stocked, empty and double prefabs; cabinet collision; separate editable materials; UVs on every mesh; canopy lighting and price labels.

@@ -1,0 +1,3 @@
+Generated using the built-in image-generation tool.
+Prompt: One transparent 4-by-4 production Unity sprite atlas containing 16 front-facing self-care products. Detailed shaded hand-painted pixel art with varied retail silhouettes and illustrated ingredient labels: shampoo, conditioner, shower gel, body wash, hand wash, body lotion, face wash, hand cream, toothpaste, mouthwash, deodorant, roll-on, shaving foam, soap, face cream and hair mask. No shelves, background or real brand logos.
+Full generation prompt is recorded in the chat tool call.

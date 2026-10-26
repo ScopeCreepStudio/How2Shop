@@ -40,10 +40,18 @@ public class PlayerMovement : MonoBehaviour
     private bool viewBobbingEnabled = true;
     private bool isSprinting;
     private bool movementInputLocked;
+    private bool cartBoostActive;
+    private float cartBoostMultiplier = 1f;
 
     public bool ViewBobbingEnabled => viewBobbingEnabled;
     public bool IsSprinting => isSprinting;
     public bool IsMovementInputLocked => movementInputLocked;
+
+    public void SetCartBoost(bool active, float multiplier)
+    {
+        cartBoostActive = active;
+        cartBoostMultiplier = Mathf.Max(1f, multiplier);
+    }
 
     private void Awake()
     {
@@ -118,7 +126,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = Vector3.ClampMagnitude(transform.right * x + transform.forward * z, 1f);
         bool sprinting = move.sqrMagnitude > 0.01f && sprintInput;
         isSprinting = sprinting;
-        float speed = moveSpeed * (sprinting ? sprintMultiplier : 1f);
+        float speed = moveSpeed * (sprinting ? sprintMultiplier : 1f) *
+            (cartBoostActive ? cartBoostMultiplier : 1f);
 
         // Capture grounding before Move. A horizontal CharacterController.Move can
         // replace the previous frame's collision flags before jump logic reads them.

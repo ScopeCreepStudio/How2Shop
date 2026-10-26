@@ -1,0 +1,109 @@
+{
+  "items": [
+    {
+      "name": "WashingUpLiquid",
+      "label": "Lemon Washing-Up Liquid 500ml",
+      "price": 125,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "Bleach",
+      "label": "Thick Bleach 750ml",
+      "price": 99,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "LaundryDetergent",
+      "label": "Laundry Detergent 1L",
+      "price": 499,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "FabricSoftener",
+      "label": "Fabric Softener 1L",
+      "price": 249,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "FloorCleaner",
+      "label": "Pine Floor Cleaner 1L",
+      "price": 179,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "GlassSpray",
+      "label": "Glass Cleaner Spray 500ml",
+      "price": 159,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "BathroomSpray",
+      "label": "Bathroom Cleaner Spray 500ml",
+      "price": 189,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "KitchenDegreaser",
+      "label": "Kitchen Degreaser 500ml",
+      "price": 229,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "ToiletCleaner",
+      "label": "Toilet Cleaner 750ml",
+      "price": 139,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "Disinfectant",
+      "label": "Disinfectant 500ml",
+      "price": 199,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "CreamCleaner",
+      "label": "Cream Cleaner 500ml",
+      "price": 149,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "FurniturePolish",
+      "label": "Furniture Polish 250ml",
+      "price": 199,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "CarpetCleaner",
+      "label": "Carpet Foam Cleaner 500ml",
+      "price": 349,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "DishwasherTablets",
+      "label": "Dishwasher Tablets 30 Pack",
+      "price": 449,
+      "tag": "cleaning",
+      "height": 0.46
+    },
+    {
+      "name": "CleaningWipes",
+      "label": "Cleaning Wipes 80 Pack",
+      "price": 179,
+      "tag": "cleaning",
+      "height": 0.46
+    }
+  ]
+}

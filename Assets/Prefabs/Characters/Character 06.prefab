@@ -1435,6 +1435,12 @@ MonoBehaviour:
   leftHandCartLocalEuler: {x: 0, y: 0, z: 0}
   rightHandCartLocalEuler: {x: 0, y: 0, z: 0}
   handIkWeight: 1
+  cartRollClip: {fileID: 8300000, guid: f27ac77efaeda734f8c11c4d1feec9be, type: 3}
+  impactClip: {fileID: 8300000, guid: 0db77395b99167540883b5d649b86c18, type: 3}
+  fallClip: {fileID: 8300000, guid: 78099dfffee66714cba78099cb0da2ed, type: 3}
+  fallingScreamClip: {fileID: 8300000, guid: ae3c926c8209bca42b615e702f63973c, type: 3}
+  landingClip: {fileID: 8300000, guid: 8525c9fead9c7a14a831b1c9a7fa704c, type: 3}
+  recoveryClip: {fileID: 8300000, guid: 6db08d1b7f19d9e4281b1288eb6277e1, type: 3}
 --- !u!195 &1338065176832556512
 NavMeshAgent:
   m_ObjectHideFlags: 0

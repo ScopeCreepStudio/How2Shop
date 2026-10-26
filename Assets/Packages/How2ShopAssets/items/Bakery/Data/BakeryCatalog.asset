@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf88c732c3f87dc40be25f86513b7179, type: 3}
+  m_Name: BakeryCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::How2Shop.Items.ItemCatalog
+  items:
+  - {fileID: 11400000, guid: 35d32c3911304cf4a931bb5949b97b21, type: 2}
+  - {fileID: 11400000, guid: 9cf7497b47b753740ace6b024b48aa44, type: 2}
+  - {fileID: 11400000, guid: 9601ad71e27123048b65fbcfc736b9c4, type: 2}
+  - {fileID: 11400000, guid: e62180052e61dc543b78b09b0658f279, type: 2}
+  - {fileID: 11400000, guid: 626d71b30f1ba64448f19138558b1fd8, type: 2}

@@ -13,11 +13,16 @@ public sealed class ShopperRagdoll : MonoBehaviour
 {
     [Header("Bump response")]
     [SerializeField, Min(0f)] private float minimumImpactSpeed = 0.25f;
-    [SerializeField, Min(0f)] private float shopperPushImpulse = 10f;
-    [SerializeField, Min(0f)] private float shopperUpwardImpulse = 7f;
-    [SerializeField, Min(0f)] private float cartPushImpulse = 42f;
-    [SerializeField, Min(0f)] private float cartUpwardImpulse = 12f;
-    [SerializeField, Min(0.5f)] private float recoveryDelay = 2.5f;
+    [SerializeField, Min(0f)] private float shopperPushImpulse = 28f;
+    [SerializeField, Min(0f)] private float shopperUpwardImpulse = 16f;
+    [SerializeField, Min(0f)] private float cartPushImpulse = 115f;
+    [SerializeField, Min(0f)] private float cartUpwardImpulse = 30f;
+    [SerializeField, Min(0f)] private float cartToCartMinimumImpactSpeed = 1.5f;
+    [SerializeField, Min(0f)] private float attackerCartRecoilImpulse = 72f;
+    [SerializeField, Min(0f)] private float minimumRagdollTime = 0.8f;
+    [SerializeField, Min(0.01f)] private float settledSpeedThreshold = 0.22f;
+    [SerializeField, Min(0.01f)] private float settledAngularSpeedThreshold = 0.55f;
+    [SerializeField, Min(0.1f)] private float settledDuration = 0.9f;
     [SerializeField, Min(0.5f)] private float recoverySearchRadius = 5f;
 
     private sealed class Part
@@ -63,6 +68,9 @@ public sealed class ShopperRagdoll : MonoBehaviour
     private Vector3 cartOriginalLocalScale;
     private Quaternion standingRotation;
     private bool ragdollActive;
+    private float ragdollStartedAt;
+    private float landedAt = -1f;
+    private float settledSince = -1f;
 
     public bool IsRagdollActive => ragdollActive;
 
@@ -274,6 +282,10 @@ private void CaptureCart()
         body.isKinematic = true;
         body.detectCollisions = false;
         body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        ShopperRagdollCollisionRelay relay = boneTransform.GetComponent<ShopperRagdollCollisionRelay>();
+        if (relay == null)
+            relay = boneTransform.gameObject.AddComponent<ShopperRagdollCollisionRelay>();
+        relay.Initialize(this);
 
         Part part = new Part
         {
@@ -403,15 +415,31 @@ private void CaptureCart()
 
     private void HandleTriggerImpact(Collider other)
     {
-        if (other == null || ragdollActive)
+        if (ragdollActive || other == null)
             return;
 
-        ShoppingCartController playerCart = other.GetComponentInParent<ShoppingCartController>();
-        if (playerCart != null)
+        ShoppingCartController attackingCart = other.GetComponentInParent<ShoppingCartController>();
+        if (attackingCart != null)
         {
-            Rigidbody cartRigidbody = other.attachedRigidbody;
-            float cartSpeed = cartRigidbody != null ? cartRigidbody.linearVelocity.magnitude : playerCart.CurrentSpeed;
-            ReportPlayerTrolleyImpact(playerCart, cartSpeed);
+            Rigidbody attackerBody = other.attachedRigidbody != null
+                ? other.attachedRigidbody
+                : attackingCart.GetComponent<Rigidbody>();
+            float cartImpactSpeed = attackerBody != null
+                ? attackerBody.linearVelocity.magnitude
+                : attackingCart.CurrentSpeed;
+            if (cartBody != null && !cartBody.isKinematic)
+                cartImpactSpeed += cartBody.linearVelocity.magnitude;
+            ReportPlayerTrolleyImpact(attackingCart, cartImpactSpeed);
+            if (cartImpactSpeed < cartToCartMinimumImpactSpeed)
+                return;
+
+            Vector3 cartAway = transform.position - other.bounds.center;
+            cartAway.y = 0f;
+            if (cartAway.sqrMagnitude < 0.0001f)
+                cartAway = -transform.forward;
+            cartAway.Normalize();
+            BeginRagdoll(cartAway, cartImpactSpeed, other.ClosestPoint(transform.position), false, attackerBody);
+            return;
         }
 
         if (!IsPlayerCollider(other))
@@ -441,7 +469,7 @@ private void CaptureCart()
         if (away.sqrMagnitude < 0.0001f)
             away = -transform.forward;
         away.Normalize();
-        BeginRagdoll(away, impactSpeed, cart != null ? cart.position : transform.position);
+        BeginRagdoll(away, impactSpeed, cart != null ? cart.position : transform.position, false, null);
     }
 
     private void HandleImpact(Collision collision)
@@ -450,19 +478,12 @@ private void CaptureCart()
             return;
 
         float impactSpeed = collision.relativeVelocity.magnitude;
-        ShoppingCartController playerCart = collision.collider.GetComponentInParent<ShoppingCartController>();
-        if (playerCart != null)
-            ReportPlayerTrolleyImpact(playerCart, impactSpeed);
+        ShoppingCartController attackingCart = collision.collider.GetComponentInParent<ShoppingCartController>();
+        if (attackingCart != null)
+            ReportPlayerTrolleyImpact(attackingCart, impactSpeed);
 
-        if (ragdollActive || !IsPlayerCollider(collision.collider))
+        if (ragdollActive)
             return;
-
-        if (impactSpeed < minimumImpactSpeed)
-            return;
-
-        float playerSpeed = GetPlayerMovementSpeed(collision.collider);
-        ReportPlayerBodyImpact(collision.collider, playerSpeed);
-
         Vector3 away = transform.position - collision.collider.bounds.center;
         away.y = 0f;
         if (away.sqrMagnitude < 0.0001f)
@@ -470,7 +491,27 @@ private void CaptureCart()
         away.Normalize();
 
         Vector3 contactPoint = collision.contactCount > 0 ? collision.GetContact(0).point : transform.position;
-        BeginRagdoll(away, impactSpeed, contactPoint);
+        ShoppingCartController attackingCart = collision.collider.GetComponentInParent<ShoppingCartController>();
+        if (attackingCart != null)
+        {
+            Rigidbody attackerBody = collision.rigidbody != null
+                ? collision.rigidbody
+                : attackingCart.GetComponent<Rigidbody>();
+            if (impactSpeed < cartToCartMinimumImpactSpeed && attackerBody != null)
+                impactSpeed = attackerBody.linearVelocity.magnitude;
+            if (impactSpeed < cartToCartMinimumImpactSpeed)
+                return;
+
+            BeginRagdoll(away, impactSpeed, contactPoint, false, attackerBody);
+            return;
+        }
+
+        if (!IsPlayerCollider(collision.collider) || impactSpeed < minimumImpactSpeed)
+            return;
+
+        float playerSpeed = GetPlayerMovementSpeed(collision.collider);
+        ReportPlayerBodyImpact(collision.collider, playerSpeed);
+        BeginRagdoll(away, impactSpeed, contactPoint, false, null);
     }
 
     private static float GetPlayerMovementSpeed(Collider playerCollider)
@@ -528,12 +569,20 @@ private void CaptureCart()
         return body != null && !body.isKinematic && body.CompareTag("Player");
     }
 
-    private void BeginRagdoll(Vector3 away, float impactSpeed, Vector3 contactPoint, bool thrownItem = false)
+    private void BeginRagdoll(
+        Vector3 away,
+        float impactSpeed,
+        Vector3 contactPoint,
+        bool thrownItem = false,
+        Rigidbody attackerCartBody = null)
     {
         if (ragdollActive)
             return;
 
         ragdollActive = true;
+        ragdollStartedAt = Time.time;
+        landedAt = -1f;
+        settledSince = -1f;
         standingRotation = transform.rotation;
 
         if (GameplaySfxPlayer.Instance != null)
@@ -585,7 +634,7 @@ private void CaptureCart()
         if (torso == null)
             torso = GetPart(HumanBodyBones.Hips);
 
-        float speedBonus = Mathf.Clamp(impactSpeed * 1.2f, 0f, 6f);
+        float speedBonus = Mathf.Clamp(impactSpeed * 2f, 0f, 14f);
         if (torso != null)
         {
             if (thrownItem)
@@ -607,12 +656,51 @@ private void CaptureCart()
             cartBody.AddForceAtPosition(cartImpulse, contactPoint, ForceMode.Impulse);
         }
 
-        StartCoroutine(RecoverAfterDelay());
+        if (attackerCartBody != null && !attackerCartBody.isKinematic)
+        {
+            Vector3 recoil = -away * (attackerCartRecoilImpulse + speedBonus * 4f) + Vector3.up * (cartUpwardImpulse * 0.45f);
+            attackerCartBody.AddForceAtPosition(recoil, contactPoint, ForceMode.Impulse);
+        }
+
+        StartCoroutine(RecoverWhenSettled());
     }
 
-    private IEnumerator RecoverAfterDelay()
+    private IEnumerator RecoverWhenSettled()
     {
-        yield return new WaitForSeconds(recoveryDelay);
+        while (true)
+        {
+            yield return new WaitForFixedUpdate();
+            if (Time.time - ragdollStartedAt < minimumRagdollTime || landedAt < 0f)
+                continue;
+
+            bool settled = true;
+            for (int i = 0; i < orderedParts.Count; i++)
+            {
+                Rigidbody body = orderedParts[i].body;
+                if (body != null && (!body.isKinematic &&
+                    (body.linearVelocity.sqrMagnitude > settledSpeedThreshold * settledSpeedThreshold ||
+                     body.angularVelocity.sqrMagnitude > settledAngularSpeedThreshold * settledAngularSpeedThreshold)))
+                {
+                    settled = false;
+                    break;
+                }
+            }
+            if (cartBody != null && !cartBody.isKinematic &&
+                (cartBody.linearVelocity.sqrMagnitude > settledSpeedThreshold * settledSpeedThreshold ||
+                 cartBody.angularVelocity.sqrMagnitude > settledAngularSpeedThreshold * settledAngularSpeedThreshold))
+                settled = false;
+
+            if (!settled)
+            {
+                settledSince = -1f;
+                continue;
+            }
+
+            if (settledSince < 0f)
+                settledSince = Time.time;
+            if (Time.time - settledSince >= settledDuration)
+                break;
+        }
 
         Vector3 recoveryPosition = transform.position;
         Part hips = GetPart(HumanBodyBones.Hips);
@@ -648,6 +736,18 @@ private void CaptureCart()
         }
 
         ragdollActive = false;
+    }
+
+    public void NotifyRagdollCollision(Collision collision)
+    {
+        if (!ragdollActive || collision == null || collision.collider == null)
+            return;
+        if (collision.collider.transform.IsChildOf(transform))
+            return;
+        if (landedAt < 0f)
+            landedAt = Time.time;
+        if (shopper != null)
+            shopper.NotifyRagdollLanding(collision.relativeVelocity.magnitude);
     }
 
     private void DisableRagdollAndRestorePose()
@@ -714,5 +814,18 @@ private void CaptureCart()
             if (state.behaviour != null)
                 state.behaviour.enabled = state.wasEnabled;
         }
+    }
+}
+
+public sealed class ShopperRagdollCollisionRelay : MonoBehaviour
+{
+    private ShopperRagdoll owner;
+
+    public void Initialize(ShopperRagdoll ragdoll) => owner = ragdoll;
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (owner != null)
+            owner.NotifyRagdollCollision(collision);
     }
 }

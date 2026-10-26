@@ -1,0 +1,137 @@
+NewScene/SupermarketAssets/FrontIsle/Isle (11) => Drinks
+NewScene/SupermarketAssets/FrontIsle/Isle (10) => Cereal
+NewScene/SupermarketAssets/FrontIsle/Isle (7) => Snacks
+NewScene/SupermarketAssets/FrontIsle/Isle (6) => Chocolate and biscuits
+NewScene/SupermarketAssets/FrontIsle/Isle (2) => Tinned food
+NewScene/SupermarketAssets/FrontIsle/Isle => Pasta and rice
+NewScene/SupermarketAssets/BackIsle/Isle (12) => Baking ingredients
+NewScene/SupermarketAssets/BackIsle/Isle (9) => Tea and coffee
+NewScene/SupermarketAssets/BackIsle/Isle (8) => Spreads
+NewScene/SupermarketAssets/BackIsle/Isle (5) => Cleaning and household
+NewScene/SupermarketAssets/BackIsle/Isle (3) => Breakfast
+NewScene/SupermarketAssets/BackIsle/Isle (4) => Pantry vegetables
+NewScene/SupermarketAssets/Isle1 (1) => Bread
+NewScene/SupermarketAssets/Isle1 => Bakery
+NewScene/SupermarketAssets/Structure1/Shelf_Corner (8) | Bakery | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1/Shelf_Corner (9) | Bakery | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1/Shelf_Corner (10) | Bakery | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1/Shelf_Corner (11) | Tinned food | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (1)/Shelf_Corner (8) | Cleaning and household | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (1)/Shelf_Corner (9) | Cleaning and household | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (1)/Shelf_Corner (10) | Cleaning and household | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (1)/Shelf_Corner (11) | Cleaning and household | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (3)/Shelf_Corner (8) | Tea and coffee | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (3)/Shelf_Corner (9) | Tea and coffee | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (3)/Shelf_Corner (10) | Tea and coffee | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (3)/Shelf_Corner (11) | Tea and coffee | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (5)/Shelf_Corner (8) | Baking ingredients | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (5)/Shelf_Corner (9) | Baking ingredients | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (5)/Shelf_Corner (10) | Baking ingredients | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (5)/Shelf_Corner (11) | Baking ingredients | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (2)/Shelf_Corner (8) | Spreads | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (2)/Shelf_Corner (9) | Spreads | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (2)/Shelf_Corner (10) | Spreads | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (2)/Shelf_Corner (11) | Spreads | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (4)/Shelf_Corner (8) | Baking ingredients | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (4)/Shelf_Corner (9) | Baking ingredients | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (4)/Shelf_Corner (10) | Tea and coffee | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (4)/Shelf_Corner (11) | Tea and coffee | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (6)/Shelf_Corner (8) | Baking ingredients | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (6)/Shelf_Corner (9) | Baking ingredients | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (6)/Shelf_Corner (10) | Baking ingredients | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/Structure1 (6)/Shelf_Corner (11) | Baking ingredients | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/structure/Shelf_Corner | Bakery | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/structure/Shelf_Corner (4) | Bakery | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/structure/Shelf_Corner (2) | Bakery | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/structure/Shelf_Corner (5) | Bakery | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/structure/Shelf_Corner (1) | Bakery | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/structure/Shelf_Corner (6) | Bakery | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/structure/Shelf_Corner (3) | Bakery | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/structure/Shelf_Corner (7) | Bakery | 49 products | shelf heights 0.22,0.80,1.34,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle/Gondola_Wide (6) | Pasta and rice | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle/Gondola_Wide (7) | Pasta and rice | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle/Gondola_Wide (8) | Pasta and rice | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle/Gondola_Wide (9) | Pasta and rice | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle/Gondola_Wide (10) | Pasta and rice | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (2)/Gondola_Wide (6) | Tinned food | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (2)/Gondola_Wide (7) | Tinned food | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (2)/Gondola_Wide (8) | Tinned food | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (2)/Gondola_Wide (9) | Tinned food | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (2)/Gondola_Wide (10) | Tinned food | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (6)/Gondola_Wide (6) | Chocolate and biscuits | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (6)/Gondola_Wide (7) | Chocolate and biscuits | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (6)/Gondola_Wide (8) | Chocolate and biscuits | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (6)/Gondola_Wide (9) | Chocolate and biscuits | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (6)/Gondola_Wide (10) | Chocolate and biscuits | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (7)/Gondola_Wide (6) | Snacks | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (7)/Gondola_Wide (7) | Snacks | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (7)/Gondola_Wide (8) | Snacks | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (7)/Gondola_Wide (9) | Snacks | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (7)/Gondola_Wide (10) | Snacks | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (10)/Gondola_Wide (6) | Cereal | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (10)/Gondola_Wide (7) | Cereal | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (10)/Gondola_Wide (8) | Cereal | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (10)/Gondola_Wide (9) | Cereal | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (10)/Gondola_Wide (10) | Cereal | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (11)/Gondola_Wide (6) | Drinks | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (11)/Gondola_Wide (7) | Drinks | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (11)/Gondola_Wide (8) | Drinks | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (11)/Gondola_Wide (9) | Drinks | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/FrontIsle/Isle (11)/Gondola_Wide (10) | Drinks | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (3)/Gondola_Wide (6) | Breakfast | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (3)/Gondola_Wide (7) | Breakfast | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (3)/Gondola_Wide (8) | Breakfast | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (3)/Gondola_Wide (9) | Breakfast | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (3)/Gondola_Wide (10) | Breakfast | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (5)/Gondola_Wide (6) | Cleaning and household | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (5)/Gondola_Wide (7) | Cleaning and household | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (5)/Gondola_Wide (8) | Cleaning and household | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (5)/Gondola_Wide (9) | Cleaning and household | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (5)/Gondola_Wide (10) | Cleaning and household | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (8)/Gondola_Wide (6) | Spreads | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (8)/Gondola_Wide (7) | Spreads | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (8)/Gondola_Wide (8) | Spreads | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (8)/Gondola_Wide (9) | Spreads | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (8)/Gondola_Wide (10) | Spreads | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (9)/Gondola_Wide (6) | Tea and coffee | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (9)/Gondola_Wide (7) | Tea and coffee | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (9)/Gondola_Wide (8) | Tea and coffee | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (9)/Gondola_Wide (9) | Tea and coffee | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (9)/Gondola_Wide (10) | Tea and coffee | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (12)/Gondola_Wide (6) | Baking ingredients | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (12)/Gondola_Wide (7) | Baking ingredients | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (12)/Gondola_Wide (8) | Baking ingredients | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (12)/Gondola_Wide (9) | Baking ingredients | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (12)/Gondola_Wide (10) | Baking ingredients | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (4)/Gondola_Wide (6) | Pantry vegetables | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (4)/Gondola_Wide (7) | Pantry vegetables | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (4)/Gondola_Wide (8) | Pantry vegetables | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (4)/Gondola_Wide (9) | Pantry vegetables | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/BackIsle/Isle (4)/Gondola_Wide (10) | Pantry vegetables | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf/WallShelf_Single | Cleaning and household | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf/WallShelf_Single (1) | Cleaning and household | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf/WallShelf_Single (2) | Cleaning and household | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf/WallShelf_Single (3) | Cleaning and household | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf/WallShelf_Single (4) | Cleaning and household | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf/WallShelf_Single (5) | Cleaning and household | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf/WallShelf_Single (6) | Cleaning and household | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf/WallShelf_Single (7) | Cleaning and household | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf (1)/WallShelf_Single | Tea and coffee | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf (1)/WallShelf_Single (1) | Tea and coffee | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf (1)/WallShelf_Single (2) | Tea and coffee | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf (1)/WallShelf_Single (3) | Tea and coffee | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf (1)/WallShelf_Single (4) | Tea and coffee | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf (1)/WallShelf_Single (5) | Tea and coffee | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf (1)/WallShelf_Single (6) | Tea and coffee | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/SingleShelf (1)/WallShelf_Single (7) | Tea and coffee | 36 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/Isle1/Gondola_Wide (1) | Bakery | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/Isle1/Gondola_Wide (2) | Bakery | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/Isle1/Gondola_Wide (3) | Bakery | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/Isle1/Gondola_Wide (4) | Bakery | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/Isle1 (1)/Gondola_Wide (1) | Bread | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/Isle1 (1)/Gondola_Wide (2) | Bread | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/Isle1 (1)/Gondola_Wide (3) | Bread | 108 products | shelf heights 0.22,0.80,1.38
+NewScene/SupermarketAssets/Isle1 (1)/Gondola_Wide (4) | Bread | 108 products | shelf heights 0.22,0.80,1.38
+
+PASS: 13140 added products; 120 shelf fixtures; 79 fruit crates; 4 freezers; 2 coolers; 14 aisle groups.
+Existing stocked vegetable fridges, bakery stands and newspaper stands retained. Cleaning uses repeated existing flat picture items as temporary placeholders. Fixtures and layout retained. All new stock belongs to NewScene and has valid sprites/materials. Re-run replaces only Stock - NewScene groups.

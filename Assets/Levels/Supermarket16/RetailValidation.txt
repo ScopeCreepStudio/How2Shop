@@ -1,0 +1,3 @@
+PASS: 6528 stock items; denser facings, two/three depth rows, combined packaging backs, six additional promotional displays.
+PASS: 36 downward ceiling luminaires, eight soft-shadow aisle lights, cool cabinet lights, warm bakery/produce accents, scene-local post-processing and reflection probe.
+PASS: existing 16 aisles, six checkouts and entrance/exit routes retained. Source materials and source scenes are unchanged by this pass.

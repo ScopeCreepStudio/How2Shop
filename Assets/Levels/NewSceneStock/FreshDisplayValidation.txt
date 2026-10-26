@@ -1,0 +1,1 @@
+PASS: 576 vegetable fridge sprites standing vertically; 1319 bottom fruit sprites lowered in 79 crates with visible separation. Upper fruit positions and item scales retained. Reusable fridge prefabs and future population updated.

@@ -1,0 +1,32 @@
+Table of Content
+
+0: Introduction
+1: About
+1.1: Models
+1.2: Materials
+1.3: Extras
+2: Copyright
+2.1: Copyright notice
+2.2: Thank you
+
+0: Introduction
+Hello. Thank you so much for purchasing the asset! This file contains extra and some hidden information for buyers. It also serve as useful guide on how to use the model fully! 
+
+1: About
+
+1.1: Models 
+This is (as promised in our 3d fan pack asset) an asset pack of ceiling fans! There are 15 ceiling fans ready for use in games/apps. The fan has been highly optimized but there's always room for customization (editing). Read the "Materials" and "Extras" section on how to customize the ceiling fan to best fit your project!
+
+1.2: Materials
+Materials have been renamed (thanks to your feedbacks) for easy customization. You can easily edit the materials to change the look of the model, or change the model look entirely by editing the source file included in the source folder (Model > Source). 
+
+1.3: Extras
+For additional support regarding the asset, kindly check the description. The .blend file has been included for easy and additional customization. Please note, you also get an additional request of a ceiling fan model of your choice! 
+
+2: Copyright
+
+2.1: Copyright notice
+The copyright of the assets is the same as the copyright from which you downloaded (purchased) it from. 
+
+2.2: Thank you
+Thank you so much for purchasing this asset! We look forward to hearing your feedback so that we can further improve on our future releases! Thanks once again :) - From the Lyricsz Team
