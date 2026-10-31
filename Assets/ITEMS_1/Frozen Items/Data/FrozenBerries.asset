@@ -17,5 +17,9 @@ MonoBehaviour:
   pricePence: 199
   tags:
   - frozen
-  icon: {fileID: 21300000, guid: 1bcb6f9015915944ca42bb3b10d0c2df, type: 3}
-  worldSprite: {fileID: 21300000, guid: 1bcb6f9015915944ca42bb3b10d0c2df, type: 3}
+  - product
+  - item-frozen-berries
+  - berries
+  - food
+  icon: {fileID: 21300000, guid: 29ad9f61204965a429dc889a8d475ae4, type: 3}
+  worldSprite: {fileID: 21300000, guid: 29ad9f61204965a429dc889a8d475ae4, type: 3}

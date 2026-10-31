@@ -18,5 +18,9 @@ MonoBehaviour:
   tags:
   - selfcare
   - supermarket
-  icon: {fileID: 21300000, guid: 38ddfc6c9851d68408605c7f9dce41cf, type: 3}
-  worldSprite: {fileID: 21300000, guid: 38ddfc6c9851d68408605c7f9dce41cf, type: 3}
+  - product
+  - item-mouthwash
+  - mouthwash
+  - food
+  icon: {fileID: 21300000, guid: 6983e394c301d7b4faf2f4c6cbeea73b, type: 3}
+  worldSprite: {fileID: 21300000, guid: 6983e394c301d7b4faf2f4c6cbeea73b, type: 3}

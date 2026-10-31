@@ -33,9 +33,34 @@ private void OnCollisionEnter(Collision collision)
 
     float impactSpeed = collision.relativeVelocity.magnitude;
     ShopperRagdoll characterRagdoll = collision.collider.GetComponentInParent<ShopperRagdoll>();
+    if (!hasPlayedImpactSfx)
+    {
+        hasPlayedImpactSfx = true;
+        if (GameplaySfxPlayer.Instance != null)
+            GameplaySfxPlayer.Instance.PlayItemImpact(contactPoint, impactSpeed);
+    }
+
     if (playerThrowOwner != null && Time.time <= playerThrowOwnershipExpiresAt)
     {
         ChaosManager chaosManager = ChaosManager.Instance;
+        ItemSpriteView thrownProduct = GetComponent<ItemSpriteView>();
+        if (thrownProduct == null)
+            thrownProduct = GetComponentInChildren<ItemSpriteView>();
+
+        if (thrownProduct != null && thrownProduct.Item != null && thrownProduct.Item.HasTag("fragile"))
+        {
+            ChaosImpactTarget fragileTarget = thrownProduct.GetComponent<ChaosImpactTarget>();
+            if (fragileTarget == null)
+                fragileTarget = thrownProduct.gameObject.AddComponent<ChaosImpactTarget>();
+
+            float breakSpeed = chaosManager != null
+                ? chaosManager.FragileProductBreakImpactSpeed
+                : ChaosImpactTarget.DefaultFragileBreakImpactSpeed;
+            fragileTarget.Configure(ChaosEventType.BreakProduct, ChaosImpactSource.ThrownItem,
+                breakSpeed, true);
+            fragileTarget.TryReportImpact(ChaosImpactSource.ThrownItem, playerThrowOwner, impactSpeed);
+        }
+
         if (chaosManager != null)
         {
             if (characterRagdoll != null)
@@ -53,13 +78,6 @@ private void OnCollisionEnter(Collision collision)
                     target.TryReportImpact(ChaosImpactSource.ThrownItem, playerThrowOwner, impactSpeed);
             }
         }
-    }
-
-    if (!hasPlayedImpactSfx)
-    {
-        hasPlayedImpactSfx = true;
-        if (GameplaySfxPlayer.Instance != null)
-            GameplaySfxPlayer.Instance.PlayItemImpact(contactPoint, collision.relativeVelocity.magnitude);
     }
 
     if (!allowCharacterRagdoll || hasHitShopper)

@@ -17,5 +17,9 @@ MonoBehaviour:
   pricePence: 199
   tags:
   - frozen
-  icon: {fileID: 21300000, guid: 3b5de7bbcefe5424d9fdc75e75a38205, type: 3}
-  worldSprite: {fileID: 21300000, guid: 3b5de7bbcefe5424d9fdc75e75a38205, type: 3}
+  - product
+  - item-frozen-peas
+  - peas
+  - food
+  icon: {fileID: 21300000, guid: 30a23e622916b5148a3e54a7d0e558ce, type: 3}
+  worldSprite: {fileID: 21300000, guid: 30a23e622916b5148a3e54a7d0e558ce, type: 3}

@@ -19,5 +19,8 @@ MonoBehaviour:
   - fish
   - fresh
   - food
-  icon: {fileID: 21300000, guid: 95ce8436bc9629e4d886e988bfad625e, type: 3}
-  worldSprite: {fileID: 21300000, guid: 95ce8436bc9629e4d886e988bfad625e, type: 3}
+  - product
+  - item-cod
+  - cod
+  icon: {fileID: 21300000, guid: 498a32d4d1126bb4ca142a24006b09bb, type: 3}
+  worldSprite: {fileID: 21300000, guid: 498a32d4d1126bb4ca142a24006b09bb, type: 3}

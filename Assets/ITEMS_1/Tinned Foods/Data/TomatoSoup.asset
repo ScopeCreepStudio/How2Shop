@@ -17,5 +17,11 @@ MonoBehaviour:
   pricePence: 115
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 5f776c08a6679c1469d610f9625743c3, type: 3}
-  worldSprite: {fileID: 21300000, guid: 5f776c08a6679c1469d610f9625743c3, type: 3}
+  - product
+  - item-tomato-soup
+  - tomato
+  - soup
+  - food
+  - tinned
+  icon: {fileID: 21300000, guid: af17e5b401343114fa19a29ca18da107, type: 3}
+  worldSprite: {fileID: 21300000, guid: af17e5b401343114fa19a29ca18da107, type: 3}

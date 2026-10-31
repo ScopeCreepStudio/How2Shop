@@ -17,5 +17,10 @@ MonoBehaviour:
   pricePence: 199
   tags:
   - frozen
-  icon: {fileID: 21300000, guid: 87d42c1c3e30eb64380aa8e24f7ae4d4, type: 3}
-  worldSprite: {fileID: 21300000, guid: 87d42c1c3e30eb64380aa8e24f7ae4d4, type: 3}
+  - product
+  - item-ice-cream
+  - ice
+  - cream
+  - food
+  icon: {fileID: 21300000, guid: d411376f93ac7a54cbb34fb622c38b0e, type: 3}
+  worldSprite: {fileID: 21300000, guid: d411376f93ac7a54cbb34fb622c38b0e, type: 3}

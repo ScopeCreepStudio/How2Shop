@@ -18,5 +18,9 @@ MonoBehaviour:
   tags:
   - bakery
   - food
-  icon: {fileID: 21300000, guid: a5e11ef58afcf8f42897f55df008dcab, type: 3}
-  worldSprite: {fileID: 21300000, guid: a5e11ef58afcf8f42897f55df008dcab, type: 3}
+  - product
+  - item-cinnamon-roll
+  - cinnamon
+  - roll
+  icon: {fileID: 21300000, guid: 8b0f84b951b3ec14ba3e54eb621ca69d, type: 3}
+  worldSprite: {fileID: 21300000, guid: 8b0f84b951b3ec14ba3e54eb621ca69d, type: 3}

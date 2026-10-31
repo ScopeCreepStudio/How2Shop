@@ -20,5 +20,12 @@ MonoBehaviour:
   - press
   - magazine
   - technology
-  icon: {fileID: 21300000, guid: 847047bc2271cd34fb09bc41cb847826, type: 3}
-  worldSprite: {fileID: 21300000, guid: 847047bc2271cd34fb09bc41cb847826, type: 3}
+  - product
+  - item-tech-today
+  - tech
+  - today
+  - reading
+  - paper
+  - non-food
+  icon: {fileID: 21300000, guid: ba03bbacfdad6ab4cad4c67c6e12f020, type: 3}
+  worldSprite: {fileID: 21300000, guid: ba03bbacfdad6ab4cad4c67c6e12f020, type: 3}

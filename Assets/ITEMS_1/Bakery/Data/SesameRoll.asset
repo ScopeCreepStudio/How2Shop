@@ -18,5 +18,9 @@ MonoBehaviour:
   tags:
   - bakery
   - food
-  icon: {fileID: 21300000, guid: e202c6c12f4dcd74c9568f3528be3ef9, type: 3}
-  worldSprite: {fileID: 21300000, guid: e202c6c12f4dcd74c9568f3528be3ef9, type: 3}
+  - product
+  - item-sesame-roll
+  - sesame
+  - roll
+  icon: {fileID: 21300000, guid: d8cdfe8ed18d98f4c900d8bed8ada87c, type: 3}
+  worldSprite: {fileID: 21300000, guid: d8cdfe8ed18d98f4c900d8bed8ada87c, type: 3}

@@ -17,5 +17,10 @@ MonoBehaviour:
   pricePence: 199
   tags:
   - frozen
-  icon: {fileID: 21300000, guid: 1c6bcd138a3f0d245bac497d8c418838, type: 3}
-  worldSprite: {fileID: 21300000, guid: 1c6bcd138a3f0d245bac497d8c418838, type: 3}
+  - product
+  - item-mixed-vegetables
+  - mixed
+  - vegetables
+  - food
+  icon: {fileID: 21300000, guid: 2855b4163a1e7b440b99916749e96053, type: 3}
+  worldSprite: {fileID: 21300000, guid: 2855b4163a1e7b440b99916749e96053, type: 3}

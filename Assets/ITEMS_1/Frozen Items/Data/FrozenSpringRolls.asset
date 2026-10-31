@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - frozen items
   - food
-  icon: {fileID: 21300000, guid: 6c69242e666585b4ea8ae1b44e2e3c93, type: 3}
-  worldSprite: {fileID: 21300000, guid: 6c69242e666585b4ea8ae1b44e2e3c93, type: 3}
+  - product
+  - item-frozen-spring-rolls
+  - frozen
+  - spring
+  - rolls
+  icon: {fileID: 21300000, guid: 83b0ad37724f97749963eea569068890, type: 3}
+  worldSprite: {fileID: 21300000, guid: 83b0ad37724f97749963eea569068890, type: 3}

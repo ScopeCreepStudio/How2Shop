@@ -18,5 +18,13 @@ MonoBehaviour:
   tags:
   - frozen items
   - food
-  icon: {fileID: 21300000, guid: 95ce6d1cff022a842a55cb51d5457c3b, type: 3}
-  worldSprite: {fileID: 21300000, guid: 95ce6d1cff022a842a55cb51d5457c3b, type: 3}
+  - product
+  - item-bake-at-home-croissants
+  - bake
+  - at
+  - home
+  - croissants
+  - frozen
+  - lightweight
+  icon: {fileID: 21300000, guid: 11f0dfa6e830fad4096bf0ad7be9a51e, type: 3}
+  worldSprite: {fileID: 21300000, guid: 11f0dfa6e830fad4096bf0ad7be9a51e, type: 3}

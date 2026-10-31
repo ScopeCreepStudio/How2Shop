@@ -19,5 +19,9 @@ MonoBehaviour:
   - produce
   - vegetable
   - supermarket
-  icon: {fileID: 21300000, guid: 1a5f51a35c6c02047b2673be0a2103b4, type: 3}
-  worldSprite: {fileID: 21300000, guid: 1a5f51a35c6c02047b2673be0a2103b4, type: 3}
+  - product
+  - item-cucumber
+  - cucumber
+  - food
+  icon: {fileID: 21300000, guid: 785649cba519d3147b434a6b07ff2cfa, type: 3}
+  worldSprite: {fileID: 21300000, guid: 785649cba519d3147b434a6b07ff2cfa, type: 3}

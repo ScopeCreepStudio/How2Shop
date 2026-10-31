@@ -20,5 +20,11 @@ MonoBehaviour:
   - press
   - magazine
   - sport
-  icon: {fileID: 21300000, guid: 2c20accb9a2ee7049914cd1a9ef55897, type: 3}
-  worldSprite: {fileID: 21300000, guid: 2c20accb9a2ee7049914cd1a9ef55897, type: 3}
+  - product
+  - item-sport-weekly
+  - weekly
+  - reading
+  - paper
+  - non-food
+  icon: {fileID: 21300000, guid: ee19c00ebe7c7074992fc2afd818036d, type: 3}
+  worldSprite: {fileID: 21300000, guid: ee19c00ebe7c7074992fc2afd818036d, type: 3}

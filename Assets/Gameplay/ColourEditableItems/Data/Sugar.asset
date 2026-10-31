@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - baking
   - supermarket
-  icon: {fileID: 21300000, guid: dfb5fceed77594d43a676f928505c00f, type: 3}
-  worldSprite: {fileID: 21300000, guid: dfb5fceed77594d43a676f928505c00f, type: 3}
+  - product
+  - item-granulated-sugar
+  - granulated
+  - sugar
+  - food
+  icon: {fileID: 21300000, guid: 3e4f76bf84648a14d89bab49e204c8de, type: 3}
+  worldSprite: {fileID: 21300000, guid: 3e4f76bf84648a14d89bab49e204c8de, type: 3}

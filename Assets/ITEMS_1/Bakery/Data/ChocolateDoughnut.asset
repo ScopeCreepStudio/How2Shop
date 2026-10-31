@@ -18,5 +18,14 @@ MonoBehaviour:
   tags:
   - bakery
   - food
-  icon: {fileID: 21300000, guid: 195f446ad8053a049800777f239dd1ec, type: 3}
-  worldSprite: {fileID: 21300000, guid: 195f446ad8053a049800777f239dd1ec, type: 3}
+  - product
+  - item-chocolate-doughnut
+  - chocolate
+  - doughnut
+  - drink
+  - cola
+  - soft-drink
+  - carbonated
+  - lightweight
+  icon: {fileID: 21300000, guid: 3ed823b47adfaf449b5e37ce7bd4a4f7, type: 3}
+  worldSprite: {fileID: 21300000, guid: 3ed823b47adfaf449b5e37ce7bd4a4f7, type: 3}

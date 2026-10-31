@@ -18,5 +18,8 @@ MonoBehaviour:
   tags:
   - bakery
   - food
-  icon: {fileID: 21300000, guid: 194cd268cdb777f46a0ad1c5897d9a31, type: 3}
-  worldSprite: {fileID: 21300000, guid: 194cd268cdb777f46a0ad1c5897d9a31, type: 3}
+  - product
+  - item-baguette
+  - baguette
+  icon: {fileID: 21300000, guid: f67e444e0b433da488950849b50b0fd5, type: 3}
+  worldSprite: {fileID: 21300000, guid: f67e444e0b433da488950849b50b0fd5, type: 3}

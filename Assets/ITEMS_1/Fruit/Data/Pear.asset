@@ -19,5 +19,9 @@ MonoBehaviour:
   - produce
   - fruit
   - supermarket
-  icon: {fileID: 21300000, guid: 1afbd741d158822438a07426cabd33da, type: 3}
-  worldSprite: {fileID: 21300000, guid: 1afbd741d158822438a07426cabd33da, type: 3}
+  - product
+  - item-pear
+  - pear
+  - food
+  icon: {fileID: 21300000, guid: 219e9a23ba093854eb088b29012967e7, type: 3}
+  worldSprite: {fileID: 21300000, guid: 219e9a23ba093854eb088b29012967e7, type: 3}

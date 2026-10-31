@@ -18,6 +18,16 @@ public sealed class CashierCheckoutConveyor : MonoBehaviour
     private CashierScanAnimation cashierAnimation;
     private bool processingQueue;
 
+    public bool HasScannedItems => scannedItems.Count > 0;
+    public bool HasScanned(ItemSpriteView item) => item != null && scannedItems.Contains(item);
+    public bool IsProcessing => processingQueue || waitingItems.Count > 0;
+    public bool CanCompleteTransaction => HasScannedItems && !IsProcessing;
+
+    public void ResetScannedItems()
+    {
+        scannedItems.Clear();
+    }
+
 public void Configure(Vector3 direction, float distance, CashierScanAnimation animationController)
 {
     launchDirection = Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
@@ -51,8 +61,24 @@ private void OnTriggerEnter(Collider other)
             item = attachedBody.GetComponentInChildren<ItemSpriteView>();
     }
 
+    SubmitItem(item);
+}
+
+public void SubmitItem(ItemSpriteView item)
+{
     if (item == null || item.transform.IsChildOf(transform) || !scannedItems.Add(item))
         return;
+
+    ShoppingCart shoppingCart = item.GetComponentInParent<ShoppingCart>();
+    if (shoppingCart != null)
+    {
+        bool bodyWasKinematic;
+        shoppingCart.TryRemove(item, out bodyWasKinematic);
+    }
+
+    GrandmaShoppingLoop shoppingLoop = GrandmaShoppingLoop.Instance;
+    if (shoppingLoop != null)
+        shoppingLoop.RecordCheckout(item);
 
     // Cashier-launched products still make impact sounds, but only a player-thrown
     // item should knock over a character.
@@ -160,6 +186,10 @@ itemBody.isKinematic = false;
         Random.Range(-launchSpin, launchSpin),
         Random.Range(-launchSpin, launchSpin),
         Random.Range(-launchSpin, launchSpin));
+
+    // The scanned item has left the customer's basket and the checkout lane.
+    // Remove it after the swipe so it cannot be picked up or charged twice.
+    Destroy(item.gameObject, 2f);
 
     ThrownItemImpactRelay impactRelay = item.GetComponent<ThrownItemImpactRelay>();
     if (impactRelay == null)

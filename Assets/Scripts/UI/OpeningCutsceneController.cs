@@ -23,6 +23,8 @@ public sealed class OpeningCutsceneController : MonoBehaviour
     [SerializeField] private float lookDownAngle = 57f;
     [SerializeField] private float lookTime = 0.65f;
     [SerializeField] private float fadeTime = 0.45f;
+    [SerializeField] private Transform outdoorResumePoint;
+    [SerializeField] private Transform drainTarget;
 
     [Header("Physical letter")]
     [SerializeField] private Vector3 letterLocalPosition = new Vector3(0f, -0.05f, 1.25f);
@@ -50,27 +52,17 @@ public sealed class OpeningCutsceneController : MonoBehaviour
     private Image fadeImage;
     private bool isRunning;
 
-    private const string Letter =
-        "Hey sonny!\n" +
-        "I'm getting a bit too old to be going to the shops myself, so I've written you a little list. Shouldn't take you more than five minutes, love.\n" +
-        "Don't spend too much, and make sure you get the right things this time!\n\n" +
-        "<b>Shopping List:</b>\n" +
-        "- Something light, but not too light\n" +
-        "- A couple of those round things\n" +
-        "- Something strong, your grandad liked it strong\n" +
-        "- Some water, but make sure it's dry\n" +
-        "- A bit of peace and quiet\n" +
-        "- Something with a kick\n" +
-        "- The bread without the wires\n" +
-        "- Something fresh, but not alive\n" +
-        "- One of those things that does the thing\n" +
-        "- A nice surprise, but nothing unexpected\n\n" +
-        "Oh, and don't forget the milk!\n" +
-        "Actually, I think we've got milk.\n" +
-        "Never mind, get some anyway.\n\n" +
-        "Lots of love,\n" +
-        "<b>Nan xx</b>\n\n" +
-        "P.S. You'll know what I mean when you see it.";
+    private static string BuildLetter()
+    {
+        var letter = new System.Text.StringBuilder();
+        letter.Append("Hey sonny!\nHere's your shopping list. Remember it, love!\n\n<b>Shopping List:</b>\n");
+        foreach (var request in GrandmaShoppingRequests.CurrentList)
+            letter.Append("- ").Append(request.Prompt.Replace("\n", " ")).Append('\n');
+        letter.Append("\nDon't spend too much!\nLots of love, <b>Nan xx</b>");
+        return letter.ToString();
+    }
+
+    public bool IsRunning => isRunning;
 
     private void Awake()
     {
@@ -149,7 +141,7 @@ public sealed class OpeningCutsceneController : MonoBehaviour
         scaler.referenceResolution = new Vector2(1920f, 1080f);
         scaler.matchWidthOrHeight = 0.5f;
 
-        GameObject promptObject = new GameObject("Trip Prompt", typeof(RectTransform));
+        GameObject promptObject = new GameObject("Trip Prompt", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
         promptObject.transform.SetParent(canvasObject.transform, false);
         RectTransform promptRect = promptObject.GetComponent<RectTransform>();
         promptRect.anchorMin = new Vector2(0.5f, 0.04f);
@@ -158,12 +150,29 @@ public sealed class OpeningCutsceneController : MonoBehaviour
         promptRect.sizeDelta = new Vector2(1000f, 58f);
         promptRect.anchoredPosition = Vector2.zero;
 
-        promptText = promptObject.AddComponent<Text>();
-        promptText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        Image promptBackground = promptObject.GetComponent<Image>();
+        promptBackground.color = new Color32(224, 216, 158, 255);
+        promptBackground.raycastTarget = false;
+        Outline promptOutline = promptObject.AddComponent<Outline>();
+        promptOutline.effectColor = Color.black;
+        promptOutline.effectDistance = new Vector2(4f, -3f);
+
+        GameObject promptLabel = new GameObject("Prompt Text", typeof(RectTransform));
+        promptLabel.transform.SetParent(promptObject.transform, false);
+        RectTransform labelRect = promptLabel.GetComponent<RectTransform>();
+        labelRect.anchorMin = Vector2.zero;
+        labelRect.anchorMax = Vector2.one;
+        labelRect.offsetMin = Vector2.zero;
+        labelRect.offsetMax = Vector2.zero;
+
+        promptText = promptLabel.AddComponent<Text>();
+        promptText.font = Resources.Load<Font>("Fonts/childs-journal");
+        if (promptText.font == null)
+            promptText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         promptText.fontSize = 28;
         promptText.alignment = TextAnchor.MiddleCenter;
-        promptText.color = Color.white;
-        promptText.text = "SPACE - trip into the shop";
+        promptText.color = Color.black;
+        promptText.text = "On the way to the shop...";
         promptText.raycastTarget = false;
 
         GameObject fadeObject = new GameObject("Screen Fade", typeof(RectTransform));
@@ -207,6 +216,7 @@ public sealed class OpeningCutsceneController : MonoBehaviour
 
         yield return RaiseLetterToFace();
         yield return new WaitForSecondsRealtime(0.2f);
+        promptText.text = "SPACE / ENTER - put the list away";
 
         float letterShownAt = Time.unscaledTime;
         bool continueKeyReleased = false;
@@ -234,7 +244,9 @@ public sealed class OpeningCutsceneController : MonoBehaviour
         yield return TripAndFall();
         yield return FadeTo(1f, fadeTime);
 
-        transform.SetPositionAndRotation(gameplayPosition, gameplayRotation);
+        transform.SetPositionAndRotation(
+            outdoorResumePoint != null ? outdoorResumePoint.position : gameplayPosition,
+            outdoorResumePoint != null ? outdoorResumePoint.rotation : gameplayRotation);
         if (playerCamera != null)
         {
             playerCamera.localPosition = cameraLocalPosition;
@@ -348,13 +360,16 @@ public sealed class OpeningCutsceneController : MonoBehaviour
         TextMeshProUGUI letterText = letterTextObject.AddComponent<TextMeshProUGUI>();
         letterText.font = Resources.Load<TMP_FontAsset>("Fonts/Childs Journal SDF Final");
         letterText.fontSize = 26f;
+        letterText.enableAutoSizing = true;
+        letterText.fontSizeMin = 16f;
+        letterText.fontSizeMax = 26f;
         letterText.fontStyle = FontStyles.Bold;
         letterText.alignment = TextAlignmentOptions.TopLeft;
         letterText.textWrappingMode = TextWrappingModes.Normal;
         letterText.overflowMode = TextOverflowModes.Overflow;
         letterText.richText = true;
         letterText.color = new Color(0.012f, 0.008f, 0.004f, 1f);
-        letterText.text = Letter;
+        letterText.text = BuildLetter();
         letterText.raycastTarget = false;
 
         noteObject.transform.localPosition = letterHandLocalPosition;
@@ -476,7 +491,19 @@ public sealed class OpeningCutsceneController : MonoBehaviour
         body.angularDamping = 0.5f;
         body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         body.interpolation = RigidbodyInterpolation.Interpolate;
-        body.AddForce(transform.forward * throwForwardSpeed + Vector3.up * throwUpSpeed, ForceMode.VelocityChange);
+        if (drainTarget != null)
+        {
+            // Aim the page at the outdoor drain so the fall tells the same story
+            // even when the shop layout moves.
+            const float flightTime = 0.85f;
+            Vector3 target = drainTarget.position + Vector3.up * 0.08f;
+            body.linearVelocity = (target - noteObject.transform.position -
+                0.5f * Physics.gravity * flightTime * flightTime) / flightTime;
+        }
+        else
+        {
+            body.AddForce(transform.forward * throwForwardSpeed + Vector3.up * throwUpSpeed, ForceMode.VelocityChange);
+        }
         body.angularVelocity = new Vector3(0.05f, 0.02f, 0.03f);
     }
 

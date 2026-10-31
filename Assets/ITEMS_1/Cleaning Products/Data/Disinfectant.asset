@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - cleaning
   - supermarket
-  icon: {fileID: 21300000, guid: 328ef480e1cb57e4b8b151c6a1b60d83, type: 3}
-  worldSprite: {fileID: 21300000, guid: 328ef480e1cb57e4b8b151c6a1b60d83, type: 3}
+  - product
+  - item-disinfectant-500ml
+  - disinfectant
+  - 500ml
+  - food
+  icon: {fileID: 21300000, guid: 18f08a8e030e22a489d0214e667d9ba2, type: 3}
+  worldSprite: {fileID: 21300000, guid: 18f08a8e030e22a489d0214e667d9ba2, type: 3}

@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - tinned
   - supermarket
-  icon: {fileID: 21300000, guid: e22f866f944c12240b98c5921f6bcb08, type: 3}
-  worldSprite: {fileID: 21300000, guid: e22f866f944c12240b98c5921f6bcb08, type: 3}
+  - product
+  - item-tuna-chunks
+  - tuna
+  - chunks
+  - food
+  icon: {fileID: 21300000, guid: fad0bba492df2374f9f280e4c88852b2, type: 3}
+  worldSprite: {fileID: 21300000, guid: fad0bba492df2374f9f280e4c88852b2, type: 3}

@@ -18,5 +18,12 @@ MonoBehaviour:
   tags:
   - crisps
   - food
-  icon: {fileID: 21300000, guid: afecdae2ad748e2429065f62f7e43540, type: 3}
-  worldSprite: {fileID: 21300000, guid: afecdae2ad748e2429065f62f7e43540, type: 3}
+  - product
+  - item-cheese-onion-crisps
+  - cheese
+  - onion
+  - dairy
+  - chilled
+  - lightweight
+  icon: {fileID: 21300000, guid: 8949623894d2cf74cb47650b7835be5a, type: 3}
+  worldSprite: {fileID: 21300000, guid: 8949623894d2cf74cb47650b7835be5a, type: 3}

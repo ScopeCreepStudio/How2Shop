@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - frozen items
   - food
-  icon: {fileID: 21300000, guid: ab011ec348561dc4e8663609ed962ff3, type: 3}
-  worldSprite: {fileID: 21300000, guid: ab011ec348561dc4e8663609ed962ff3, type: 3}
+  - product
+  - item-frozen-salmon-fillets
+  - frozen
+  - salmon
+  - fillets
+  icon: {fileID: 21300000, guid: 9191515d68c76fd408beb325910cab10, type: 3}
+  worldSprite: {fileID: 21300000, guid: 9191515d68c76fd408beb325910cab10, type: 3}

@@ -17,5 +17,13 @@ MonoBehaviour:
   pricePence: 149
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 0bb75cc011f9d6542b050673ebe27637, type: 3}
-  worldSprite: {fileID: 21300000, guid: 0bb75cc011f9d6542b050673ebe27637, type: 3}
+  - product
+  - item-chocolate
+  - chocolate
+  - drink
+  - cola
+  - soft-drink
+  - carbonated
+  - food
+  icon: {fileID: 21300000, guid: 2e2c6358deb55e349b8c4ae30674dfea, type: 3}
+  worldSprite: {fileID: 21300000, guid: 2e2c6358deb55e349b8c4ae30674dfea, type: 3}

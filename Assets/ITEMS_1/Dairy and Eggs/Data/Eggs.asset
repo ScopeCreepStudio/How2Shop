@@ -17,5 +17,12 @@ MonoBehaviour:
   pricePence: 199
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 96f62750de6fc094691194f9eacaa3f8, type: 3}
-  worldSprite: {fileID: 21300000, guid: 96f62750de6fc094691194f9eacaa3f8, type: 3}
+  - product
+  - item-eggs
+  - eggs
+  - food
+  - dairy
+  - chilled
+  - fragile
+  icon: {fileID: 21300000, guid: 74fb8cb9a361f434db3042aab82ad12d, type: 3}
+  worldSprite: {fileID: 21300000, guid: 74fb8cb9a361f434db3042aab82ad12d, type: 3}

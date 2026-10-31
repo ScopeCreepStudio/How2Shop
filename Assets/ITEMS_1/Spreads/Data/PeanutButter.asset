@@ -17,5 +17,11 @@ MonoBehaviour:
   pricePence: 199
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 4be35ece765dbfe46a7277aae5c0a78b, type: 3}
-  worldSprite: {fileID: 21300000, guid: 4be35ece765dbfe46a7277aae5c0a78b, type: 3}
+  - product
+  - item-peanut-butter
+  - peanut
+  - butter
+  - food
+  - fragile
+  icon: {fileID: 21300000, guid: 180a0d508a5caf34f86d70bc53a71719, type: 3}
+  worldSprite: {fileID: 21300000, guid: 180a0d508a5caf34f86d70bc53a71719, type: 3}

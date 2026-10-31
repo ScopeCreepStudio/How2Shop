@@ -17,5 +17,9 @@ MonoBehaviour:
   pricePence: 119
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: baba3571e3c5b8142b008c76d87164fb, type: 3}
-  worldSprite: {fileID: 21300000, guid: baba3571e3c5b8142b008c76d87164fb, type: 3}
+  - product
+  - item-flour
+  - flour
+  - food
+  icon: {fileID: 21300000, guid: 007b416b9d595294bbb86e53c20e137a, type: 3}
+  worldSprite: {fileID: 21300000, guid: 007b416b9d595294bbb86e53c20e137a, type: 3}

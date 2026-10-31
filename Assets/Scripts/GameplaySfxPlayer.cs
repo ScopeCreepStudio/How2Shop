@@ -66,6 +66,12 @@ public void PlayCashierScan(Vector3 position) => PlayAt(cashierScanClip, positio
         PlayAt(cartCrashClip, position, cartCrashVolume * Mathf.Lerp(0.5f, 1f, strength));
     }
 
+    public void PlayProductBreak(Vector3 position, float impactSpeed)
+    {
+        float strength = Mathf.InverseLerp(16.5f, 25f, impactSpeed);
+        PlayAt(cartCrashClip, position, cartCrashVolume * Mathf.Lerp(0.78f, 1.1f, strength));
+    }
+
     public void PlayShopperFall(Vector3 position)
     {
         PlayAt(cartoonFallClip, position, fallVolume);

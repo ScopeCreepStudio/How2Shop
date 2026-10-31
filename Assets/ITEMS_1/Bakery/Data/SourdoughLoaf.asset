@@ -18,5 +18,9 @@ MonoBehaviour:
   tags:
   - bakery
   - food
-  icon: {fileID: 21300000, guid: 61b7f3ac0ee4deb48a0cfdfb8ccf92ec, type: 3}
-  worldSprite: {fileID: 21300000, guid: 61b7f3ac0ee4deb48a0cfdfb8ccf92ec, type: 3}
+  - product
+  - item-sourdough-loaf
+  - sourdough
+  - loaf
+  icon: {fileID: 21300000, guid: 82bb0507f4c6d8d4991dddd6e003080d, type: 3}
+  worldSprite: {fileID: 21300000, guid: 82bb0507f4c6d8d4991dddd6e003080d, type: 3}

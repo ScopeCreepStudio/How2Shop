@@ -20,5 +20,11 @@ MonoBehaviour:
   - press
   - magazine
   - travel
-  icon: {fileID: 21300000, guid: d8b89846d3b4c1a47bc6e36d46acbe5c, type: 3}
-  worldSprite: {fileID: 21300000, guid: d8b89846d3b4c1a47bc6e36d46acbe5c, type: 3}
+  - product
+  - item-wanderer-travel
+  - wanderer
+  - reading
+  - paper
+  - non-food
+  icon: {fileID: 21300000, guid: ad9a14ce5ac9fd64da61ced8bfd855be, type: 3}
+  worldSprite: {fileID: 21300000, guid: ad9a14ce5ac9fd64da61ced8bfd855be, type: 3}

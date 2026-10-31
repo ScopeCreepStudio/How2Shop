@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - dairy
   - chilled
-  icon: {fileID: 21300000, guid: 671ecbbd087b9d3429be930d3ee84f2b, type: 3}
-  worldSprite: {fileID: 0}
+  - product
+  - item-milk-1l
+  - milk
+  - 1l
+  - food
+  icon: {fileID: 21300000, guid: e0e84c2e934b1ed4b9993468d3c0f7cb, type: 3}
+  worldSprite: {fileID: 21300000, guid: e0e84c2e934b1ed4b9993468d3c0f7cb, type: 3}

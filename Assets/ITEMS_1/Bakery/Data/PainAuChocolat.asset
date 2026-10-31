@@ -18,5 +18,14 @@ MonoBehaviour:
   tags:
   - bakery
   - food
-  icon: {fileID: 21300000, guid: d4f4f437523bd894b84160239148522f, type: 3}
-  worldSprite: {fileID: 21300000, guid: d4f4f437523bd894b84160239148522f, type: 3}
+  - product
+  - item-pain-au-chocolat
+  - pain
+  - au
+  - chocolat
+  - drink
+  - cola
+  - soft-drink
+  - carbonated
+  icon: {fileID: 21300000, guid: 41e7d7df4ee557046b70dbc3d7b15786, type: 3}
+  worldSprite: {fileID: 21300000, guid: 41e7d7df4ee557046b70dbc3d7b15786, type: 3}

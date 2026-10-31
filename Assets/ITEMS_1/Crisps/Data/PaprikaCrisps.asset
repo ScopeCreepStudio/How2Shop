@@ -18,5 +18,9 @@ MonoBehaviour:
   tags:
   - crisps
   - food
-  icon: {fileID: 21300000, guid: 595e75ae08ded8d48ad1d94bded123fc, type: 3}
-  worldSprite: {fileID: 21300000, guid: 595e75ae08ded8d48ad1d94bded123fc, type: 3}
+  - product
+  - item-paprika-crisps
+  - paprika
+  - lightweight
+  icon: {fileID: 21300000, guid: bf8bc84604dcfbf42ae71577f75da869, type: 3}
+  worldSprite: {fileID: 21300000, guid: bf8bc84604dcfbf42ae71577f75da869, type: 3}

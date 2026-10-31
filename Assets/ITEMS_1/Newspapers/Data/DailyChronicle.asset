@@ -20,5 +20,13 @@ MonoBehaviour:
   - press
   - newspaper
   - news
-  icon: {fileID: 21300000, guid: 9677a18d208bf504bae552e3953c6f4b, type: 3}
-  worldSprite: {fileID: 21300000, guid: 9677a18d208bf504bae552e3953c6f4b, type: 3}
+  - product
+  - item-the-daily-chronicle
+  - the
+  - daily
+  - chronicle
+  - reading
+  - paper
+  - non-food
+  icon: {fileID: 21300000, guid: a623eb10e84fc9b448401c9de8b713a0, type: 3}
+  worldSprite: {fileID: 21300000, guid: a623eb10e84fc9b448401c9de8b713a0, type: 3}

@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - selfcare
   - supermarket
-  icon: {fileID: 21300000, guid: 7f2b7e43a95b2754993fe0143fcecaa0, type: 3}
-  worldSprite: {fileID: 21300000, guid: 7f2b7e43a95b2754993fe0143fcecaa0, type: 3}
+  - product
+  - item-hair-mask
+  - hair
+  - mask
+  - food
+  icon: {fileID: 21300000, guid: 73517b005bc1d7d4ca1b7dc57f1485d5, type: 3}
+  worldSprite: {fileID: 21300000, guid: 73517b005bc1d7d4ca1b7dc57f1485d5, type: 3}

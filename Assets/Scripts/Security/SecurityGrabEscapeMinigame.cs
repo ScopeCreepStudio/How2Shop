@@ -80,6 +80,7 @@ namespace How2Shop.Security
         private RectTransform failurePanel;
         private RectTransform successPanel;
         private Image progressFill;
+        private static Sprite progressSprite;
         private TMP_Text titleText;
         private TMP_Text instructionText;
         private TMP_Text progressText;
@@ -574,7 +575,7 @@ namespace How2Shop.Security
             RectTransform rootRect = uiRoot.GetComponent<RectTransform>();
             Stretch(rootRect);
 
-            escapePanel = CreatePanel(rootRect, "Terrible Escape Panel", new Vector2(0.5f, 0.8f), new Vector2(500f, 200f), new Color(1f, 0.88f, 0.05f));
+            escapePanel = CreatePanel(rootRect, "Terrible Escape Panel", new Vector2(0.5f, 0.8f), new Vector2(500f, 200f), new Color32(224, 216, 158, 255));
             escapePanel.localRotation = Quaternion.Euler(0f, 0f, -1.3f);
             titleText = CreateText(escapePanel, "GET OFF ME!!!", 36, new Vector2(0f, 62f), new Vector2(455f, 54f), Color.red, FontStyles.Bold, -2f);
             instructionText = CreateText(escapePanel, "PRESS A AND D OR ELSE", 23, new Vector2(0f, 20f), new Vector2(460f, 40f), Color.black, FontStyles.Bold, 1.4f);
@@ -583,6 +584,10 @@ namespace How2Shop.Security
             barBack.anchoredPosition = new Vector2(0f, -24f);
             RectTransform bar = CreatePanel(barBack, "Ugly red yellow green bar", new Vector2(0.5f, 0.5f), new Vector2(330f, 18f), new Color(0.1f, 0.9f, 0.18f));
             progressFill = bar.GetComponent<Image>();
+            // Filled Images need a sprite; without one Unity draws a full rectangle at 0%.
+            if (progressSprite == null)
+                progressSprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, Texture2D.whiteTexture.width, Texture2D.whiteTexture.height), new Vector2(0.5f, 0.5f));
+            progressFill.sprite = progressSprite;
             progressFill.type = Image.Type.Filled;
             progressFill.fillMethod = Image.FillMethod.Horizontal;
             progressFill.fillOrigin = (int)Image.OriginHorizontal.Left;
@@ -592,7 +597,7 @@ namespace How2Shop.Security
 
             failurePanel = CreatePanel(rootRect, "Bad Failure Screen", new Vector2(0.5f, 0.5f), new Vector2(700f, 420f), Color.black);
             failurePanel.localRotation = Quaternion.Euler(0f, 0f, 1.6f);
-            RectTransform failureInner = CreatePanel(failurePanel, "Ugly failure yellow", new Vector2(0.5f, 0.5f), new Vector2(680f, 400f), new Color(1f, 0.76f, 0.02f));
+            RectTransform failureInner = CreatePanel(failurePanel, "Ugly failure yellow", new Vector2(0.5f, 0.5f), new Vector2(680f, 400f), new Color32(224, 216, 158, 255));
             failureTitleText = CreateText(failureInner, "KICKED OUT OF TESCO", 46, new Vector2(0f, 105f), new Vector2(640f, 90f), Color.red, FontStyles.Bold, -1.2f);
             failureScoreText = CreateText(failureInner, "CHAOS SCORE: 0 / 100", 28, new Vector2(0f, 25f), new Vector2(620f, 95f), Color.black, FontStyles.Bold, 1f);
 
@@ -600,10 +605,11 @@ namespace How2Shop.Security
             retryRect.anchoredPosition = new Vector2(0f, -118f);
             retryButton = retryRect.gameObject.AddComponent<Button>();
             retryButton.targetGraphic = retryRect.GetComponent<Image>();
+            retryRect.GetComponent<Image>().raycastTarget = true;
             retryButton.onClick.AddListener(RetryShopping);
             CreateText(retryRect, "TRY AGAIN!!!", 26, Vector2.zero, new Vector2(230f, 58f), Color.black, FontStyles.Bold, -1.5f);
 
-            successPanel = CreatePanel(rootRect, "Ridiculous Escape Success", new Vector2(0.5f, 0.55f), new Vector2(510f, 128f), new Color(1f, 0.93f, 0.05f));
+            successPanel = CreatePanel(rootRect, "Ridiculous Escape Success", new Vector2(0.5f, 0.55f), new Vector2(510f, 128f), new Color32(224, 216, 158, 255));
             successPanel.localRotation = Quaternion.Euler(0f, 0f, -3.4f);
             CreateText(successPanel, "ESCAPED?!?!", 44, new Vector2(0f, 27f), new Vector2(490f, 55f), Color.red, FontStyles.Bold, 2.7f);
             CreateText(successPanel, "I WAS LETTING YOU GO!", 22, new Vector2(0f, -28f), new Vector2(480f, 34f), Color.black, FontStyles.Bold, -1.5f);
@@ -647,9 +653,10 @@ namespace How2Shop.Security
             text.alignment = TextAlignmentOptions.Center;
             text.textWrappingMode = TextWrappingModes.Normal;
             text.raycastTarget = false;
-            text.outlineWidth = 0.18f;
-            text.outlineColor = Color.black;
-            TMP_FontAsset homemadeFont = Resources.Load<TMP_FontAsset>("Fonts/Childs Journal SDF Final");
+            text.enableAutoSizing = true;
+            text.fontSizeMin = fontSize * 0.65f;
+            text.fontSizeMax = fontSize;
+            TMP_FontAsset homemadeFont = Resources.Load<TMP_FontAsset>("Fonts/Childs Journal SDF Fixed");
             if (homemadeFont != null)
                 text.font = homemadeFont;
             return text;

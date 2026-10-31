@@ -17,5 +17,11 @@ MonoBehaviour:
   pricePence: 199
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: e0f6b3e9b2b362b43867dbebbbb4ab09, type: 3}
-  worldSprite: {fileID: 21300000, guid: e0f6b3e9b2b362b43867dbebbbb4ab09, type: 3}
+  - product
+  - item-yogurt
+  - yogurt
+  - food
+  - dairy
+  - chilled
+  icon: {fileID: 21300000, guid: 7f451b17f341e3d47aa4ff336f312961, type: 3}
+  worldSprite: {fileID: 21300000, guid: 7f451b17f341e3d47aa4ff336f312961, type: 3}

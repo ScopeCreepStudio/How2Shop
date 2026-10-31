@@ -19,5 +19,9 @@ MonoBehaviour:
   - fish
   - fresh
   - food
-  icon: {fileID: 21300000, guid: 0191946f08ed3ca43a36089c39500145, type: 3}
-  worldSprite: {fileID: 21300000, guid: 0191946f08ed3ca43a36089c39500145, type: 3}
+  - product
+  - item-rainbow-trout
+  - rainbow
+  - trout
+  icon: {fileID: 21300000, guid: 4c6e12b13ce5e9b44af65372e7a0af68, type: 3}
+  worldSprite: {fileID: 21300000, guid: 4c6e12b13ce5e9b44af65372e7a0af68, type: 3}

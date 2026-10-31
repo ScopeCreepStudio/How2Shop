@@ -18,5 +18,9 @@ MonoBehaviour:
   tags:
   - bakery
   - food
-  icon: {fileID: 21300000, guid: c0f454738e59b0e4f8070cc367e05897, type: 3}
-  worldSprite: {fileID: 21300000, guid: c0f454738e59b0e4f8070cc367e05897, type: 3}
+  - product
+  - item-seeded-loaf
+  - seeded
+  - loaf
+  icon: {fileID: 21300000, guid: 5b434dbf1d5c7df45a3de13e91a4ada4, type: 3}
+  worldSprite: {fileID: 21300000, guid: 5b434dbf1d5c7df45a3de13e91a4ada4, type: 3}

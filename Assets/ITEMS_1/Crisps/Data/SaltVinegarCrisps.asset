@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - crisps
   - food
-  icon: {fileID: 21300000, guid: 3473f83c3a2a0514d8cb011617624402, type: 3}
-  worldSprite: {fileID: 21300000, guid: 3473f83c3a2a0514d8cb011617624402, type: 3}
+  - product
+  - item-salt-vinegar-crisps
+  - salt
+  - vinegar
+  - lightweight
+  icon: {fileID: 21300000, guid: efbcf1bbe3acd0147b6ed48c7a6c8c7f, type: 3}
+  worldSprite: {fileID: 21300000, guid: efbcf1bbe3acd0147b6ed48c7a6c8c7f, type: 3}

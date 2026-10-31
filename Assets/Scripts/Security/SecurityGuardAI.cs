@@ -24,7 +24,7 @@ namespace How2Shop.Security
     {
         [Range(1, 4)] public int wantedLevel = 1;
         [Min(0f)] public float walkingSpeed = 1.15f;
-        [Min(0f)] public float pursuitSpeed = 1.45f;
+        [Min(0f)] public float pursuitSpeed = 5.1f;
         [Min(0f)] public float detectionRange = 7.5f;
         [Range(1f, 180f)] public float fieldOfView = 70f;
         [Min(0f)] public float reactionTime = 1.0f;
@@ -56,18 +56,18 @@ namespace How2Shop.Security
         [Header("Wanted level behaviour")]
         [SerializeField] private SecurityGuardTier[] wantedTiers =
         {
-            new SecurityGuardTier { wantedLevel = 1, walkingSpeed = 1.15f, pursuitSpeed = 1.45f, detectionRange = 7.5f, fieldOfView = 70f, reactionTime = 1.0f, memoryDuration = 4.5f, searchDuration = 2.5f, searchPoints = 2, searchRadius = 3f, predictionLeadSeconds = 0f, catchDistance = 1.1f },
-            new SecurityGuardTier { wantedLevel = 2, walkingSpeed = 1.4f, pursuitSpeed = 2.6f, detectionRange = 11f, fieldOfView = 82f, reactionTime = 0.65f, memoryDuration = 8f, searchDuration = 5f, searchPoints = 5, searchRadius = 6f, predictionLeadSeconds = 0.12f, catchDistance = 1.15f },
-            new SecurityGuardTier { wantedLevel = 3, walkingSpeed = 1.7f, pursuitSpeed = 4.0f, detectionRange = 16f, fieldOfView = 96f, reactionTime = 0.38f, memoryDuration = 13f, searchDuration = 9f, searchPoints = 8, searchRadius = 10f, predictionLeadSeconds = 0.28f, catchDistance = 1.25f },
-            new SecurityGuardTier { wantedLevel = 4, walkingSpeed = 1.9f, pursuitSpeed = 5.2f, detectionRange = 21f, fieldOfView = 110f, reactionTime = 0.18f, memoryDuration = 19f, searchDuration = 14f, searchPoints = 12, searchRadius = 14f, predictionLeadSeconds = 0.45f, catchDistance = 1.4f }
+            new SecurityGuardTier { wantedLevel = 1, walkingSpeed = 1.15f, pursuitSpeed = 1.45f, detectionRange = 7.5f, fieldOfView = 70f, reactionTime = 0.25f, memoryDuration = 4.5f, searchDuration = 2.5f, searchPoints = 2, searchRadius = 3f, predictionLeadSeconds = 0f, catchDistance = 1.1f },
+            new SecurityGuardTier { wantedLevel = 2, walkingSpeed = 1.4f, pursuitSpeed = 5.8f, detectionRange = 11f, fieldOfView = 82f, reactionTime = 0.18f, memoryDuration = 8f, searchDuration = 5f, searchPoints = 5, searchRadius = 6f, predictionLeadSeconds = 0.12f, catchDistance = 1.15f },
+            new SecurityGuardTier { wantedLevel = 3, walkingSpeed = 1.7f, pursuitSpeed = 6.6f, detectionRange = 16f, fieldOfView = 96f, reactionTime = 0.12f, memoryDuration = 13f, searchDuration = 9f, searchPoints = 8, searchRadius = 10f, predictionLeadSeconds = 0.28f, catchDistance = 1.25f },
+            new SecurityGuardTier { wantedLevel = 4, walkingSpeed = 1.9f, pursuitSpeed = 7.4f, detectionRange = 21f, fieldOfView = 110f, reactionTime = 0.08f, memoryDuration = 19f, searchDuration = 14f, searchPoints = 12, searchRadius = 14f, predictionLeadSeconds = 0.45f, catchDistance = 1.4f }
         };
 
         [Header("Navigation and state timing")]
         [SerializeField, Min(0.1f)] private float destinationSampleRadius = 2f;
-        [SerializeField, Min(0.1f)] private float destinationRefreshSeconds = 0.45f;
-        [SerializeField, Min(0.1f)] private float destinationChangeThreshold = 0.8f;
-        [SerializeField, Min(0.1f)] private float detectionCheckSeconds = 0.12f;
-        [SerializeField, Min(0f)] private float lostSightGraceSeconds = 0.35f;
+        [SerializeField, Min(0.1f)] private float destinationRefreshSeconds = 0.15f;
+        [SerializeField, Min(0.1f)] private float destinationChangeThreshold = 0.3f;
+        [SerializeField, Min(0.1f)] private float detectionCheckSeconds = 0.08f;
+        [SerializeField, Min(0f)] private float lostSightGraceSeconds = 1.5f;
         [SerializeField, Min(0f)] private float searchArrivalPause = 0.45f;
         [SerializeField, Min(0.1f)] private float stuckCheckSeconds = 1.2f;
         [SerializeField, Min(0.1f)] private float stuckTimeoutSeconds = 2.4f;
@@ -120,6 +120,7 @@ namespace How2Shop.Security
         private float stuckSince = -1f;
         private float visibleSince = -1f;
         private float lastSeenAt = -1000f;
+        private float theftPursuitUntil;
         private float lastDisturbanceAt = -1000f;
         private float attentionUntil;
         private float catchAllowedAt;
@@ -217,8 +218,8 @@ namespace How2Shop.Security
             agent.updatePosition = true;
             agent.updateRotation = true;
             agent.stoppingDistance = 0.15f;
-            agent.acceleration = 10f;
-            agent.angularSpeed = 240f;
+            agent.acceleration = 22f;
+            agent.angularSpeed = 540f;
             agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
 
             if (!PlaceAgentOnNavMesh())
@@ -676,6 +677,15 @@ namespace How2Shop.Security
                 return;
             }
 
+            // The exit alarm gives security a brief live lead, even through the doorway.
+            if (Time.time < theftPursuitUntil)
+            {
+                lastSeenAt = Time.time;
+                lastKnownPlayerPosition = GetPredictedPlayerPosition();
+                if (Time.time >= nextDestinationRefreshAt)
+                    RequestDestination(lastKnownPlayerPosition, false);
+            }
+
             if (visibleSince >= 0f && Time.time >= nextDestinationRefreshAt &&
                 (requestedDestination - lastKnownPlayerPosition).sqrMagnitude >= destinationChangeThreshold * destinationChangeThreshold)
                 RequestDestination(lastKnownPlayerPosition, false);
@@ -1002,6 +1012,7 @@ namespace How2Shop.Security
                 return;
             bool pursuing = currentState == SecurityGuardState.Chasing || currentState == SecurityGuardState.Grabbing;
             agent.speed = pursuing ? GetTier().pursuitSpeed : GetTier().walkingSpeed;
+            agent.autoBraking = !pursuing;
         }
 
         private void UpdateAnimator()
@@ -1078,6 +1089,24 @@ namespace How2Shop.Security
         {
             attentionUntil = Time.time + Mathf.Max(4f, GetTier().memoryDuration);
             BeginSuspicion(lastDisturbancePosition == Vector3.zero ? transform.position + transform.forward * 2f : lastDisturbancePosition, false);
+        }
+
+        /// <summary>Alerts the guard when the player leaves with unpaid goods.</summary>
+        public void AlertUnpaidExit(Transform suspect)
+        {
+            if (suspect == null || caughtPlayer || currentState == SecurityGuardState.Stunned)
+                return;
+            playerTarget = suspect;
+            playerController = suspect.GetComponent<CharacterController>();
+            theftPursuitUntil = Time.time + 12f;
+            attentionUntil = Mathf.Max(attentionUntil, theftPursuitUntil);
+            lastSeenAt = Time.time;
+            lastKnownPlayerPosition = GetPredictedPlayerPosition();
+            if (currentWantedLevel == 0) currentWantedLevel = 1;
+            SetState(SecurityGuardState.Chasing);
+            hasDestination = false;
+            RequestDestination(lastKnownPlayerPosition, true);
+            PlayerSpotted?.Invoke(this);
         }
 
         [ContextMenu("Debug/Force Chase")]

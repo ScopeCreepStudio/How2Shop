@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - bakery
   - food
-  icon: {fileID: 21300000, guid: a83b4153c5c1e2747afe1d3e264152fb, type: 3}
-  worldSprite: {fileID: 21300000, guid: a83b4153c5c1e2747afe1d3e264152fb, type: 3}
+  - product
+  - item-iced-cinnamon-bun
+  - iced
+  - cinnamon
+  - bun
+  icon: {fileID: 21300000, guid: 39b3d82778063ee4798073c7715462fd, type: 3}
+  worldSprite: {fileID: 21300000, guid: 39b3d82778063ee4798073c7715462fd, type: 3}

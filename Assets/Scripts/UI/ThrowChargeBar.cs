@@ -46,7 +46,7 @@ protected override void OnPopulateMesh(VertexHelper vh)
     float height = rect.height;
 
     DrawBand(vh, bottom, top, 0f, new Color32(0, 0, 0, 255), rect);
-    DrawBand(vh, bottom + 6f, top - 6f, 6f, new Color32(45, 44, 53, 255), rect);
+    DrawBand(vh, bottom + 6f, top - 6f, 6f, new Color32(224, 216, 158, 255), rect);
 
     if (fillAmount > 0f)
     {

@@ -18,5 +18,9 @@ MonoBehaviour:
   tags:
   - selfcare
   - supermarket
-  icon: {fileID: 21300000, guid: 6a7edcdee7aa8d94e87889184e7700f7, type: 3}
-  worldSprite: {fileID: 21300000, guid: 6a7edcdee7aa8d94e87889184e7700f7, type: 3}
+  - product
+  - item-fresh
+  - fresh
+  - food
+  icon: {fileID: 21300000, guid: 625829362cfac2447afa3da6d9570f44, type: 3}
+  worldSprite: {fileID: 21300000, guid: 625829362cfac2447afa3da6d9570f44, type: 3}

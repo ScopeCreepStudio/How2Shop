@@ -19,5 +19,8 @@ MonoBehaviour:
   - fish
   - fresh
   - food
-  icon: {fileID: 21300000, guid: a7773aab0a9ae084b96cde671e756c6c, type: 3}
-  worldSprite: {fileID: 21300000, guid: a7773aab0a9ae084b96cde671e756c6c, type: 3}
+  - product
+  - item-herring
+  - herring
+  icon: {fileID: 21300000, guid: 4facd22feaad2a2409bd66c78a65779f, type: 3}
+  worldSprite: {fileID: 21300000, guid: 4facd22feaad2a2409bd66c78a65779f, type: 3}

@@ -17,5 +17,10 @@ MonoBehaviour:
   pricePence: 85
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 4949a07cf2c75434dae64e5332308e1a, type: 3}
-  worldSprite: {fileID: 21300000, guid: 4949a07cf2c75434dae64e5332308e1a, type: 3}
+  - product
+  - item-water
+  - water
+  - drink
+  - food
+  icon: {fileID: 21300000, guid: 51372088e2707464daf27906c13a9216, type: 3}
+  worldSprite: {fileID: 21300000, guid: 51372088e2707464daf27906c13a9216, type: 3}

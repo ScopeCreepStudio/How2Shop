@@ -18,5 +18,11 @@ MonoBehaviour:
   tags:
   - cleaning
   - supermarket
-  icon: {fileID: 21300000, guid: e464f2c4abcfe9a4c8aacff8b26549e7, type: 3}
-  worldSprite: {fileID: 21300000, guid: e464f2c4abcfe9a4c8aacff8b26549e7, type: 3}
+  - product
+  - item-fabric-softener-1l
+  - fabric
+  - softener
+  - 1l
+  - food
+  icon: {fileID: 21300000, guid: aaea59a7d63abaf4e86f0f7ff64aab2f, type: 3}
+  worldSprite: {fileID: 21300000, guid: aaea59a7d63abaf4e86f0f7ff64aab2f, type: 3}

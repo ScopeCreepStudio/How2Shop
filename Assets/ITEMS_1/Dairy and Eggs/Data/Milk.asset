@@ -17,5 +17,11 @@ MonoBehaviour:
   pricePence: 199
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 9aa86ffaef1cf5c4880ec0b73705d56b, type: 3}
-  worldSprite: {fileID: 21300000, guid: 9aa86ffaef1cf5c4880ec0b73705d56b, type: 3}
+  - product
+  - item-milk
+  - milk
+  - food
+  - dairy
+  - chilled
+  icon: {fileID: 21300000, guid: b4a75092e4b630f4db95d6c9fae7f811, type: 3}
+  worldSprite: {fileID: 21300000, guid: b4a75092e4b630f4db95d6c9fae7f811, type: 3}

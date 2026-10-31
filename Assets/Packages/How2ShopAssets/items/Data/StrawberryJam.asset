@@ -18,5 +18,11 @@ MonoBehaviour:
   tags:
   - spreads
   - supermarket
-  icon: {fileID: 21300000, guid: 99069729f46e55d4cb994149f3ff9483, type: 3}
-  worldSprite: {fileID: 21300000, guid: 99069729f46e55d4cb994149f3ff9483, type: 3}
+  - product
+  - item-strawberry-jam
+  - strawberry
+  - jam
+  - food
+  - fragile
+  icon: {fileID: 21300000, guid: d7d507dac40556d4abd37087ef00222e, type: 3}
+  worldSprite: {fileID: 21300000, guid: d7d507dac40556d4abd37087ef00222e, type: 3}

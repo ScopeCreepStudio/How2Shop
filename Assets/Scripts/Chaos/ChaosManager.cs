@@ -17,7 +17,8 @@ namespace How2Shop.Chaos
         KnockProductsOffShelves,
         KnockOverShelf,
         ItemHitSecurityGuard,
-        DamageCheckoutEquipment
+        DamageCheckoutEquipment,
+        AttemptedTheft
     }
 
     [Serializable]
@@ -48,7 +49,8 @@ namespace How2Shop.Chaos
             new ChaosEventConfig { eventType = ChaosEventType.KnockProductsOffShelves, chaosAmount = 5f, minimumImpactSpeed = 2f, perObjectCooldown = 1f },
             new ChaosEventConfig { eventType = ChaosEventType.KnockOverShelf, chaosAmount = 20f, minimumImpactSpeed = 3f, perObjectCooldown = 1.5f },
             new ChaosEventConfig { eventType = ChaosEventType.ItemHitSecurityGuard, chaosAmount = 25f, minimumImpactSpeed = 4f, perObjectCooldown = 1f },
-            new ChaosEventConfig { eventType = ChaosEventType.DamageCheckoutEquipment, chaosAmount = 15f, minimumImpactSpeed = 3f, perObjectCooldown = 1f }
+            new ChaosEventConfig { eventType = ChaosEventType.DamageCheckoutEquipment, chaosAmount = 15f, minimumImpactSpeed = 3f, perObjectCooldown = 1f },
+                new ChaosEventConfig { eventType = ChaosEventType.AttemptedTheft, chaosAmount = 30f, minimumImpactSpeed = 0f, perObjectCooldown = 3f }
         };
 
         [Header("Decay")]
@@ -58,6 +60,9 @@ namespace How2Shop.Chaos
         [SerializeField, Min(0f)] private float searchingDecayMultiplier = 0.6f;
         [SerializeField, Min(0f)] private float noLeadDecayMultiplier = 1.5f;
         [SerializeField, Min(0f)] private float wantedLevelHysteresis = 2f;
+
+        [Header("Fragile products")]
+        [SerializeField, Min(0f)] private float fragileProductBreakImpactSpeed = 16.5f;
 
         [Header("Runtime state")]
         [SerializeField, Range(0f, 100f)] private float currentChaos;
@@ -88,6 +93,7 @@ namespace How2Shop.Chaos
         public float CurrentChaos => currentChaos;
         public int WantedLevel => wantedLevel;
         public bool IsSecurityPursuitActive => securityPursuitActive;
+        public float FragileProductBreakImpactSpeed => fragileProductBreakImpactSpeed;
 
         public event Action<float, float> ChaosChanged;
         public event Action<int, int> WantedLevelChanged;
@@ -147,11 +153,21 @@ namespace How2Shop.Chaos
                 ItemSpriteView product = products[i];
                 if (product == null || product.GetComponent<Collider>() == null && product.GetComponentInChildren<Collider>() == null)
                     continue;
-                if (product.GetComponent<ChaosImpactTarget>() != null)
+                if (product.Item == null || !product.Item.HasTag("fragile"))
                     continue;
 
-                ChaosImpactTarget target = product.gameObject.AddComponent<ChaosImpactTarget>();
-                target.Configure(ChaosEventType.BreakProduct, ChaosImpactSource.ThrownItem, 2.5f, true);
+                ChaosImpactTarget target = product.GetComponent<ChaosImpactTarget>();
+                if (target != null)
+                {
+                    if (target.EventType == ChaosEventType.BreakProduct)
+                        target.Configure(ChaosEventType.BreakProduct, ChaosImpactSource.ThrownItem,
+                            fragileProductBreakImpactSpeed, true);
+                    continue;
+                }
+
+                target = product.gameObject.AddComponent<ChaosImpactTarget>();
+                target.Configure(ChaosEventType.BreakProduct, ChaosImpactSource.ThrownItem,
+                    fragileProductBreakImpactSpeed, true);
             }
 
             Collider[] colliders = FindObjectsByType<Collider>();
@@ -358,7 +374,8 @@ namespace How2Shop.Chaos
                 new ChaosEventConfig { eventType = ChaosEventType.KnockProductsOffShelves, chaosAmount = 5f, minimumImpactSpeed = 2f, perObjectCooldown = 1f },
                 new ChaosEventConfig { eventType = ChaosEventType.KnockOverShelf, chaosAmount = 20f, minimumImpactSpeed = 3f, perObjectCooldown = 1.5f },
                 new ChaosEventConfig { eventType = ChaosEventType.ItemHitSecurityGuard, chaosAmount = 25f, minimumImpactSpeed = 4f, perObjectCooldown = 1f },
-                new ChaosEventConfig { eventType = ChaosEventType.DamageCheckoutEquipment, chaosAmount = 15f, minimumImpactSpeed = 3f, perObjectCooldown = 1f }
+                new ChaosEventConfig { eventType = ChaosEventType.DamageCheckoutEquipment, chaosAmount = 15f, minimumImpactSpeed = 3f, perObjectCooldown = 1f },
+                new ChaosEventConfig { eventType = ChaosEventType.AttemptedTheft, chaosAmount = 30f, minimumImpactSpeed = 0f, perObjectCooldown = 3f }
             };
         }
 

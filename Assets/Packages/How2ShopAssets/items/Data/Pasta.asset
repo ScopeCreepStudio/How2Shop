@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - pantry
   - supermarket
-  icon: {fileID: 21300000, guid: 547076ea488412d43adaf361ff6dd1ea, type: 3}
-  worldSprite: {fileID: 21300000, guid: 547076ea488412d43adaf361ff6dd1ea, type: 3}
+  - product
+  - item-penne-pasta
+  - penne
+  - pasta
+  - food
+  icon: {fileID: 21300000, guid: b7279d0fb3ad56943816b369ece88581, type: 3}
+  worldSprite: {fileID: 21300000, guid: b7279d0fb3ad56943816b369ece88581, type: 3}

@@ -17,5 +17,10 @@ MonoBehaviour:
   pricePence: 199
   tags:
   - frozen
-  icon: {fileID: 21300000, guid: d4b43c2f1f0475144b5091137ea28e3a, type: 3}
-  worldSprite: {fileID: 21300000, guid: d4b43c2f1f0475144b5091137ea28e3a, type: 3}
+  - product
+  - item-chicken-nuggets
+  - chicken
+  - nuggets
+  - food
+  icon: {fileID: 21300000, guid: 903699d4ea029a546b31b04e5383d145, type: 3}
+  worldSprite: {fileID: 21300000, guid: 903699d4ea029a546b31b04e5383d145, type: 3}

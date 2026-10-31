@@ -18,5 +18,9 @@ MonoBehaviour:
   tags:
   - bakery
   - food
-  icon: {fileID: 21300000, guid: 1d13862419d1b03409e2e965c9befa8f, type: 3}
-  worldSprite: {fileID: 21300000, guid: 1d13862419d1b03409e2e965c9befa8f, type: 3}
+  - product
+  - item-pretzel
+  - pretzel
+  - lightweight
+  icon: {fileID: 21300000, guid: f21a33561db2e2c4aba0683af6bfb827, type: 3}
+  worldSprite: {fileID: 21300000, guid: f21a33561db2e2c4aba0683af6bfb827, type: 3}

@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - bakery
   - food
-  icon: {fileID: 21300000, guid: c160f7f64968bfb4698faa21b32a0120, type: 3}
-  worldSprite: {fileID: 21300000, guid: c160f7f64968bfb4698faa21b32a0120, type: 3}
+  - product
+  - item-butter-croissant
+  - butter
+  - croissant
+  - lightweight
+  icon: {fileID: 21300000, guid: 8b45f4ca07eff3a44a35d2832aae80a7, type: 3}
+  worldSprite: {fileID: 21300000, guid: 8b45f4ca07eff3a44a35d2832aae80a7, type: 3}

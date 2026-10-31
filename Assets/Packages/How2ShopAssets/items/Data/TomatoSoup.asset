@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - tinned
   - supermarket
-  icon: {fileID: 21300000, guid: f63c79682bb380644b234390e193d8b6, type: 3}
-  worldSprite: {fileID: 21300000, guid: f63c79682bb380644b234390e193d8b6, type: 3}
+  - product
+  - item-tomato-soup
+  - tomato
+  - soup
+  - food
+  icon: {fileID: 21300000, guid: af17e5b401343114fa19a29ca18da107, type: 3}
+  worldSprite: {fileID: 21300000, guid: af17e5b401343114fa19a29ca18da107, type: 3}

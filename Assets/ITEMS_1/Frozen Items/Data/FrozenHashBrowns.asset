@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - frozen items
   - food
-  icon: {fileID: 21300000, guid: a48f6c93daf21154f8cd74f1f7e804fc, type: 3}
-  worldSprite: {fileID: 21300000, guid: a48f6c93daf21154f8cd74f1f7e804fc, type: 3}
+  - product
+  - item-frozen-hash-browns
+  - frozen
+  - hash
+  - browns
+  icon: {fileID: 21300000, guid: c2a50ca5087792b46a5977a009e6d592, type: 3}
+  worldSprite: {fileID: 21300000, guid: c2a50ca5087792b46a5977a009e6d592, type: 3}

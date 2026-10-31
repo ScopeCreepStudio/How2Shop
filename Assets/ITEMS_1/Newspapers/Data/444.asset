@@ -20,5 +20,11 @@ MonoBehaviour:
   - press
   - newspaper
   - news
-  icon: {fileID: 21300000, guid: 21df74f4e0b638744aee0d6da6afc673, type: 3}
-  worldSprite: {fileID: 21300000, guid: 21df74f4e0b638744aee0d6da6afc673, type: 3}
+  - product
+  - item-444
+  - 444
+  - reading
+  - paper
+  - non-food
+  icon: {fileID: 21300000, guid: e0cb77a4c15151941a01be5e9f8afc53, type: 3}
+  worldSprite: {fileID: 21300000, guid: e0cb77a4c15151941a01be5e9f8afc53, type: 3}

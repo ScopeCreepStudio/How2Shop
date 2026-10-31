@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - crisps
   - food
-  icon: {fileID: 21300000, guid: 9be3f9b7b0216604db7966aab3f7b465, type: 3}
-  worldSprite: {fileID: 21300000, guid: 9be3f9b7b0216604db7966aab3f7b465, type: 3}
+  - product
+  - item-classic-salted-crisps
+  - classic
+  - salted
+  - lightweight
+  icon: {fileID: 21300000, guid: a0b64bb2917dfbb479d78bf37455fdd6, type: 3}
+  worldSprite: {fileID: 21300000, guid: a0b64bb2917dfbb479d78bf37455fdd6, type: 3}

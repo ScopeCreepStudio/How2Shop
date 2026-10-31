@@ -11,6 +11,7 @@ namespace How2Shop.Items
         [SerializeField] private Transform playerCamera;
         [SerializeField] private Transform holdPoint;
         [SerializeField] private ShoppingCart cart;
+        [SerializeField] private PickupNameHUD pickupNameHUD;
 
         [Header("Pickup / Drop")]
         [SerializeField] private float pickupRange = 3f;
@@ -73,6 +74,11 @@ namespace How2Shop.Items
             if (cart == null)
                 cart = FindFirstObjectByType<ShoppingCart>();
 
+            if (pickupNameHUD == null)
+                pickupNameHUD = GetComponent<PickupNameHUD>();
+            if (pickupNameHUD == null)
+                pickupNameHUD = gameObject.AddComponent<PickupNameHUD>();
+
             if (throwChargeBar != null)
                 throwChargeBar.gameObject.SetActive(false);
         }
@@ -88,11 +94,15 @@ namespace How2Shop.Items
                 Keyboard kb = Keyboard.current;
                 if (kb != null && kb[pickupKey].wasPressedThisFrame)
                     TryPickUp();
+                else if (kb != null && kb[dropKey].wasPressedThisFrame || IsCheckoutClick())
+                    TryFinishCheckout();
             }
             else
             {
                 Keyboard kb = Keyboard.current;
                 if (kb != null && kb[dropKey].wasPressedThisFrame)
+                    Drop();
+                else if (IsCheckoutClick() && FindNearbyCheckout() != null)
                     Drop();
                 else if (kb != null && kb[cartKey].wasPressedThisFrame)
                     TryPutInCart();
@@ -255,6 +265,9 @@ private void UpdateThrowInput()
             if (GameplaySfxPlayer.Instance != null)
                 GameplaySfxPlayer.Instance.PlayPickup(t.position);
 
+            if (pickupNameHUD != null)
+                pickupNameHUD.Show(DescribeItem(item));
+
             Debug.Log($"Picked up {DescribeItem(item)}");
         }
 
@@ -262,6 +275,25 @@ private void UpdateThrowInput()
         {
             ItemSpriteView item = HeldItem;
             Transform t = item.transform;
+
+            CashierCheckoutConveyor checkout = FindNearbyCheckout();
+            if (checkout != null)
+            {
+                Collider scanArea = checkout.GetComponent<Collider>();
+                t.SetParent(null, true);
+                t.position = scanArea.bounds.center;
+                EnableHeldColliders();
+                EnsureItemImpactRelay(item);
+                if (heldBody != null)
+                {
+                    heldBody.isKinematic = heldBodyWasKinematic;
+                    if (!heldBodyWasKinematic)
+                        heldBody.linearVelocity = Vector3.zero;
+                }
+                ClearHeldState();
+                checkout.SubmitItem(item);
+                return;
+            }
 
             Vector3 dropPos = playerCamera.position + playerCamera.forward * dropDistance;
             if (Physics.Raycast(playerCamera.position, playerCamera.forward, out RaycastHit hit,
@@ -287,6 +319,45 @@ private void UpdateThrowInput()
             ClearHeldState();
         }
 
+    private static bool IsCheckoutClick()
+    {
+        Mouse mouse = Mouse.current;
+        return mouse != null && mouse.leftButton.wasPressedThisFrame;
+    }
+
+    private void TryFinishCheckout()
+    {
+        CashierCheckoutConveyor checkout = FindNearbyCheckout();
+        if (checkout == null || !checkout.HasScannedItems || !checkout.CanCompleteTransaction)
+            return;
+
+        GrandmaShoppingLoop shoppingLoop = GrandmaShoppingLoop.Instance;
+        if (shoppingLoop != null)
+            shoppingLoop.CompleteCheckoutTransaction();
+    }
+
+        private CashierCheckoutConveyor FindNearbyCheckout()
+        {
+            CashierCheckoutConveyor nearest = null;
+            float nearestDistance = 3f;
+            foreach (CashierCheckoutConveyor checkout in FindObjectsByType<CashierCheckoutConveyor>(FindObjectsSortMode.None))
+            {
+                Collider scanArea = checkout.GetComponent<Collider>();
+                if (scanArea == null || !scanArea.enabled)
+                    continue;
+
+                Vector3 toCenter = scanArea.bounds.center - playerCamera.position;
+                float distance = Vector3.Distance(playerCamera.position, scanArea.bounds.ClosestPoint(playerCamera.position));
+                if (distance > nearestDistance || toCenter.sqrMagnitude < 0.001f ||
+                    Vector3.Dot(playerCamera.forward, toCenter.normalized) < 0.45f)
+                    continue;
+
+                nearestDistance = distance;
+                nearest = checkout;
+            }
+            return nearest;
+        }
+
         private void Throw(float speed)
         {
             ItemSpriteView item = HeldItem;
@@ -297,7 +368,7 @@ private void UpdateThrowInput()
                 GameplaySfxPlayer.Instance.PlayThrow(t.position);
 
             t.SetParent(null, true);
-            EnableHeldColliders();
+            EnableHeldColliders(true);
 
             Rigidbody body = heldBody;
             if (body == null)
@@ -354,12 +425,17 @@ private void UpdateThrowInput()
             ClearHeldState();
         }
 
-        private void EnableHeldColliders()
+        private void EnableHeldColliders(bool makeSolid = false)
         {
             if (heldColliders == null) return;
             foreach (var col in heldColliders)
             {
-                if (col != null) col.enabled = true;
+                if (col != null)
+                {
+                    if (makeSolid)
+                        col.isTrigger = false;
+                    col.enabled = true;
+                }
             }
         }
 

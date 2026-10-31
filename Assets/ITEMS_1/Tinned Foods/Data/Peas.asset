@@ -17,5 +17,10 @@ MonoBehaviour:
   pricePence: 79
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 6d6a2566a86bf5c48ac7998870024cbb, type: 3}
-  worldSprite: {fileID: 21300000, guid: 6d6a2566a86bf5c48ac7998870024cbb, type: 3}
+  - product
+  - item-peas
+  - peas
+  - food
+  - tinned
+  icon: {fileID: 21300000, guid: d1e710726cae3544893fa084fd58a30a, type: 3}
+  worldSprite: {fileID: 21300000, guid: d1e710726cae3544893fa084fd58a30a, type: 3}

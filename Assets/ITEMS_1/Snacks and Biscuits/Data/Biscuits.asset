@@ -17,5 +17,10 @@ MonoBehaviour:
   pricePence: 199
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 478af6f83fcacd14c9b9f6d6ce3cc635, type: 3}
-  worldSprite: {fileID: 21300000, guid: 478af6f83fcacd14c9b9f6d6ce3cc635, type: 3}
+  - product
+  - item-biscuits
+  - biscuits
+  - food
+  - lightweight
+  icon: {fileID: 21300000, guid: 0ca52a0ff689e9e4bb7d6be75677a68a, type: 3}
+  worldSprite: {fileID: 21300000, guid: 0ca52a0ff689e9e4bb7d6be75677a68a, type: 3}

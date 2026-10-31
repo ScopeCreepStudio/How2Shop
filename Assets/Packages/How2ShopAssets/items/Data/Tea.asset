@@ -18,5 +18,12 @@ MonoBehaviour:
   tags:
   - drinks
   - supermarket
-  icon: {fileID: 21300000, guid: 24dd0d6ed8b752549966e10634712399, type: 3}
-  worldSprite: {fileID: 21300000, guid: 24dd0d6ed8b752549966e10634712399, type: 3}
+  - product
+  - item-tea-bags
+  - tea
+  - bags
+  - drink
+  - food
+  - lightweight
+  icon: {fileID: 21300000, guid: 1471943dfe3e53c4bbc3f5c93ffaabde, type: 3}
+  worldSprite: {fileID: 21300000, guid: 1471943dfe3e53c4bbc3f5c93ffaabde, type: 3}

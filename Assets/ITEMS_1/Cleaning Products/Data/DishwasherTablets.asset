@@ -18,5 +18,12 @@ MonoBehaviour:
   tags:
   - cleaning
   - supermarket
-  icon: {fileID: 21300000, guid: 53b657d942b4a774cb385a90159b0ad5, type: 3}
-  worldSprite: {fileID: 21300000, guid: 53b657d942b4a774cb385a90159b0ad5, type: 3}
+  - product
+  - item-dishwasher-tablets-30-pack
+  - dishwasher
+  - tablets
+  - 30
+  - pack
+  - food
+  icon: {fileID: 21300000, guid: 94a19587c39eeda4282846b8ea48299e, type: 3}
+  worldSprite: {fileID: 21300000, guid: 94a19587c39eeda4282846b8ea48299e, type: 3}

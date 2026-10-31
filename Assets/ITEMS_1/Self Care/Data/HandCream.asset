@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - selfcare
   - supermarket
-  icon: {fileID: 21300000, guid: 024d8ce0b36c08b4186d6b1c89a5d394, type: 3}
-  worldSprite: {fileID: 21300000, guid: 024d8ce0b36c08b4186d6b1c89a5d394, type: 3}
+  - product
+  - item-hand-care
+  - hand
+  - care
+  - food
+  icon: {fileID: 21300000, guid: 6986373a48d7ce144859cfadb171ee79, type: 3}
+  worldSprite: {fileID: 21300000, guid: 6986373a48d7ce144859cfadb171ee79, type: 3}

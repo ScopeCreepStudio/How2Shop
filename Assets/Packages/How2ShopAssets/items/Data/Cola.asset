@@ -18,5 +18,13 @@ MonoBehaviour:
   tags:
   - drinks
   - supermarket
-  icon: {fileID: 21300000, guid: af917fb06e070144f8741056665913ed, type: 3}
-  worldSprite: {fileID: 21300000, guid: af917fb06e070144f8741056665913ed, type: 3}
+  - product
+  - item-cola-can
+  - cola
+  - can
+  - drink
+  - soft-drink
+  - carbonated
+  - food
+  icon: {fileID: 21300000, guid: 66e96d83bff362241b952cdf2faf2bce, type: 3}
+  worldSprite: {fileID: 21300000, guid: 66e96d83bff362241b952cdf2faf2bce, type: 3}

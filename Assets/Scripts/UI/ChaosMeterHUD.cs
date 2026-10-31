@@ -53,6 +53,7 @@ namespace How2Shop.Chaos.UI
         {
             EnsureRuntimeArrays();
             EnsureHandwrittenFont();
+            StyleExistingControls();
             BuildHud();
             EnsureWarningSound();
         }
@@ -153,6 +154,56 @@ namespace How2Shop.Chaos.UI
         {
             if (warningClip != null)
                 Destroy(warningClip);
+        }
+
+        private void StyleExistingControls()
+        {
+            Font handwritten = Resources.Load<Font>("Fonts/childs-journal");
+            Transform instructions = transform.Find("Pickup Instructions");
+            if (instructions != null)
+            {
+                Image paper = instructions.GetComponent<Image>();
+                if (paper != null)
+                {
+                    paper.color = new Color32(224, 216, 158, 255);
+                    Outline outline = paper.GetComponent<Outline>();
+                    if (outline == null) outline = paper.gameObject.AddComponent<Outline>();
+                    outline.effectColor = Color.black;
+                    outline.effectDistance = new Vector2(4f, -3f);
+                }
+                foreach (Text text in instructions.GetComponentsInChildren<Text>(true))
+                {
+                    text.color = Color.black;
+                    if (handwritten != null) text.font = handwritten;
+                }
+                // The shopping guide and pause menu now carry these controls.
+                instructions.gameObject.SetActive(false);
+            }
+
+            Transform throwBar = transform.Find("Throw Force Bar");
+            if (throwBar == null) return;
+            foreach (Text text in throwBar.GetComponentsInChildren<Text>(true))
+            {
+                text.color = Color.black;
+                if (handwritten != null) text.font = handwritten;
+                RectTransform label = text.rectTransform;
+                GameObject backing = new GameObject(text.name + " Paper", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+                backing.transform.SetParent(label.parent, false);
+                RectTransform rect = backing.GetComponent<RectTransform>();
+                rect.anchorMin = label.anchorMin;
+                rect.anchorMax = label.anchorMax;
+                rect.pivot = label.pivot;
+                rect.anchoredPosition = label.anchoredPosition;
+                rect.sizeDelta = label.sizeDelta;
+                rect.localRotation = label.localRotation;
+                backing.transform.SetSiblingIndex(label.GetSiblingIndex());
+                Image image = backing.GetComponent<Image>();
+                image.color = new Color32(224, 216, 158, 255);
+                image.raycastTarget = false;
+                Outline outline = backing.AddComponent<Outline>();
+                outline.effectColor = Color.black;
+                outline.effectDistance = new Vector2(3f, -2f);
+            }
         }
 
         private void BuildHud()

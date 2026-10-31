@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - baking
   - supermarket
-  icon: {fileID: 21300000, guid: cad3edbc5e2ba7b4f9cb4c4c0420ed88, type: 3}
-  worldSprite: {fileID: 21300000, guid: cad3edbc5e2ba7b4f9cb4c4c0420ed88, type: 3}
+  - product
+  - item-plain-flour
+  - plain
+  - flour
+  - food
+  icon: {fileID: 21300000, guid: c0b294ea2bc759041b1e224cf4882382, type: 3}
+  worldSprite: {fileID: 21300000, guid: c0b294ea2bc759041b1e224cf4882382, type: 3}

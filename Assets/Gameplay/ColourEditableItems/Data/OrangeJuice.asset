@@ -18,5 +18,12 @@ MonoBehaviour:
   tags:
   - drinks
   - supermarket
-  icon: {fileID: 21300000, guid: 01fdcd762d2201644b663d61491d3bb5, type: 3}
-  worldSprite: {fileID: 21300000, guid: 01fdcd762d2201644b663d61491d3bb5, type: 3}
+  - product
+  - item-orange-juice-1l
+  - orange
+  - juice
+  - 1l
+  - drink
+  - food
+  icon: {fileID: 21300000, guid: 358dc9e68e517934299d876bdd71bd96, type: 3}
+  worldSprite: {fileID: 21300000, guid: 358dc9e68e517934299d876bdd71bd96, type: 3}

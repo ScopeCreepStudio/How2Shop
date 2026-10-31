@@ -17,5 +17,9 @@ MonoBehaviour:
   pricePence: 139
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: b379ce573cedfc047bbcf5dfa4e1fab4, type: 3}
-  worldSprite: {fileID: 21300000, guid: b379ce573cedfc047bbcf5dfa4e1fab4, type: 3}
+  - product
+  - item-sugar
+  - sugar
+  - food
+  icon: {fileID: 21300000, guid: 465fdeae26ab2b04d8f5db6419b856bf, type: 3}
+  worldSprite: {fileID: 21300000, guid: 465fdeae26ab2b04d8f5db6419b856bf, type: 3}

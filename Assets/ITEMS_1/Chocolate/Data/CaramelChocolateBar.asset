@@ -18,5 +18,14 @@ MonoBehaviour:
   tags:
   - chocolate
   - food
-  icon: {fileID: 21300000, guid: a1ad87dd952f30c4ca5b409cb0a11da3, type: 3}
-  worldSprite: {fileID: 21300000, guid: a1ad87dd952f30c4ca5b409cb0a11da3, type: 3}
+  - product
+  - item-caramel-chocolate-bar
+  - caramel
+  - bar
+  - drink
+  - cola
+  - soft-drink
+  - carbonated
+  - lightweight
+  icon: {fileID: 21300000, guid: f6489ef72374396499bd5a8cec06ada9, type: 3}
+  worldSprite: {fileID: 21300000, guid: f6489ef72374396499bd5a8cec06ada9, type: 3}

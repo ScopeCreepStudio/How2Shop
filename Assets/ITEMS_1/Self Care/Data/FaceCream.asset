@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - selfcare
   - supermarket
-  icon: {fileID: 21300000, guid: 47eec9879785cc643b63214ec14a8fa1, type: 3}
-  worldSprite: {fileID: 21300000, guid: 47eec9879785cc643b63214ec14a8fa1, type: 3}
+  - product
+  - item-face-cream
+  - face
+  - cream
+  - food
+  icon: {fileID: 21300000, guid: a60dee4ffcd197844b0eade011ebc7d2, type: 3}
+  worldSprite: {fileID: 21300000, guid: a60dee4ffcd197844b0eade011ebc7d2, type: 3}

@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - biscuits
   - food
-  icon: {fileID: 21300000, guid: 702714d6df4196c48aca020e9693deff, type: 3}
-  worldSprite: {fileID: 21300000, guid: 702714d6df4196c48aca020e9693deff, type: 3}
+  - product
+  - item-vanilla-wafers
+  - vanilla
+  - wafers
+  - lightweight
+  icon: {fileID: 21300000, guid: 61b765c050022b24db8d2b8e2e4fccfa, type: 3}
+  worldSprite: {fileID: 21300000, guid: 61b765c050022b24db8d2b8e2e4fccfa, type: 3}

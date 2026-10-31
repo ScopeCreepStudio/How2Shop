@@ -18,5 +18,14 @@ MonoBehaviour:
   tags:
   - chocolate
   - food
-  icon: {fileID: 21300000, guid: e2bfda76afaf6db4a8f84efbe0f3cc46, type: 3}
-  worldSprite: {fileID: 21300000, guid: e2bfda76afaf6db4a8f84efbe0f3cc46, type: 3}
+  - product
+  - item-hazelnut-chocolate-bar
+  - hazelnut
+  - bar
+  - drink
+  - cola
+  - soft-drink
+  - carbonated
+  - lightweight
+  icon: {fileID: 21300000, guid: a932e4645c07bfb4f84cedb4d146f303, type: 3}
+  worldSprite: {fileID: 21300000, guid: a932e4645c07bfb4f84cedb4d146f303, type: 3}

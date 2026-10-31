@@ -9,6 +9,7 @@ public class ShoppingCartController : MonoBehaviour
     public Transform player;
     public Vector3 gripOffset = new Vector3(0f, 0.32f, 0.35f);
     public Vector3 handle = new Vector3(-3.46f, 6.04f, 0f);
+    [Min(0.5f)] public float interactionRange = 3f;
 
     [Header("Cart wheel points (model local X is forward)")]
     public Vector3 rearWheel = new Vector3(-2.75f, 0f, 0f);
@@ -41,6 +42,7 @@ public class ShoppingCartController : MonoBehaviour
     private Vector3 lastPlayerPos;
     private Vector3 playerVel;
     private bool playerHolding;
+    private bool parkedUntilFirstGrab;
     private bool drifting;
     private float nextToggleTime;
     private AudioSource rollingAudio;
@@ -77,6 +79,11 @@ public class ShoppingCartController : MonoBehaviour
 
         SetupRigidbody();
         SetupCollider();
+        if (IsPlayerDrivenCart)
+        {
+            parkedUntilFirstGrab = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+        }
         AudioSource[] sources = GetComponents<AudioSource>();
         rollingAudio = sources.Length > 0 ? sources[0] : gameObject.AddComponent<AudioSource>();
         effectsAudio = sources.Length > 1 ? sources[1] : gameObject.AddComponent<AudioSource>();
@@ -100,8 +107,12 @@ public class ShoppingCartController : MonoBehaviour
 
         if (keyboard.eKey.wasPressedThisFrame && Time.time >= nextToggleTime)
         {
-            SetPlayerHolding(!playerHolding);
-            nextToggleTime = Time.time + 0.25f;
+            bool releasing = playerHolding;
+            if (releasing || Vector3.Distance(player.position, transform.position) <= interactionRange)
+            {
+                SetPlayerHolding(!playerHolding);
+                nextToggleTime = Time.time + 0.25f;
+            }
         }
 
         drifting = playerHolding && keyboard.leftShiftKey.isPressed;
@@ -188,6 +199,12 @@ public class ShoppingCartController : MonoBehaviour
 
     private void SetPlayerHolding(bool holding)
     {
+        if (holding && parkedUntilFirstGrab && rb != null)
+        {
+            parkedUntilFirstGrab = false;
+            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            rb.WakeUp();
+        }
         playerHolding = holding;
         drifting = false;
         if (player != null)

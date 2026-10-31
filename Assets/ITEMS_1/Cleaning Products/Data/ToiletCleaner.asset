@@ -18,5 +18,11 @@ MonoBehaviour:
   tags:
   - cleaning
   - supermarket
-  icon: {fileID: 21300000, guid: 0e4ab0ec15827e249bdbc7d8c26b7432, type: 3}
-  worldSprite: {fileID: 21300000, guid: 0e4ab0ec15827e249bdbc7d8c26b7432, type: 3}
+  - product
+  - item-toilet-cleaner-750ml
+  - toilet
+  - cleaner
+  - 750ml
+  - food
+  icon: {fileID: 21300000, guid: 57c4aa37b03a8b24798888101c075e71, type: 3}
+  worldSprite: {fileID: 21300000, guid: 57c4aa37b03a8b24798888101c075e71, type: 3}

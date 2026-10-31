@@ -18,5 +18,14 @@ MonoBehaviour:
   tags:
   - snacks
   - supermarket
-  icon: {fileID: 21300000, guid: 6dbe74184afc6d34dad61d2125763fff, type: 3}
-  worldSprite: {fileID: 21300000, guid: 6dbe74184afc6d34dad61d2125763fff, type: 3}
+  - product
+  - item-milk-chocolate
+  - milk
+  - chocolate
+  - drink
+  - cola
+  - soft-drink
+  - carbonated
+  - food
+  icon: {fileID: 21300000, guid: 07f7cf22d7024204b93e8f65e621a3a6, type: 3}
+  worldSprite: {fileID: 21300000, guid: 07f7cf22d7024204b93e8f65e621a3a6, type: 3}

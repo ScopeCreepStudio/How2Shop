@@ -17,5 +17,10 @@ MonoBehaviour:
   pricePence: 399
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 7c01474e25d947e488f144881cf55976, type: 3}
-  worldSprite: {fileID: 21300000, guid: 7c01474e25d947e488f144881cf55976, type: 3}
+  - product
+  - item-coffee
+  - coffee
+  - drink
+  - food
+  icon: {fileID: 21300000, guid: 832d5e91d133fc941965d94ca1c7dcc0, type: 3}
+  worldSprite: {fileID: 21300000, guid: 832d5e91d133fc941965d94ca1c7dcc0, type: 3}

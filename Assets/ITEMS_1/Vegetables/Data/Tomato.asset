@@ -19,5 +19,9 @@ MonoBehaviour:
   - produce
   - vegetable
   - supermarket
-  icon: {fileID: 21300000, guid: 5e96152bd04069f4f9e8fef21abd4e87, type: 3}
-  worldSprite: {fileID: 21300000, guid: 5e96152bd04069f4f9e8fef21abd4e87, type: 3}
+  - product
+  - item-tomato
+  - tomato
+  - food
+  icon: {fileID: 21300000, guid: be7a88591f73f2d46903bba4af9e669c, type: 3}
+  worldSprite: {fileID: 21300000, guid: be7a88591f73f2d46903bba4af9e669c, type: 3}

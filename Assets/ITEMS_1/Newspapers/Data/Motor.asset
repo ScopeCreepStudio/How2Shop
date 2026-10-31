@@ -20,5 +20,12 @@ MonoBehaviour:
   - press
   - magazine
   - cars
-  icon: {fileID: 21300000, guid: 523163aee346888449491bfd7f1475df, type: 3}
-  worldSprite: {fileID: 21300000, guid: 523163aee346888449491bfd7f1475df, type: 3}
+  - product
+  - item-motor-car-magazine
+  - motor
+  - car
+  - reading
+  - paper
+  - non-food
+  icon: {fileID: 21300000, guid: 9ff5721cd01b81549a81cce5b45d64c2, type: 3}
+  worldSprite: {fileID: 21300000, guid: 9ff5721cd01b81549a81cce5b45d64c2, type: 3}

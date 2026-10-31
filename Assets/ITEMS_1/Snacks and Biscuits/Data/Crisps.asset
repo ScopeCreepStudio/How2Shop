@@ -17,5 +17,10 @@ MonoBehaviour:
   pricePence: 125
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: ca84123f77ff3734997b533c08969f31, type: 3}
-  worldSprite: {fileID: 21300000, guid: ca84123f77ff3734997b533c08969f31, type: 3}
+  - product
+  - item-crisps
+  - crisps
+  - food
+  - lightweight
+  icon: {fileID: 21300000, guid: 5511279bae2f1844bae6df622d7fb490, type: 3}
+  worldSprite: {fileID: 21300000, guid: 5511279bae2f1844bae6df622d7fb490, type: 3}

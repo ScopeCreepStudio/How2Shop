@@ -17,5 +17,11 @@ MonoBehaviour:
   pricePence: 67
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 0cd5aa7e7c845a845807af60f0ef8220, type: 3}
-  worldSprite: {fileID: 21300000, guid: 0cd5aa7e7c845a845807af60f0ef8220, type: 3}
+  - product
+  - item-apple-juice
+  - apple
+  - juice
+  - drink
+  - food
+  icon: {fileID: 21300000, guid: 246151b183e003e4cbba3b8457bc6883, type: 3}
+  worldSprite: {fileID: 21300000, guid: 246151b183e003e4cbba3b8457bc6883, type: 3}

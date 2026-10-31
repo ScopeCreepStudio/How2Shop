@@ -18,5 +18,11 @@ MonoBehaviour:
   tags:
   - cleaning
   - supermarket
-  icon: {fileID: 21300000, guid: 637d64a0ff5067d4288a8dd616cc7e29, type: 3}
-  worldSprite: {fileID: 21300000, guid: 637d64a0ff5067d4288a8dd616cc7e29, type: 3}
+  - product
+  - item-kitchen-degreaser-500ml
+  - kitchen
+  - degreaser
+  - 500ml
+  - food
+  icon: {fileID: 21300000, guid: f792529feea510d42b005ec86103f0d4, type: 3}
+  worldSprite: {fileID: 21300000, guid: f792529feea510d42b005ec86103f0d4, type: 3}

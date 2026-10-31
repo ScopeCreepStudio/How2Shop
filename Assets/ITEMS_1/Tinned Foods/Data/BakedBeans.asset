@@ -17,5 +17,11 @@ MonoBehaviour:
   pricePence: 89
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 2c678fc105a55794f992a21da354dbfa, type: 3}
-  worldSprite: {fileID: 21300000, guid: 2c678fc105a55794f992a21da354dbfa, type: 3}
+  - product
+  - item-baked-beans
+  - baked
+  - beans
+  - food
+  - tinned
+  icon: {fileID: 21300000, guid: 1e6b199234e8a944c9af9c63f633dd81, type: 3}
+  worldSprite: {fileID: 21300000, guid: 1e6b199234e8a944c9af9c63f633dd81, type: 3}

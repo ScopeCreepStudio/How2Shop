@@ -19,5 +19,9 @@ MonoBehaviour:
   - fish
   - fresh
   - food
-  icon: {fileID: 21300000, guid: 546319445cf973448b44b2c97f19946b, type: 3}
-  worldSprite: {fileID: 21300000, guid: 546319445cf973448b44b2c97f19946b, type: 3}
+  - product
+  - item-sea-bream
+  - sea
+  - bream
+  icon: {fileID: 21300000, guid: 972d8ca18f2d1aa4aa0026a97d397260, type: 3}
+  worldSprite: {fileID: 21300000, guid: 972d8ca18f2d1aa4aa0026a97d397260, type: 3}

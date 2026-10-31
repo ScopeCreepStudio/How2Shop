@@ -18,5 +18,9 @@ MonoBehaviour:
   tags:
   - bakery
   - food
-  icon: {fileID: 21300000, guid: 99d1ea096f655fb489c253b659f94797, type: 3}
-  worldSprite: {fileID: 21300000, guid: 99d1ea096f655fb489c253b659f94797, type: 3}
+  - product
+  - item-ciabatta-loaf
+  - ciabatta
+  - loaf
+  icon: {fileID: 21300000, guid: eb8b3d4020ad3ce48aa8bea02fffe58d, type: 3}
+  worldSprite: {fileID: 21300000, guid: eb8b3d4020ad3ce48aa8bea02fffe58d, type: 3}

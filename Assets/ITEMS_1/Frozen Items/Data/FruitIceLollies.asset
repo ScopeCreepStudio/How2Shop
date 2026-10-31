@@ -18,5 +18,11 @@ MonoBehaviour:
   tags:
   - frozen items
   - food
-  icon: {fileID: 21300000, guid: 37e5b3bf2205b6c4d89f2e617294687f, type: 3}
-  worldSprite: {fileID: 21300000, guid: 37e5b3bf2205b6c4d89f2e617294687f, type: 3}
+  - product
+  - item-fruit-ice-lollies
+  - fruit
+  - ice
+  - lollies
+  - frozen
+  icon: {fileID: 21300000, guid: 940a9ce90167fda47b3d72b1ec593bbe, type: 3}
+  worldSprite: {fileID: 21300000, guid: 940a9ce90167fda47b3d72b1ec593bbe, type: 3}

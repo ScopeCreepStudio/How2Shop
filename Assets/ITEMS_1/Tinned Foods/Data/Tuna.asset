@@ -17,5 +17,10 @@ MonoBehaviour:
   pricePence: 149
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 2adca2916fa9cb543a756f2352abf96a, type: 3}
-  worldSprite: {fileID: 21300000, guid: 2adca2916fa9cb543a756f2352abf96a, type: 3}
+  - product
+  - item-tuna
+  - tuna
+  - food
+  - tinned
+  icon: {fileID: 21300000, guid: 3f151df831d833c45a46462a775e9b45, type: 3}
+  worldSprite: {fileID: 21300000, guid: 3f151df831d833c45a46462a775e9b45, type: 3}

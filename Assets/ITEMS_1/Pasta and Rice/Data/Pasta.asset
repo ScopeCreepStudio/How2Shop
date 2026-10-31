@@ -17,5 +17,9 @@ MonoBehaviour:
   pricePence: 125
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: be6f3d184170bc4439d6705a58c9ba35, type: 3}
-  worldSprite: {fileID: 21300000, guid: be6f3d184170bc4439d6705a58c9ba35, type: 3}
+  - product
+  - item-pasta
+  - pasta
+  - food
+  icon: {fileID: 21300000, guid: 263fa32e49617984f85dff5dd815dbd5, type: 3}
+  worldSprite: {fileID: 21300000, guid: 263fa32e49617984f85dff5dd815dbd5, type: 3}

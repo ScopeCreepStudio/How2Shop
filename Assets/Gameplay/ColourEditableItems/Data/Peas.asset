@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - tinned
   - supermarket
-  icon: {fileID: 21300000, guid: e802551cbcf4fa649b19d9682010e77d, type: 3}
-  worldSprite: {fileID: 21300000, guid: e802551cbcf4fa649b19d9682010e77d, type: 3}
+  - product
+  - item-garden-peas
+  - garden
+  - peas
+  - food
+  icon: {fileID: 21300000, guid: b6f6c1f69a6c3af42bb5832529b42e5b, type: 3}
+  worldSprite: {fileID: 21300000, guid: b6f6c1f69a6c3af42bb5832529b42e5b, type: 3}

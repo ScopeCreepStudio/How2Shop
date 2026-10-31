@@ -18,5 +18,14 @@ MonoBehaviour:
   tags:
   - chocolate
   - food
-  icon: {fileID: 21300000, guid: 092759f7354bd6f4696c15265e710a0c, type: 3}
-  worldSprite: {fileID: 21300000, guid: 092759f7354bd6f4696c15265e710a0c, type: 3}
+  - product
+  - item-dark-chocolate-bar
+  - dark
+  - bar
+  - drink
+  - cola
+  - soft-drink
+  - carbonated
+  - lightweight
+  icon: {fileID: 21300000, guid: 5b819f316c0826b4490224a6e288fa91, type: 3}
+  worldSprite: {fileID: 21300000, guid: 5b819f316c0826b4490224a6e288fa91, type: 3}

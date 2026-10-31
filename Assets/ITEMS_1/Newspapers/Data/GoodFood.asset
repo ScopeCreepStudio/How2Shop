@@ -20,5 +20,12 @@ MonoBehaviour:
   - press
   - magazine
   - cooking
-  icon: {fileID: 21300000, guid: 0ce5cb2a9a22eef49a242e7166876c03, type: 3}
-  worldSprite: {fileID: 21300000, guid: 0ce5cb2a9a22eef49a242e7166876c03, type: 3}
+  - product
+  - item-good-food
+  - good
+  - food
+  - reading
+  - paper
+  - non-food
+  icon: {fileID: 21300000, guid: 00553ef97c8091240942107f7fb2014b, type: 3}
+  worldSprite: {fileID: 21300000, guid: 00553ef97c8091240942107f7fb2014b, type: 3}

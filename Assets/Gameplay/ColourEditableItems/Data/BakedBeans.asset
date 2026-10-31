@@ -18,5 +18,10 @@ MonoBehaviour:
   tags:
   - tinned
   - supermarket
-  icon: {fileID: 21300000, guid: 7f14a85e7b3995c4a9fd9ab5469cf57c, type: 3}
-  worldSprite: {fileID: 21300000, guid: 7f14a85e7b3995c4a9fd9ab5469cf57c, type: 3}
+  - product
+  - item-baked-beans
+  - baked
+  - beans
+  - food
+  icon: {fileID: 21300000, guid: 1e6b199234e8a944c9af9c63f633dd81, type: 3}
+  worldSprite: {fileID: 21300000, guid: 1e6b199234e8a944c9af9c63f633dd81, type: 3}

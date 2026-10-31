@@ -18,5 +18,12 @@ MonoBehaviour:
   tags:
   - drinks
   - supermarket
-  icon: {fileID: 21300000, guid: 285f3e85d33df8a40ab3027e9cf0c811, type: 3}
-  worldSprite: {fileID: 21300000, guid: 285f3e85d33df8a40ab3027e9cf0c811, type: 3}
+  - product
+  - item-apple-juice-1l
+  - apple
+  - juice
+  - 1l
+  - drink
+  - food
+  icon: {fileID: 21300000, guid: af322a273f85d9741815146b5be23470, type: 3}
+  worldSprite: {fileID: 21300000, guid: af322a273f85d9741815146b5be23470, type: 3}

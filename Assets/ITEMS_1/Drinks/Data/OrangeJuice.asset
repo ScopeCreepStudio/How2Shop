@@ -17,5 +17,11 @@ MonoBehaviour:
   pricePence: 189
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: 9d4f13d31bf4d0a4ea9a0dce226aa67c, type: 3}
-  worldSprite: {fileID: 21300000, guid: 9d4f13d31bf4d0a4ea9a0dce226aa67c, type: 3}
+  - product
+  - item-orange-juice
+  - orange
+  - juice
+  - drink
+  - food
+  icon: {fileID: 21300000, guid: 3dd5ee9e966180a49a07faf82e8dc35c, type: 3}
+  worldSprite: {fileID: 21300000, guid: 3dd5ee9e966180a49a07faf82e8dc35c, type: 3}

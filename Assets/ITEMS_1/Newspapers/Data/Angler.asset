@@ -20,5 +20,11 @@ MonoBehaviour:
   - press
   - magazine
   - fishing
-  icon: {fileID: 21300000, guid: 986aad89e0f6b0042b14de8652405eeb, type: 3}
-  worldSprite: {fileID: 21300000, guid: 986aad89e0f6b0042b14de8652405eeb, type: 3}
+  - product
+  - item-angler-fishing-magazine
+  - angler
+  - reading
+  - paper
+  - non-food
+  icon: {fileID: 21300000, guid: 0a087baf7b164784085b25f8e000e704, type: 3}
+  worldSprite: {fileID: 21300000, guid: 0a087baf7b164784085b25f8e000e704, type: 3}

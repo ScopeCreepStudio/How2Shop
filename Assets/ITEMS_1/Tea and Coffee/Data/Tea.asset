@@ -17,5 +17,11 @@ MonoBehaviour:
   pricePence: 229
   tags:
   - supermarket
-  icon: {fileID: 21300000, guid: ea5f39399fe315444902ad6ce68d6e43, type: 3}
-  worldSprite: {fileID: 21300000, guid: ea5f39399fe315444902ad6ce68d6e43, type: 3}
+  - product
+  - item-tea
+  - tea
+  - drink
+  - food
+  - lightweight
+  icon: {fileID: 21300000, guid: ac298a925f40b954c95d500efe7c5981, type: 3}
+  worldSprite: {fileID: 21300000, guid: ac298a925f40b954c95d500efe7c5981, type: 3}
